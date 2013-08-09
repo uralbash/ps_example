@@ -70,9 +70,10 @@ class TestDND(Base):
     value = Column(Integer)
     position = Column(Integer, default=0)
 
-    def __init__(self, name, value):
+    def __init__(self, name, value, position):
         self.name = name
         self.value = value
+        self.position = position
 
 listen(TestDND, "before_insert", before_insert)
 listen(TestDND, "before_update", before_insert)

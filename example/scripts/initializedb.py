@@ -66,12 +66,12 @@ def add_text():
 
 
 def add_dnd():
-    dnd = ({'name': 'foo', 'value': 1},
-           {'name': 'foo1', 'value': 2},
-           {'name': 'foo2', 'value': 3},
-           {'name': 'foo3', 'value': 4},
-           {'name': 'foo4', 'value': 5},
-           {'name': 'foo5', 'value': 6})
+    dnd = ({'name': 'foo', 'value': 1, 'position': 1},
+           {'name': 'foo1', 'value': 2, 'position': 2},
+           {'name': 'foo2', 'value': 3, 'position': 3},
+           {'name': 'foo3', 'value': 4, 'position': 4},
+           {'name': 'foo4', 'value': 5, 'position': 5},
+           {'name': 'foo5', 'value': 6, 'position': 6})
     add_fixture(TestDND, dnd)
 
 
