@@ -1,0 +1,6 @@
+build
+dist
+example.egg-info
+sacrud
+*.swp
+*.pyc
