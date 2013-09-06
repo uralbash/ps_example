@@ -5,6 +5,7 @@ from sqlalchemy import (
     Unicode,
     Integer,
     Boolean,
+    Numeric,
     UnicodeText,
 )
 
@@ -64,16 +65,31 @@ class TestBOOL(Base):
 
 class TestDND(Base):
     __tablename__ = 'test_dnd'
-    __mapper_args__ = {'order_by': 'position'}
+    __mapper_args__ = {'order_by': 'position1'}
     id = Column(Integer, primary_key=True)
     name = Column(Unicode)
     value = Column(Integer)
-    position = Column(Integer, default=0)
+    position1 = Column(Integer, default=0)
 
-    def __init__(self, name, value, position):
+    def __init__(self, name, value, position1):
         self.name = name
         self.value = value
-        self.position = position
+        self.position1 = position1
 
 listen(TestDND, "before_insert", before_insert)
 listen(TestDND, "before_update", before_insert)
+
+
+class TestUNION(Base):
+    __tablename__ = 'test_union'
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode)
+    foo = Column(Boolean)
+    cash = Column(Integer)
+    double_cash = Column(Numeric(10, 2))
+
+    def __init__(self, name, foo, cash, double_cash):
+        self.name = name
+        self.foo = foo
+        self.cash = cash
+        self.double_cash = double_cash

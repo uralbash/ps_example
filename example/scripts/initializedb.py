@@ -26,6 +26,7 @@ from ..models import (
     TestBOOL,
     TestDND,
     TestTEXT,
+    TestUNION,
     DBSession,
     Base,
 )
@@ -66,13 +67,23 @@ def add_text():
 
 
 def add_dnd():
-    dnd = ({'name': 'foo', 'value': 1, 'position': 1},
-           {'name': 'foo1', 'value': 2, 'position': 2},
-           {'name': 'foo2', 'value': 3, 'position': 3},
-           {'name': 'foo3', 'value': 4, 'position': 4},
-           {'name': 'foo4', 'value': 5, 'position': 5},
-           {'name': 'foo5', 'value': 6, 'position': 6})
+    dnd = ({'name': 'foo', 'value': 1, 'position1': 1},
+           {'name': 'foo1', 'value': 2, 'position1': 2},
+           {'name': 'foo2', 'value': 3, 'position1': 3},
+           {'name': 'foo3', 'value': 4, 'position1': 4},
+           {'name': 'foo4', 'value': 5, 'position1': 5},
+           {'name': 'foo5', 'value': 6, 'position1': 6})
     add_fixture(TestDND, dnd)
+
+
+def add_union():
+    uni = ({'name': 'foo',  'foo': True,  'cash': 100, 'double_cash': 100.13},
+           {'name': 'foo1', 'foo': False, 'cash': 200, 'double_cash': 100.500},
+           {'name': 'foo2', 'foo': True,  'cash': 1024, 'double_cash': 100.13},
+           {'name': 'foo3', 'foo': False, 'cash': 100500, 'double_cash': 1.13},
+           {'name': 'foo4', 'foo': False, 'cash': 19, 'double_cash': 6660.10},
+           {'name': 'foo5', 'foo': True,  'cash': -123, 'double_cash': 130.03})
+    add_fixture(TestUNION, uni)
 
 
 def add_extension(engine, *args):
@@ -103,3 +114,4 @@ def main(argv=sys.argv):
     add_bool()
     add_dnd()
     add_text()
+    add_union()

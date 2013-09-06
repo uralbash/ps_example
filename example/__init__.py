@@ -12,6 +12,7 @@ from .models import (
     TestTEXT,
     TestBOOL,
     TestDND,
+    TestUNION,
 )
 
 
@@ -41,7 +42,8 @@ def main(global_config, **settings):
     # Добавляет sacrud и модели для него
     config.include('sacrud.pyramid_ext')
     settings = config.registry.settings
-    settings['sacrud_models'] = (TestHSTORE, TestTEXT, TestBOOL, TestDND)
+    settings['sacrud_models'] = (TestHSTORE, TestTEXT, TestBOOL, TestDND,
+                                 TestUNION)
 
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('index', '/')
