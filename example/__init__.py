@@ -40,7 +40,7 @@ def main(global_config, **settings):
     env.finalize = _silent_none
 
     # Добавляет sacrud и модели для него
-    config.include('sacrud.pyramid_ext')
+    config.include('sacrud.pyramid_ext', route_prefix='/admin')
     settings = config.registry.settings
     settings['sacrud_models'] = (TestHSTORE, TestTEXT, TestBOOL, TestDND,
                                  TestUNION)
