@@ -1,6 +1,9 @@
 build
+!docs/build
 dist
 example.egg-info
 sacrud
 *.swp
 *.pyc
+.coverage
+.mydevelopment.ini

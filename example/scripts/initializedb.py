@@ -7,7 +7,7 @@
 # Distributed under terms of the MIT license.
 
 """
-init data
+This module for initialize project.
 """
 import os
 import sys
@@ -40,6 +40,15 @@ def usage(argv):
 
 
 def add_fixture(model, fixtures):
+    """
+    Add fixtures to database.
+
+    Example::
+
+        hashes = ({'foo': {'foo': 'bar', '1': '2'}}, {'foo': {'test': 'data'}})
+        add_fixture(TestHSTORE, hashes)
+
+    """
     with transaction.manager:
         DBSession.query(model).delete()
         for fixture in fixtures:
@@ -87,7 +96,9 @@ def add_union():
 
 
 def add_extension(engine, *args):
-    # добавляет расширения
+    """
+    Add extension to PostgreSQL database.
+    """
     conn = engine.connect()
     for ext in args:
         conn.execute('CREATE EXTENSION IF NOT EXISTS "%s"' % ext)

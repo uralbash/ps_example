@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Install &mdash; sacrud_example 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="sacrud_example 1.0 documentation" href="index.html" />
+    <link rel="next" title="API" href="API.html" />
+    <link rel="prev" title="Welcome to sacrud_example’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="API.html" title="API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to sacrud_example’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">sacrud_example 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="install">
+<h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<p><strong>Require:</strong></p>
+<ul class="simple">
+<li>PostgreSQL</li>
+<li>psycopg2</li>
+<li>fortune</li>
+</ul>
+<p>Install fortune:</p>
+<p><tt class="code docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">fortune</span></tt></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For Debian like pkg system.</p>
+</div>
+<p>Clone project to local machine:</p>
+<p><tt class="code docutils literal"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:uralbash/pyramid_sacrud_example.git</span></tt></p>
+<p>Edit <cite>development.ini</cite> postgres connection line and create db in PostgreSQL.</p>
+<p>Initialize project:</p>
+<p><tt class="code docutils literal"><span class="pre">initialize_example_db</span> <span class="pre">development.ini</span></tt></p>
+<p>Run protject:</p>
+<p><tt class="code docutils literal"><span class="pre">pserve</span> <span class="pre">development.ini</span></tt></p>
+<p>Folow to <a class="reference external" href="http://localhost:6543/admin/">http://localhost:6543/admin/</a></p>
+<div class="section" id="screenshot">
+<h2>Screenshot<a class="headerlink" href="#screenshot" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/pyramid_hstore.png" src="_images/pyramid_hstore.png" />
+<img alt="_images/pyramid_dnd.png" src="_images/pyramid_dnd.png" />
+<img alt="_images/pyramid_union.png" src="_images/pyramid_union.png" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Install</a><ul>
+<li><a class="reference internal" href="#screenshot">Screenshot</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to sacrud_example&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="API.html"
+                        title="next chapter">API</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/install.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="API.html" title="API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to sacrud_example’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">sacrud_example 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, uralbash.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b2.
+    </div>
+  </body>
+</html>
