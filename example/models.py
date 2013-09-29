@@ -145,7 +145,7 @@ listen(TestDND, "before_update", before_insert)
 
 class TestUNION(Base):
     """
-    SQLAlchemy model for demonstration draggable field.
+    SQLAlchemy model for demonstration union field.
 
     :param id: standart pk.
     :param name: :class:`sqlalchemy.Unicode` field.
