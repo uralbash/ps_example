@@ -6,3 +6,5 @@ sacrud
 *.pyc
 .coverage
 .mydevelopment.ini
+nohup.out
+*.ipynb

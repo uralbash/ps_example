@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from scripts import initializedb
+from example.scripts import initializedb
 from psycopg2.extras import register_hstore
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
@@ -42,8 +42,9 @@ def main(global_config, **settings):
     # Добавляет sacrud и модели для него
     config.include('sacrud.pyramid_ext', route_prefix='/admin')
     settings = config.registry.settings
-    settings['sacrud_models'] = (TestHSTORE, TestTEXT, TestBOOL, TestDND,
-                                 TestUNION)
+    settings['sacrud.models'] = {'Postgres': [TestHSTORE],
+                                 '': [TestTEXT, TestBOOL, TestDND, TestUNION]
+                                 }
 
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('index', '/')
