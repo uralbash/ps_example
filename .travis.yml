@@ -20,7 +20,7 @@ python:
 
 before_install:
   - sudo apt-get update -q
-  - sudo apt-get install -q postgres-contrib postgres-common
+  - sudo apt-get install -q postgresql-contrib postgresql-common
 
 install:
   - pip install nose
