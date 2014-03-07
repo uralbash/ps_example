@@ -12,7 +12,7 @@ notifications:
   email: "sacrud@uralbash.ru"
 
 services:
-  - postgresql: "9.3"
+  - postgresql
 
 python:
   - "2.7"
@@ -20,9 +20,12 @@ python:
 
 before_install:
   - sudo apt-get update -q
-  - sudo apt-get install -q postgresql-contrib postgresql-common postgresql-plpython-9.3
 
 install:
+  - sudo apt-get install -q fortune fortunes fortunes-ru
+  - sudo apt-get install -q postgresql-contrib
+  - sudo apt-get install -q postgresql-common
+  - sudo apt-get install -q postgresql-plpython-9.1
   - pip install nose
   - pip install pyramid
   - pip install -r requirements.txt
@@ -33,7 +36,6 @@ before_script:
   - psql -c "ALTER USER postgres with password 'secure-password';" -U postgres
   - python setup.py develop
   - initialize_example_db development.ini
-  - echo "Test"
 
 script:
   - "nosetests --cover-package=sacrud --cover-erase --with-coverage --with-doctest"
