@@ -12,7 +12,7 @@ notifications:
   email: "sacrud@uralbash.ru"
 
 services:
-  - postgresql
+  - postgresql: "9.3"
 
 python:
   - "2.7"
@@ -20,7 +20,7 @@ python:
 
 before_install:
   - sudo apt-get update -q
-  - sudo apt-get install -q postgresql-contrib postgresql-common
+  - sudo apt-get install -q postgresql-contrib postgresql-common postgresql-plpython-9.3
 
 install:
   - pip install nose
