@@ -70,7 +70,11 @@ def add_bool():
 def add_text():
     text = []
     for i in range(10):
-        out = Popen(["fortune", ""], stdout=PIPE).communicate()[0]
+        try:
+            out = Popen(["fortune", ""], stdout=PIPE).communicate()[0]
+        except OSError:
+            from jinja2.utils import generate_lorem_ipsum
+            out = generate_lorem_ipsum()
         text.append({'foo': out, 'ufoo': out, 'fooText': out, 'ufooText': out})
     add_fixture(TestTEXT, text)
 
