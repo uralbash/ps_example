@@ -18,6 +18,11 @@ python:
   - "2.7"
   - "2.6"
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install postgres-contrib
+  - sudo apt-get install postgres-common
+
 install:
   - pip install nose
   - pip install pyramid
@@ -27,8 +32,6 @@ install:
 before_script:
   - psql -c 'create database sacrud;' -U postgres
   - psql -c "ALTER USER postgres with password 'secure-password';" -U postgres
-  - apt-get install postgres-contrib
-  - apt-get install postgres-common
   - python setup.py develop
   - initialize_example_db development.ini
   - echo "Test"
