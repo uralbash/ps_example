@@ -1,0 +1,49 @@
+{% extends "sacrud/base.jinja2" %}
+
+{% block userspace %}
+  {{ super() }}
+
+  <!-- Date field -->
+  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <style>
+    .content {
+      height: 550px;
+    }
+    .name {
+      width: 400px;
+    }
+  </style>
+
+  <script>
+    $(function() {
+      $(".Date").datepicker({ dateFormat: 'yy-mm-dd' });
+    });
+  </script>
+
+  <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+  <script>
+    tinymce.init({
+      selector:'textarea.tinymce',
+      plugins: "image link",
+      file_browser_callback: function(field_name, url, type, win) {
+        tinymce.activeEditor.windowManager.open({
+            title: "SACRUD file browser",
+            url: "/image/filebrowser",
+            width: 600,
+            height: 400,
+          }, {
+            oninsert: function(url) {
+              win.document.getElementById(field_name).value = url;
+            }
+        });
+      },
+    });
+  </script>
+{% endblock %}
+
+{% block sa_body %}
+  {{ super() }}
+{% endblock %}
