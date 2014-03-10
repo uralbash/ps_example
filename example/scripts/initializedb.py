@@ -15,6 +15,7 @@ import transaction
 
 from subprocess import Popen, PIPE
 from sqlalchemy import engine_from_config
+from jinja2.utils import generate_lorem_ipsum
 
 from pyramid.paster import (
     get_appsettings,
@@ -22,13 +23,16 @@ from pyramid.paster import (
 )
 
 from ..models import (
-    TestHSTORE,
-    TestBOOL,
-    TestDND,
-    TestTEXT,
-    TestUNION,
-    DBSession,
     Base,
+    DBSession,
+    TestDND,
+    TestBOOL,
+    TestTEXT,
+    TestFile,
+    TestUNION,
+    TestHSTORE,
+    TestAllTypes,
+    TestCustomizing,
 )
 
 
@@ -69,11 +73,10 @@ def add_bool():
 
 def add_text():
     text = []
-    for i in range(10):
+    for i in range(100):
         try:
             out = Popen(["fortune", ""], stdout=PIPE).communicate()[0]
         except OSError:
-            from jinja2.utils import generate_lorem_ipsum
             out = generate_lorem_ipsum()
         text.append({'foo': out, 'ufoo': out, 'fooText': out, 'ufooText': out})
     add_fixture(TestTEXT, text)
@@ -97,6 +100,22 @@ def add_union():
            {'name': 'foo4', 'foo': False, 'cash': 19, 'double_cash': 6660.10},
            {'name': 'foo5', 'foo': True,  'cash': -123, 'double_cash': 130.03})
     add_fixture(TestUNION, uni)
+
+
+def add_alltypes():
+    objs = ({}, {}, {}, {}, {})
+    add_fixture(TestAllTypes, objs)
+
+
+def add_customizing():
+    import random
+    objs = [{'name': ('%06x' % random.randrange(16 ** 6)).upper()} for x in range(10)]
+    add_fixture(TestCustomizing, objs)
+
+
+def add_file():
+    objs = [{'image': '/static/upload/60563666-c52a-4ec2-bc31-e21f9dcde296.gif'}]
+    add_fixture(TestFile, objs)
 
 
 def add_extension(engine, *args):
@@ -130,3 +149,6 @@ def main(argv=sys.argv):
     add_dnd()
     add_text()
     add_union()
+    add_alltypes()
+    add_customizing()
+    add_file()

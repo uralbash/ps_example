@@ -3,17 +3,27 @@
 from example.scripts import initializedb
 from psycopg2.extras import register_hstore
 from pyramid.config import Configurator
-from sqlalchemy import engine_from_config
+from pyramid_beaker import session_factory_from_settings
 
+from sqlalchemy import engine_from_config
 from .models import (
-    DBSession,
     Base,
-    TestHSTORE,
-    TestTEXT,
-    TestBOOL,
+    DBSession,
     TestDND,
+    TestBOOL,
+    TestTEXT,
+    TestFile,
     TestUNION,
+    TestHSTORE,
+    TestAllTypes,
+    TestCustomizing,
 )
+from pyramid.view import view_config
+
+
+@view_config(route_name='filebrowser', renderer='templates/filebrowser.jinja2')
+def fileBrowser(request):
+    return {}
 
 
 def main(global_config, **settings):
@@ -22,7 +32,8 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
-    config = Configurator(settings=settings)
+    session_factory = session_factory_from_settings(settings)
+    config = Configurator(settings=settings, session_factory=session_factory)
     conn = DBSession.connection()
     register_hstore(conn.engine.raw_connection(), True)
     initializedb.main(argv=["init", "development.ini"])
@@ -30,23 +41,19 @@ def main(global_config, **settings):
     # pyramid_jinja2 configuration
     config.include('pyramid_jinja2')
     config.add_jinja2_search_path("example:templates")
-    env = config.get_jinja2_environment()
 
-    # if variable is None print '' instead of 'None'
-    def _silent_none(value):
-        if value is None:
-            return ''
-        return value
-    env.finalize = _silent_none
-
-    # Добавляет sacrud и модели для него
+    # SACRUD
     config.include('sacrud.pyramid_ext', route_prefix='/admin')
     settings = config.registry.settings
     settings['sacrud.models'] = {'Postgres': [TestHSTORE],
-                                 '': [TestTEXT, TestBOOL, TestDND, TestUNION]
+                                 '': [TestTEXT, TestBOOL, TestDND, TestUNION,
+                                      TestFile],
+                                 'Just for fun': [TestAllTypes],
+                                 'Customizing example': [TestCustomizing],
                                  }
 
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('index', '/')
+    config.add_route('filebrowser', '/image/filebrowser')  # for tinymce img
     config.scan()
     return config.make_wsgi_app()

@@ -1,5 +1,6 @@
 pyramid
 pyramid_jinja2
+pyramid_beaker
 SQLAlchemy
 transaction
 pyramid_tm

@@ -9,35 +9,49 @@
 """
 Models for example
 """
+import os
+import uuid
 from sqlalchemy import (
     Text,
     String,
     Column,
     Unicode,
     Integer,
+    BigInteger,
     Boolean,
     Numeric,
     UnicodeText,
+    Date,
+    DateTime,
+    Enum,
+    Float,
+    ForeignKey,
 )
 
+from sacrud.exttype import GUID, FileStore
 from sacrud.position import before_insert
+from sacrud.common.custom import hosrizontal_field
 
 from sqlalchemy.event import listen
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.dialects.postgresql import (
-    #UUID,
+    JSON,
+    ARRAY,
     HSTORE,
 )
 from sqlalchemy.orm import (
     scoped_session,
     sessionmaker,
+    relationship,
 )
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
+
+file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 
 
 class TestHSTORE(Base):
@@ -57,12 +71,27 @@ class TestHSTORE(Base):
 
     """
     __tablename__ = 'test_hstore'
+
     id = Column(Integer, primary_key=True)
     foo = Column(MutableDict.as_mutable(HSTORE),
                  nullable=False, unique=True)
 
     def __init__(self, foo):
         self.foo = foo
+
+
+class TestFile(Base):
+    """
+    SQLAlchemy model for demonstration file field.
+    """
+    __tablename__ = 'test_file'
+
+    id = Column(Integer, primary_key=True)
+    image = Column(FileStore(path="/static/upload/",
+                             abspath=os.path.join(file_path, 'upload')))
+
+    def __init__(self, image):
+        self.image = image
 
 
 class TestTEXT(Base):
@@ -84,6 +113,7 @@ class TestTEXT(Base):
 
     """
     __tablename__ = 'test_text'
+
     id = Column(Integer, primary_key=True)
     foo = Column(String)
     ufoo = Column(Unicode)
@@ -95,6 +125,9 @@ class TestTEXT(Base):
         self.ufoo = ufoo
         self.fooText = fooText
         self.ufooText = ufooText
+
+    # SACRUD
+    verbose_name = 'test_text and pagination'
 
 
 class TestBOOL(Base):
@@ -111,6 +144,7 @@ class TestBOOL(Base):
 
     """
     __tablename__ = 'test_bool'
+
     id = Column(Integer, primary_key=True)
     foo = Column(Boolean)
 
@@ -129,6 +163,7 @@ class TestDND(Base):
     """
     __tablename__ = 'test_dnd'
     __mapper_args__ = {'order_by': 'position1'}
+
     id = Column(Integer, primary_key=True)
     name = Column(Unicode)
     value = Column(Integer)
@@ -153,6 +188,7 @@ class TestUNION(Base):
     :param double_cash: :class:`sqlalchemy.Numeric` field.
     """
     __tablename__ = 'test_union'
+
     id = Column(Integer, primary_key=True)
     name = Column(Unicode)
     foo = Column(Boolean)
@@ -164,3 +200,73 @@ class TestUNION(Base):
         self.foo = foo
         self.cash = cash
         self.double_cash = double_cash
+
+    def __repr__(self):
+        return self.name
+
+
+class TestAllTypes(Base):
+    """
+    SQLAlchemy model for demonstration all types field.
+    """
+    __tablename__ = 'test_alltypes'
+
+    col_pk = Column(Integer, primary_key=True)
+    col_array = Column(ARRAY(Integer, as_tuple=True))
+    col_bigint = Column(BigInteger)
+    col_boolean = Column(Boolean)
+    col_date = Column(Date)
+    col_date = Column(DateTime)
+    col_enum = Column(Enum(u'IPv6', u'IPv4', name=u"ip_type"))
+    col_float = Column(Float)
+
+    # http://sqlalchemy.readthedocs.org/en/latest/orm/relationships.html?highlight=remote_side#adjacency-list-relationships
+    fk_test_alltypes = Column(Integer, ForeignKey('test_alltypes.col_pk'))
+    fk_test_union = Column(Integer, ForeignKey('test_union.id'))
+    testalltypes = relationship('TestAllTypes')
+    testunion = relationship('TestUNION')
+
+    col_guid = Column(GUID(), default=uuid.uuid4)
+    col_hstore = Column(MutableDict.as_mutable(HSTORE))
+    col_integer = Column(Integer)
+    col_json = Column(JSON)
+    col_numeric = Column(Numeric(10, 2))
+    col_string = Column(String)
+    col_text = Column(Text)
+    col_unicode = Column(Unicode)
+    col_unicode_text = Column(UnicodeText)
+
+    def __repr__(self):
+        return self.col_pk
+
+
+class TestCustomizing(Base):
+    __tablename__ = "test_customizing"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    date = Column(Date)
+    name_ru = Column(String, info={"verbose_name": u'Название', })
+    name_fr = Column(String, info={"verbose_name": u'nom', })
+    name_bg = Column(String, info={"verbose_name": u'Име', })
+    name_cze = Column(String, info={"verbose_name": u'název', })
+    description = Column(Text)
+    description2 = Column(Text)
+
+    visible = Column(Boolean)
+    in_menu = Column(Boolean, info={"verbose_name": u'menu?', })
+    in_banner = Column(Boolean, info={"verbose_name": u'on banner?', })
+
+    # SACRUD
+    verbose_name = u'Customizing table'
+    sacrud_css_class = {'tinymce': [description, description2],
+                        'content': [description],
+                        'name': [name], 'Date': [date]}
+    sacrud_list_col = [name, name_ru, name_cze]
+    sacrud_detail_col = [name,
+                         hosrizontal_field(name_ru, name_bg, name_fr, name_cze,
+                                           sacrud_name=u"i18n names"),
+                         description, date,
+                         hosrizontal_field(in_menu, visible, in_banner,
+                                           sacrud_name=u"Расположение"),
+                         description2]
