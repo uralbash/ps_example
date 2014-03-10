@@ -30,7 +30,7 @@ from sqlalchemy import (
 
 from sacrud.exttype import GUID, FileStore
 from sacrud.position import before_insert
-from sacrud.common import custom
+from sacrud.common.custom import hosrizontal_field
 
 from sqlalchemy.event import listen
 from sqlalchemy.ext.declarative import declarative_base
@@ -264,9 +264,9 @@ class TestCustomizing(Base):
                         'name': [name], 'Date': [date]}
     sacrud_list_col = [name, name_ru, name_cze]
     sacrud_detail_col = [name,
-                         custom.hosrizontal_field(name_ru, name_bg, name_fr, name_cze,
-                                                  sacrud_name=u"i18n names"),
+                         hosrizontal_field(name_ru, name_bg, name_fr, name_cze,
+                                           sacrud_name=u"i18n names"),
                          description, date,
-                         custom.hosrizontal_field(in_menu, visible, in_banner,
-                                                  sacrud_name=u"Расположение"),
+                         hosrizontal_field(in_menu, visible, in_banner,
+                                           sacrud_name=u"Расположение"),
                          description2]
