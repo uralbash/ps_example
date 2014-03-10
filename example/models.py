@@ -229,7 +229,8 @@ class TestAllTypes(Base):
     col_guid = Column(GUID(), default=uuid.uuid4)
     col_hstore = Column(MutableDict.as_mutable(HSTORE))
     col_integer = Column(Integer)
-    col_json = Column(JSON)
+    # for postgresql 9.3 version
+    #col_json = Column(JSON)
     col_numeric = Column(Numeric(10, 2))
     col_string = Column(String)
     col_text = Column(Text)
