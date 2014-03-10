@@ -30,7 +30,7 @@ from sqlalchemy import (
 
 from sacrud.exttype import GUID, FileStore
 from sacrud.position import before_insert
-from sacrud.common.custom import hosrizontal_field
+from sacrud.common import custom
 
 from sqlalchemy.event import listen
 from sqlalchemy.ext.declarative import declarative_base
@@ -245,7 +245,7 @@ class TestCustomizing(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    date = Column(Date)
+    date = Column(Date, info={"verbose_name": 'date JQuery-ui'})
     name_ru = Column(String, info={"verbose_name": u'Название', })
     name_fr = Column(String, info={"verbose_name": u'nom', })
     name_bg = Column(String, info={"verbose_name": u'Име', })
@@ -264,9 +264,9 @@ class TestCustomizing(Base):
                         'name': [name], 'Date': [date]}
     sacrud_list_col = [name, name_ru, name_cze]
     sacrud_detail_col = [name,
-                         hosrizontal_field(name_ru, name_bg, name_fr, name_cze,
-                                           sacrud_name=u"i18n names"),
+                         custom.hosrizontal_field(name_ru, name_bg, name_fr, name_cze,
+                                                  sacrud_name=u"i18n names"),
                          description, date,
-                         hosrizontal_field(in_menu, visible, in_banner,
-                                           sacrud_name=u"Расположение"),
+                         custom.hosrizontal_field(in_menu, visible, in_banner,
+                                                  sacrud_name=u"Расположение"),
                          description2]
