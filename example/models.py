@@ -11,42 +11,20 @@ Models for example
 """
 import os
 import uuid
-from sqlalchemy import (
-    Text,
-    String,
-    Column,
-    Unicode,
-    Integer,
-    BigInteger,
-    Boolean,
-    Numeric,
-    UnicodeText,
-    Date,
-    DateTime,
-    Enum,
-    Float,
-    ForeignKey,
-)
 
-from sacrud.exttype import GUID, FileStore
-from sacrud.position import before_insert
-from sacrud.common.custom import hosrizontal_field
-
+from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
+                        Float, ForeignKey, Integer, Numeric, String, Text,
+                        Unicode, UnicodeText)
+from sqlalchemy.dialects.postgresql import ARRAY, HSTORE  # JSON,
 from sqlalchemy.event import listen
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.dialects.postgresql import (
-    JSON,
-    ARRAY,
-    HSTORE,
-)
-from sqlalchemy.orm import (
-    scoped_session,
-    sessionmaker,
-    relationship,
-)
-
+from sqlalchemy.orm import relationship, scoped_session, sessionmaker
 from zope.sqlalchemy import ZopeTransactionExtension
+
+from sacrud.common.custom import horizontal_field
+from sacrud.exttype import FileStore, GUID
+from sacrud.position import before_insert
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
@@ -55,6 +33,7 @@ file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 
 
 class TestHSTORE(Base):
+
     """
     SQLAlchemy model for demonstration of the postgres dialect
     :class:`sqlalchemy.dialects.postgresql.HSTORE` field
@@ -81,6 +60,7 @@ class TestHSTORE(Base):
 
 
 class TestFile(Base):
+
     """
     SQLAlchemy model for demonstration file field.
     """
@@ -95,6 +75,7 @@ class TestFile(Base):
 
 
 class TestTEXT(Base):
+
     """
     SQLAlchemy model for demonstration work with any text type field.
 
@@ -131,6 +112,7 @@ class TestTEXT(Base):
 
 
 class TestBOOL(Base):
+
     """
     SQLAlchemy model for demonstration :class:`sqlalchemy.Boolean` field
 
@@ -153,6 +135,7 @@ class TestBOOL(Base):
 
 
 class TestDND(Base):
+
     """
     SQLAlchemy model for demonstration draggable field.
 
@@ -179,6 +162,7 @@ listen(TestDND, "before_update", before_insert)
 
 
 class TestUNION(Base):
+
     """
     SQLAlchemy model for demonstration union field.
 
@@ -206,6 +190,7 @@ class TestUNION(Base):
 
 
 class TestAllTypes(Base):
+
     """
     SQLAlchemy model for demonstration all types field.
     """
@@ -230,7 +215,7 @@ class TestAllTypes(Base):
     col_hstore = Column(MutableDict.as_mutable(HSTORE))
     col_integer = Column(Integer)
     # for postgresql 9.3 version
-    #col_json = Column(JSON)
+    # col_json = Column(JSON)
     col_numeric = Column(Numeric(10, 2))
     col_string = Column(String)
     col_text = Column(Text)
@@ -265,9 +250,9 @@ class TestCustomizing(Base):
                         'name': [name], 'Date': [date]}
     sacrud_list_col = [name, name_ru, name_cze]
     sacrud_detail_col = [name,
-                         hosrizontal_field(name_ru, name_bg, name_fr, name_cze,
-                                           sacrud_name=u"i18n names"),
+                         horizontal_field(name_ru, name_bg, name_fr, name_cze,
+                                          sacrud_name=u"i18n names"),
                          description, date,
-                         hosrizontal_field(in_menu, visible, in_banner,
-                                           sacrud_name=u"Расположение"),
+                         horizontal_field(in_menu, visible, in_banner,
+                                          sacrud_name=u"Расположение"),
                          description2]
