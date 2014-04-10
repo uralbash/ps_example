@@ -18,6 +18,7 @@ requires = [
     'waitress',
     'sacrud',
     'psycopg2',
+    'sqlalchemy-orm-tree',
     ]
 
 setup(name='example',

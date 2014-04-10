@@ -1,24 +1,25 @@
-#!/usr/bin/env python
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
-from example.scripts import initializedb
+# vim:fenc=utf-8
+#
+# Copyright © 2014 uralbash <root@uralbash.ru>
+#
+# Distributed under terms of the MIT license.
+
+"""
+Main for example
+"""
 from psycopg2.extras import register_hstore
 from pyramid.config import Configurator
-from pyramid_beaker import session_factory_from_settings
-
-from sqlalchemy import engine_from_config
-from .models import (
-    Base,
-    DBSession,
-    TestDND,
-    TestBOOL,
-    TestTEXT,
-    TestFile,
-    TestUNION,
-    TestHSTORE,
-    TestAllTypes,
-    TestCustomizing,
-)
 from pyramid.view import view_config
+from pyramid_beaker import session_factory_from_settings
+from sqlalchemy import engine_from_config
+
+from example.scripts import initializedb
+
+from .models import (Base, DBSession, FlatPages, TestAllTypes, TestBOOL,
+                     TestCustomizing, TestDND, TestFile, TestHSTORE, TestTEXT,
+                     TestUNION)
 
 
 @view_config(route_name='filebrowser', renderer='templates/filebrowser.jinja2')
@@ -51,6 +52,7 @@ def main(global_config, **settings):
                                       TestFile],
                                  'Just for fun': [TestAllTypes],
                                  'Customizing example': [TestCustomizing],
+                                 'Pages': [FlatPages],
                                  }
 
     config.add_static_view('static', 'static', cache_max_age=3600)

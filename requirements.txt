@@ -8,3 +8,4 @@ pyramid_debugtoolbar
 zope.sqlalchemy
 waitress
 psycopg2
+sqlalchemy-orm-tree

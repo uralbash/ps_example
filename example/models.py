@@ -256,3 +256,21 @@ class TestCustomizing(Base):
                          horizontal_field(in_menu, visible, in_banner,
                                           sacrud_name=u"Расположение"),
                          description2]
+
+
+class FlatPages(Base):
+    __tablename__ = "flat_pages"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    description = Column(Text)
+
+    visible = Column(Boolean)
+
+    # SACRUD
+    verbose_name = u'Flat pages'
+    sacrud_css_class = {'tinymce': [description],
+                        'content': [description],
+                        'name': [name], }
+    sacrud_list_col = [name, description, visible]
+    sacrud_detail_col = [name, visible, description]
