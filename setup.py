@@ -16,7 +16,7 @@ requires = [
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
     'waitress',
-    'sacrud',
+    #'sacrud',
     'psycopg2',
     ]
 
