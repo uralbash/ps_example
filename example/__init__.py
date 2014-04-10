@@ -36,7 +36,8 @@ def main(global_config, **settings):
     config = Configurator(settings=settings, session_factory=session_factory)
     conn = DBSession.connection()
     register_hstore(conn.engine.raw_connection(), True)
-    initializedb.main(argv=["init", "development.ini"])
+    ini_file = global_config['__file__']
+    initializedb.main(argv=["init", ini_file])
 
     # pyramid_jinja2 configuration
     config.include('pyramid_jinja2')
