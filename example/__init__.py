@@ -17,7 +17,7 @@ from sqlalchemy import engine_from_config
 
 from example.scripts import initializedb
 
-from .models import (Base, DBSession, FlatPages, TestAllTypes, TestBOOL,
+from .models import (Base, DBSession, Pages, TestAllTypes, TestBOOL,
                      TestCustomizing, TestDND, TestFile, TestHSTORE, TestTEXT,
                      TestUNION)
 
@@ -52,7 +52,7 @@ def main(global_config, **settings):
                                       TestFile],
                                  'Just for fun': [TestAllTypes],
                                  'Customizing example': [TestCustomizing],
-                                 'Pages': [FlatPages],
+                                 'Pages': [Pages],
                                  }
 
     config.add_static_view('static', 'static', cache_max_age=3600)

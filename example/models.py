@@ -257,20 +257,23 @@ class TestCustomizing(Base):
                                           sacrud_name=u"Расположение"),
                          description2]
 
+from sqlalchemy_tree import TreeManager
 
-class FlatPages(Base):
-    __tablename__ = "flat_pages"
+
+class Pages(Base):
+    __tablename__ = "mptt_pages"
 
     id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey('mptt_pages.id'))
     name = Column(String)
     description = Column(Text)
 
     visible = Column(Boolean)
 
     # SACRUD
-    verbose_name = u'Flat pages'
+    verbose_name = u'MPTT pages'
     sacrud_css_class = {'tinymce': [description],
                         'content': [description],
                         'name': [name], }
-    sacrud_list_col = [name, description, visible]
-    sacrud_detail_col = [name, visible, description]
+
+Pages.tree = TreeManager(Base.metadata.tables['mptt_pages'])
