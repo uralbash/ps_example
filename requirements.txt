@@ -9,3 +9,4 @@ zope.sqlalchemy
 waitress
 psycopg2
 ziggurat_foundations
+sqlalchemy-orm-tree
