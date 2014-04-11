@@ -22,8 +22,8 @@ from example.lib.common import get_user
 from example.models import Base, DBSession
 from example.models.auth import (Company, ExternalIdentity, Group,
                                  GroupPermission, GroupResourcePermission,
-                                 Resource, User, UserGroup, UserPermission,
-                                 UserResourcePermission)
+                                 PERMISSION_VIEW, Resource, User, UserGroup,
+                                 UserPermission, UserResourcePermission)
 from example.models.funny_models import (Pages, TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION)
@@ -69,6 +69,7 @@ def main(global_config, **settings):
     config.set_authorization_policy(authz_policy)
 
     config.add_request_method(get_user, 'user', reify=True)
+    config.set_default_permission(PERMISSION_VIEW)
 
     # pyramid_jinja2 configuration
     config.include('pyramid_jinja2')
