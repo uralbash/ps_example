@@ -45,6 +45,12 @@
 {% endblock %}
 
 {% block sa_body %}
-  {% include 'auth/user_in_head.jinja2' %}
   {{ super() }}
+{% endblock %}
+
+{% block sa_menu %}
+  {{ super() }}
+  <div style="background: black">
+    {% include 'auth/user_in_head.jinja2' %}
+  </div>
 {% endblock %}
