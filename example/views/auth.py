@@ -25,13 +25,13 @@ from ziggurat_foundations.ext.pyramid.sign_in import ZigguratSignInBadAuth
 
 @view_config(context=ZigguratSignInSuccess, permission=NO_PERMISSION_REQUIRED)
 def sign_in(request):
-    #user = request.context.user
+    # user = request.context.user
     # actions performed on sucessful logon, flash message/new csrf token
     # user status validation etc.
-    #if request.context.came_from != '/':
+    # if request.context.came_from != '/':
     #    return HTTPFound(location=request.context.came_from,
     #                     headers=request.context.headers)
-    #else:
+    # else:
     return HTTPFound(location=request.route_url('home'),
                      headers=request.context.headers)
 
@@ -49,7 +49,8 @@ def sign_out(request):
                      headers=request.context.headers)
 
 
-@view_config(route_name='login', renderer='/auth/login.jinja2')
+@view_config(route_name='login', renderer='/auth/login.jinja2',
+             permission=NO_PERMISSION_REQUIRED)
 def login(request):
     return {}
 
@@ -59,7 +60,8 @@ def password_send(request):
     return HTTPFound(location=request.route_url('home'))
 
 
-@view_config(context=HTTPForbidden, renderer='403.jinja2')
+@view_config(context=HTTPForbidden, renderer='403.jinja2',
+             permission=NO_PERMISSION_REQUIRED)
 def forbidden_view(request):
     if authenticated_userid(request) is None:
         location = request.route_url('login', _query={'came_from': request.path})

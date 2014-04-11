@@ -86,10 +86,11 @@ ziggurat_model_init(User, Group, UserGroup, GroupPermission, UserPermission,
                     UserResourcePermission, GroupResourcePermission, Resource,
                     ExternalIdentity, passwordmanager=None)
 
+PERMISSION_VIEW = u'view'
 
 class RootFactory(object):
     def __init__(self, request):
-        self.__acl__ = [(Allow, Authenticated, u'view'), ]
+        self.__acl__ = [(Allow, Authenticated, PERMISSION_VIEW), ]
         # general page factory - append custom non resource permissions
         # request.user object from cookbook recipie
         if request.user:
