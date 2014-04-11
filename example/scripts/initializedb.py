@@ -83,7 +83,20 @@ def add_alltypes():
 
 def add_customizing():
     import random
-    objs = [{'name': ('%06x' % random.randrange(16 ** 6)).upper()} for x in range(10)]
+    description = '''
+        <!DOCTYPE html>
+        <html>
+        <head>
+        </head>
+        <body>
+        <p><img src="../../../static/uploaded/foo.png" alt="" width="350" height="221" /></p>
+        <hr />
+        <h1>Use Pyramid with Go and Gevent-socketio!</h1>
+        </body>
+        </html>
+    '''
+    objs = [{'name': ('%06x' % random.randrange(16 ** 6)).upper(), 'description': description}
+            for x in range(10)]
     add_fixture(TestCustomizing, objs)
 
 
