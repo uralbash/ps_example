@@ -113,14 +113,14 @@ def add_company():
     add_fixture(Company, company)
 
 
-def init_user():
-    new_user = User(user_name='admin', email="email@email.com")
+def add_user(user):
+    new_user = User(user_name=user['login'], email=user['email'])
     new_user.regenerate_security_code()
     new_user.status = 1
-    new_user.set_password(u"123")
-    new_user.name = 'admin'
-    new_user.surname = 'admin'
-    new_user.middlename = 'admin'
+    new_user.set_password(user['password'])
+    new_user.name = user['name']
+    new_user.surname = user['surname']
+    new_user.middlename = user['middlename']
     new_user.type_id = 1
     new_user.company_id = 1
     DBSession.add(new_user)
@@ -153,4 +153,6 @@ def main(argv=sys.argv):
 
     # Auth
     add_company()
-    init_user()
+    add_user({'login': 'admin', 'password': '123',
+              'email': 'foo@bar.baz', 'name': 'Foo',
+              'surname': 'Bar', 'middlename': 'Baz'})
