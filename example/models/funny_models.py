@@ -18,7 +18,10 @@ from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
 from sqlalchemy.dialects.postgresql import ARRAY, HSTORE  # JSON,
 from sqlalchemy.event import listen
 from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref, relationship
+
+from sqlalchemy_tree.manager import TreeManager
+from sqlalchemy_tree.types import TreeDepthType, TreeIdType, TreeLeftType, TreeRightType
 
 from example.models import Base
 from sacrud.common.custom import horizontal_field
@@ -264,8 +267,23 @@ class Pages(Base):
 
     visible = Column(Boolean)
 
+    # SQLAlchemy tree
+    parent = relationship('Pages',
+                          backref=backref('children'),
+                          remote_side=[id])
+    tree_id = Column(TreeIdType, nullable=False)
+    left = Column(TreeLeftType, nullable=False)
+    right = Column(TreeRightType, nullable=False)
+    level = Column(TreeDepthType, nullable=False)
+
     # SACRUD
     verbose_name = u'MPTT pages'
     sacrud_css_class = {'tinymce': [description],
                         'content': [description],
                         'name': [name], }
+
+    def __repr__(self):
+        return self.name or self.id
+
+Pages.tree = TreeManager(Base.metadata.tables['mptt_pages'])
+Pages.tree.register()
