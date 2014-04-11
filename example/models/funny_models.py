@@ -17,17 +17,13 @@ from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Unicode, UnicodeText)
 from sqlalchemy.dialects.postgresql import ARRAY, HSTORE  # JSON,
 from sqlalchemy.event import listen
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.orm import relationship, scoped_session, sessionmaker
-from zope.sqlalchemy import ZopeTransactionExtension
+from sqlalchemy.orm import relationship
 
+from example.models import Base
 from sacrud.common.custom import horizontal_field
 from sacrud.exttype import FileStore, GUID
 from sacrud.position import before_insert
-
-DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
-Base = declarative_base()
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 
@@ -257,8 +253,6 @@ class TestCustomizing(Base):
                                           sacrud_name=u"Расположение"),
                          description2]
 
-from sqlalchemy_tree import TreeManager
-
 
 class Pages(Base):
     __tablename__ = "mptt_pages"
@@ -275,5 +269,3 @@ class Pages(Base):
     sacrud_css_class = {'tinymce': [description],
                         'content': [description],
                         'name': [name], }
-
-Pages.tree = TreeManager(Base.metadata.tables['mptt_pages'])

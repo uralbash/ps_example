@@ -12,28 +12,18 @@ This module for initialize project.
 import os
 import sys
 import transaction
+from subprocess import PIPE, Popen
 
-from subprocess import Popen, PIPE
-from sqlalchemy import engine_from_config
 from jinja2.utils import generate_lorem_ipsum
+from pyramid.paster import get_appsettings, setup_logging
+from sqlalchemy import engine_from_config
 
-from pyramid.paster import (
-    get_appsettings,
-    setup_logging,
-)
-
-from ..models import (
-    Base,
-    DBSession,
-    TestDND,
-    TestBOOL,
-    TestTEXT,
-    TestFile,
-    TestUNION,
-    TestHSTORE,
-    TestAllTypes,
-    TestCustomizing,
-)
+from example.lib.fixture import add_fixture
+from example.models import Base, DBSession
+from example.models.auth import Company, User
+from example.models.funny_models import (TestAllTypes, TestBOOL,
+                                         TestCustomizing, TestDND, TestFile,
+                                         TestHSTORE, TestTEXT, TestUNION)
 
 
 def usage(argv):
@@ -41,22 +31,6 @@ def usage(argv):
     print('usage: %s <config_uri>\n'
           '(example: "%s development.ini")' % (cmd, cmd))
     sys.exit(1)
-
-
-def add_fixture(model, fixtures):
-    """
-    Add fixtures to database.
-
-    Example::
-
-        hashes = ({'foo': {'foo': 'bar', '1': '2'}}, {'foo': {'test': 'data'}})
-        add_fixture(TestHSTORE, hashes)
-
-    """
-    with transaction.manager:
-        DBSession.query(model).delete()
-        for fixture in fixtures:
-            DBSession.add(model(**fixture))
 
 
 def add_hstore():
@@ -129,6 +103,30 @@ def add_extension(engine, *args):
     conn.close()
 
 
+def add_company():
+    company = (
+        {'name': u'ITCase'},
+        {'name': u'RedHat'},
+        {'name': u'Canonical'},
+        {'name': u'Pylons'},
+    )
+    add_fixture(Company, company)
+
+
+def init_user():
+    new_user = User(user_name='admin', email="email@email.com")
+    new_user.regenerate_security_code()
+    new_user.status = 1
+    new_user.set_password(u"123")
+    new_user.name = 'admin'
+    new_user.surname = 'admin'
+    new_user.middlename = 'admin'
+    new_user.type_id = 1
+    new_user.company_id = 1
+    DBSession.add(new_user)
+    transaction.commit()
+
+
 def main(argv=sys.argv):
     if len(argv) != 2:
         usage(argv)
@@ -136,9 +134,9 @@ def main(argv=sys.argv):
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
-    # дропает БД
+    # drop database
     Base.metadata.drop_all(engine)
-    # добавляет расширения
+    # add postgres extension
     add_extension(engine, "plpythonu", "hstore", "uuid-ossp")
 
     DBSession.configure(bind=engine)
@@ -152,3 +150,7 @@ def main(argv=sys.argv):
     add_alltypes()
     add_customizing()
     add_file()
+
+    # Auth
+    add_company()
+    init_user()
