@@ -17,17 +17,13 @@ from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Unicode, UnicodeText)
 from sqlalchemy.dialects.postgresql import ARRAY, HSTORE  # JSON,
 from sqlalchemy.event import listen
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.orm import relationship, scoped_session, sessionmaker
-from zope.sqlalchemy import ZopeTransactionExtension
+from sqlalchemy.orm import relationship
 
+from example.models import Base
 from sacrud.common.custom import horizontal_field
 from sacrud.exttype import FileStore, GUID
 from sacrud.position import before_insert
-
-DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
-Base = declarative_base()
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 
@@ -256,3 +252,20 @@ class TestCustomizing(Base):
                          horizontal_field(in_menu, visible, in_banner,
                                           sacrud_name=u"Расположение"),
                          description2]
+
+
+class Pages(Base):
+    __tablename__ = "mptt_pages"
+
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey('mptt_pages.id'))
+    name = Column(String)
+    description = Column(Text)
+
+    visible = Column(Boolean)
+
+    # SACRUD
+    verbose_name = u'MPTT pages'
+    sacrud_css_class = {'tinymce': [description],
+                        'content': [description],
+                        'name': [name], }

@@ -1,0 +1,9 @@
+{% extends "/base.jinja2" %}
+{% block content %}
+  <form action="{{request.route_url('ziggurat.routes.sign_in')}}" method="post">
+      <input type="hidden" value="OPTIONAL" name="came_from" id="came_from">
+      <input type="text" value="" name="login">
+      <input type="password" value="" name="password">
+      <input type="submit" value="Sign In" name="submit" id="submit">
+  </form>
+{% endblock %}

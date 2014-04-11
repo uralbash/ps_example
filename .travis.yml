@@ -28,7 +28,7 @@ install:
   - sudo apt-get install -q postgresql-plpython-9.1
   - pip install nose
   - pip install coverage
-  - pip install pyramid
+  - pip install pyramid ziggurat_foundations
   - pip install -r requirements.txt
   - pip install git+https://github.com/uralbash/sacrud.git
 
