@@ -24,22 +24,19 @@
   </script>
 
   <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+  {% include 'elfinder/tinymce.jinja2' %}
   <script>
     tinymce.init({
       selector:'textarea.tinymce',
-      plugins: "image link",
-      file_browser_callback: function(field_name, url, type, win) {
-        tinymce.activeEditor.windowManager.open({
-            title: "SACRUD file browser",
-            url: "/image/filebrowser",
-            width: 600,
-            height: 400,
-          }, {
-            oninsert: function(url) {
-              win.document.getElementById(field_name).value = url;
-            }
-        });
-      },
+      browser_spellcheck : true,
+      plugins: "image link code contextmenu fullpage fullscreen "+
+              "hr insertdatetime lists media paste preview "+
+              "print table textcolor "+
+              "visualchars wordcount",
+      toolbar1: "fullpage preview print forecolor backcolor inserttable",
+      toolbar2: "styleselect formatselect fontselect fontsizeselect cut copy paste  removeformat subscript superscript",
+      toolbar3: "undo redo | bold italic underline strikethrough | bullist numlist outdent indent blockquote | alignleft aligncenter alignright alignjustify |",
+      file_browser_callback: elFinderBrowser,
     });
   </script>
 {% endblock %}

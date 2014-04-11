@@ -30,14 +30,8 @@ from example.models.funny_models import (Pages, TestAllTypes, TestBOOL,
 from example.scripts import initializedb
 
 
-@view_config(route_name='filebrowser', renderer='templates/filebrowser.jinja2')
-def fileBrowser(request):
-    return {}
-
-
 def add_routes(config):
     config.add_route('home', '/')
-    config.add_route('filebrowser', '/image/filebrowser')  # for tinymce img
 
     # Auth
     config.add_route('login', '/login/')
@@ -74,6 +68,9 @@ def main(global_config, **settings):
     # pyramid_jinja2 configuration
     config.include('pyramid_jinja2')
     config.add_jinja2_search_path("example:templates")
+
+    # pyramid_elfinder
+    config.include('pyramid_elfinder.connector')
 
     # SACRUD
     config.include('sacrud.pyramid_ext', route_prefix='/admin')
