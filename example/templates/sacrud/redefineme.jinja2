@@ -45,5 +45,6 @@
 {% endblock %}
 
 {% block sa_body %}
+  {% include 'auth/user_in_head.jinja2' %}
   {{ super() }}
 {% endblock %}
