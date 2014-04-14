@@ -18,9 +18,9 @@
   </style>
 
   <script>
-    $(function() {
-      $(".Date").datepicker({ dateFormat: 'yy-mm-dd' });
-    });
+    // $(function() {
+    //   $(".Date").datepicker({ dateFormat: 'yy-mm-dd' });
+    // });
   </script>
 
   <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
@@ -47,7 +47,4 @@
 
 {% block sa_menu %}
   {{ super() }}
-  <div style="background: black">
-    {% include 'auth/user_in_head.jinja2' %}
-  </div>
 {% endblock %}

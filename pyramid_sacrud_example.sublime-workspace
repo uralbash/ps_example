@@ -5,7 +5,15 @@
 		[
 			[
 				"text",
-				"text-transform"
+				"text-decoration"
+			],
+			[
+				"ta",
+				"table-cell"
+			],
+			[
+				"af",
+				"af	:after"
 			],
 			[
 				"pro",
@@ -22,10 +30,6 @@
 			[
 				"bot",
 				"border-top"
-			],
-			[
-				"ta",
-				"table"
 			],
 			[
 				"mar",
@@ -171,6 +175,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "development_local.ini",
+			"settings":
+			{
+				"buffer_size": 1695,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -208,18 +220,31 @@
 	},
 	"file_history":
 	[
+		"/F/ITCase/sacrud/sacrud/templates/sacrud/list.jinja2",
+		"/F/ITCase/sacrud/sacrud/templates/sacrud/base.jinja2",
+		"/F/ITCase/sacrud/sacrud/static/css/user/user.css",
+		"/F/ITCase/sacrud/sacrud/static/css/dashboard/dashboard.css",
+		"/F/ITCase/sacrud/sacrud/static/css/widget/widget.css",
+		"/F/ITCase/sacrud/sacrud/static/css/logo/logo.css",
+		"/F/ITCase/sacrud/sacrud/static/css/module/module.css",
 		"/F/ITCase/sacrud/sacrud/static/css/page/page.css",
 		"/F/ITCase/sacrud/sacrud/templates/sacrud/home.jinja2",
-		"/F/ITCase/sacrud/sacrud/static/css/nav/nav.css",
-		"/F/ITCase/sacrud/sacrud/static/css/main-menu/main-menu.css",
-		"/F/ITCase/sacrud/sacrud/static/css/main.css",
 		"/F/ITCase/sacrud/sacrud/static/css/header/header.css",
+		"/F/ITCase/sacrud/sacrud/static/css/main-menu/main-menu.css",
+		"/F/ITCase/sacrud/sacrud/templates/sacrud/forms/create.jinja2",
+		"/F/ITCase/sacrud/sacrud/static/css/main.css",
+		"/F/ITCase/pyramid_sacrud_example/development_local.ini",
+		"/F/ITCase/sacrud/sacrud/templates/sacrud/user_in_head.jinja2",
+		"/F/ITCase/sacrud/sacrud/templates/sacrud/forms/actions/paste.jinja2",
+		"/F/ITCase/sacrud/sacrud/static/css/kendo.metro.css",
+		"/F/ITCase/sacrud/sacrud/templates/sacrud/forms/list.jinja2",
+		"/F/ITCase/pyramid_sacrud_example/example/templates/base.jinja2",
+		"/F/ITCase/sacrud/sacrud/static/css/grid/grid.css",
+		"/F/ITCase/sacrud/sacrud/templates/sacrud/forms/actions.jinja2",
+		"/F/ITCase/sacrud/sacrud/templates/sacrud/forms/actions/edit.jinja2",
+		"/F/ITCase/sacrud/sacrud/static/css/nav/nav.css",
 		"/F/ITCase/sacrud/sacrud/static/css/wrapper/wrapper.css",
 		"/F/ITCase/sacrud/sacrud/templates/sacrud/forms/actions/delete.jinja2",
-		"/F/ITCase/sacrud/sacrud/templates/sacrud/base.jinja2",
-		"/F/ITCase/sacrud/sacrud/templates/sacrud/forms/actions.jinja2",
-		"/F/ITCase/sacrud/sacrud/templates/sacrud/list.jinja2",
-		"/F/ITCase/sacrud/sacrud/templates/sacrud/forms/list.jinja2",
 		"/F/ITCase/itcase-dev/itcase-pages/pages/templates/pages/page.html",
 		"/F/ITCase/sacrud/sacrud/static/style/style.css",
 		"/F/ITCase/itcase-dev/itcase-pages/pages/templates/pages/include/breadcrumbs.html",
@@ -322,20 +347,7 @@
 		"/F/ITCase/geograftour/app/forms/static/forms/css/forms.css",
 		"/F/ITCase/slider/script.js",
 		"/F/ITCase/geograftour/static/css/office/office.css",
-		"/F/ITCase/itcase-dev/itcase-rotator/rotator/static/rotator/css/rotator.css",
-		"/F/ITCase/itcase-dev/itcase-rotator/rotator/templatetags/rotator_tags.py",
-		"/F/ITCase/itcase-dev/itcase-pages/pages/templates/pages/menu/nested.html",
-		"/F/ITCase/itcase-dev/itcase-pages/pages/templates/pages/menu/nested_tree_2lvl_full.html",
-		"/F/ITCase/ural-build-sertification/static/css/rotator/rotator.css",
-		"/F/ITCase/geograftour/static/gallery/css/__gallery.css",
-		"/F/ITCase/ural-build-sertification/static/tinymce/tinymce.css",
-		"/F/ITCase/geograftour/app/forms/static/forms/css/form.css",
-		"/F/ITCase/almanac/website/templates/base.html",
-		"/F/ITCase/geograftour/static/css/form/form.css",
-		"/F/ITCase/geograftour/local.py",
-		"/F/ITCase/evrazia/settings/local.py",
-		"/F/ITCase/geograftour/static/js/angular_geagraph/app/partials/partial7.html",
-		"/F/ITCase/geograftour/static/js/angular_geagraph/app/partials/partial3.html"
+		"/F/ITCase/itcase-dev/itcase-rotator/rotator/static/rotator/css/rotator.css"
 	],
 	"find":
 	{
@@ -343,7 +355,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 96.0,
+		"height": 0.0,
 		"where_history":
 		[
 			"-*/itcase-grunt-pony/*",
@@ -356,6 +368,14 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"dashboard",
+			"Metro/",
+			"main-menu",
+			"page",
+			"module",
+			"header",
+			"-topleft",
+			"page",
 			"0.8",
 			"nav",
 			"main-menu",
@@ -475,15 +495,7 @@
 			"static",
 			"push",
 			"chunked_main_menu",
-			"span",
-			"ews-list__item-link",
-			"news-list__item-title-link",
-			"20",
-			"rotator__item-inner",
-			"rotator/css/__rotator.css",
-			"search",
-			"pages",
-			"logo"
+			"span"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -502,8 +514,272 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "development_local.ini",
+					"settings":
+					{
+						"buffer_size": 1695,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								488,
+								488
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"bh_regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
+							],
+							"codeintel": true,
+							"codeintel_config":
+							{
+								"JavaScript":
+								{
+									"codeintel_max_recursive_dir_depth": 2.0,
+									"codeintel_scan_files_in_project": false,
+									"javascriptExtraPaths":
+									[
+									]
+								},
+								"PHP":
+								{
+									"codeintel_max_recursive_dir_depth": 5.0,
+									"codeintel_scan_files_in_project": false,
+									"phpExtraPaths":
+									[
+									]
+								},
+								"Python":
+								{
+									"env":
+									{
+									}
+								}
+							},
+							"codeintel_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_live": true,
+							"codeintel_live_enabled_languages":
+							[
+								"JavaScript",
+								"Mason",
+								"XBL",
+								"XUL",
+								"RHTML",
+								"SCSS",
+								"Python",
+								"HTML",
+								"Ruby",
+								"Python3",
+								"XML",
+								"Sass",
+								"XSLT",
+								"Django",
+								"HTML5",
+								"Perl",
+								"CSS",
+								"Twig",
+								"Less",
+								"Smarty",
+								"Node.js",
+								"Tcl",
+								"TemplateToolkit",
+								"PHP"
+							],
+							"codeintel_max_recursive_dir_depth": 10.0,
+							"codeintel_scan_exclude_dir":
+							{
+								"JavaScript":
+								[
+									"/build/",
+									"/min/"
+								]
+							},
+							"codeintel_scan_files_in_project": true,
+							"codeintel_selected_catalogs":
+							[
+								"PyWin32",
+								"jQuery",
+								"Rails"
+							],
+							"codeintel_snippets": true,
+							"codeintel_syntax_map":
+							{
+								"Python Django": "Python"
+							},
+							"codeintel_tooltips": "popup",
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublime_auto_complete": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		},
 		{
@@ -565,8 +841,40 @@
 		"selected_items":
 		[
 			[
+				"base",
+				"pyramid_sacrud_example/example/templates/base.jinja2"
+			],
+			[
+				"list",
+				"sacrud/sacrud/templates/sacrud/list.jinja2"
+			],
+			[
+				"wi",
+				"sacrud/sacrud/static/css/widget/widget.css"
+			],
+			[
+				"das",
+				"sacrud/sacrud/static/css/dashboard/dashboard.css"
+			],
+			[
 				"he",
 				"sacrud/sacrud/static/css/header/header.css"
+			],
+			[
+				"user",
+				"sacrud/sacrud/static/css/user/user.css"
+			],
+			[
+				"logo",
+				"sacrud/sacrud/static/css/logo/logo.css"
+			],
+			[
+				"main",
+				"sacrud/sacrud/static/css/main-menu/main-menu.css"
+			],
+			[
+				"wid",
+				"sacrud/sacrud/static/css/widget/widget.css"
 			],
 			[
 				"page",
@@ -575,10 +883,6 @@
 			[
 				"nav",
 				"sacrud/sacrud/static/css/nav/nav.css"
-			],
-			[
-				"main",
-				"sacrud/sacrud/static/css/main-menu/main-menu.css"
 			],
 			[
 				"hea",
@@ -599,10 +903,6 @@
 			[
 				"style",
 				"sacrud/sacrud/static/style/style.css"
-			],
-			[
-				"base",
-				"templates/base.html"
 			],
 			[
 				"pop",
@@ -1007,10 +1307,6 @@
 			[
 				"video_list_main_page",
 				"app/video/templates/video/include/video_list_main_page.html"
-			],
-			[
-				"list",
-				"static/css/b-list/b-list.css"
 			],
 			[
 				"act",
