@@ -281,6 +281,7 @@ class Pages(Base):
     sacrud_css_class = {'tinymce': [description],
                         'content': [description],
                         'name': [name], }
+    # sacrud_detail_col = [name, parent_id, description, visible, tree_id]
 
     def __repr__(self):
         return self.name or self.id
