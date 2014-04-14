@@ -9,3 +9,4 @@ example.egg-info
 nohup.out
 *.ipynb
 development_local.ini
+*.sublime*
