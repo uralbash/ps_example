@@ -289,3 +289,30 @@ class Pages(Base):
 
 Pages.tree = TreeManager(Base.metadata.tables['mptt_pages'])
 Pages.tree.register()
+
+
+class MPTTPages(Base):
+    __tablename__ = "mptt_pages2"
+
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey('mptt_pages.id'))
+    name = Column(String)
+    description = Column(Text)
+
+    visible = Column(Boolean)
+
+    # SQLAlchemy tree
+    tree_id = Column(TreeIdType, nullable=False)
+    left = Column(TreeLeftType, nullable=False)
+    right = Column(TreeRightType, nullable=False)
+    level = Column(TreeDepthType, nullable=False)
+
+    # SACRUD
+    verbose_name = u'MPTT pages'
+    sacrud_css_class = {'tinymce': [description],
+                        'content': [description],
+                        'name': [name], }
+    # sacrud_detail_col = [name, parent_id, description, visible, tree_id]
+
+    def __repr__(self):
+        return self.name or self.id
