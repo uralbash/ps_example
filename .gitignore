@@ -8,3 +8,4 @@ example.egg-info
 .mydevelopment.ini
 nohup.out
 *.ipynb
+development_local.ini
