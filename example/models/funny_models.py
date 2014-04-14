@@ -199,8 +199,9 @@ class TestAllTypes(Base):
     col_array = Column(ARRAY(Integer, as_tuple=True))
     col_bigint = Column(BigInteger)
     col_boolean = Column(Boolean)
-    col_date = Column(Date)
+    col_date_time = Column(Date)
     col_date = Column(DateTime)
+    col_date2 = Column(DateTime)
     col_enum = Column(Enum(u'IPv6', u'IPv4', name=u"ip_type"))
     col_float = Column(Float)
 
