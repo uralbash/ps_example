@@ -12,18 +12,19 @@ Models for example
 import os
 import uuid
 
-from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
-                        Float, ForeignKey, Integer, Numeric, String, Text,
-                        Unicode, UnicodeText)
+from sqlalchemy import (and_, between, BigInteger, Boolean, case, Column, Date,
+                        DateTime, Enum, event, Float, ForeignKey, Index,
+                        Integer, Numeric, select, String, Text, Unicode,
+                        UnicodeText)
 from sqlalchemy.dialects.postgresql import ARRAY, HSTORE  # JSON,
 from sqlalchemy.event import listen
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import backref, relationship
-
 from sqlalchemy_tree.manager import TreeManager
-from sqlalchemy_tree.types import TreeDepthType, TreeIdType, TreeLeftType, TreeRightType
+from sqlalchemy_tree.types import (TreeDepthType, TreeIdType, TreeLeftType,
+                                   TreeRightType)
 
-from example.models import Base
+from example.models import Base, DBSession
 from sacrud.common.custom import horizontal_field
 from sacrud.exttype import FileStore, GUID
 from sacrud.position import before_insert
@@ -278,7 +279,7 @@ class Pages(Base):
     level = Column(TreeDepthType, nullable=False)
 
     # SACRUD
-    verbose_name = u'MPTT pages'
+    verbose_name = u'SA-tree pages'
     sacrud_css_class = {'tinymce': [description],
                         'content': [description],
                         'name': [name], }
@@ -292,20 +293,85 @@ Pages.tree.register()
 
 
 class MPTTPages(Base):
+    """ https://bitbucket.org/zzzeek/sqlalchemy/src/73095b353124/examples/nested_sets/nested_sets.py?at=master
+    """
     __tablename__ = "mptt_pages2"
+    __table_args__ = (
+        Index('mptt_pages2_lft', "lft"),
+        Index('mptt_pages2_rgt', "rgt"),
+        Index('mptt_pages2_level', "level"),
+    )
+    __mapper_args__ = {
+        'batch': False  # allows extension to fire for each
+                        # instance before going to the next.
+    }
+
+    def get_tree(self):
+        """ Return tree ordered by left key.
+            SELECT * FROM tree ORDER BY lft
+        """
+        table = self.__class__
+        return DBSession.query(table).order_by(table.lft).all()
+
+    def get_childrens_tree(self):
+        """ Return drill down tree from current node.
+            SELECT * FROM tree WHERE lft BETWEEN $left AND $right ORDER BY lft
+        """
+        table = self.__class__
+        if not self.lft or not self.rgt:
+            return self.get_tree()
+        return DBSession.query(table)\
+            .filter(between(table.lft, self.lft, self.rgt))\
+            .order_by(table.lft).all()
+
+    def get_parents_tree(self):
+        """ Return parents from current node.
+            SELECT * FROM tree WHERE lft <= $left AND rgt >= $right ORDER BY lft
+        """
+        table = self.__class__
+        if not self.lft or not self.rgt:
+            return self.get_tree()
+        return DBSession.query(table)\
+            .filter(table.lft <= self.lft).filter(table.rgt >= self.rgt)\
+            .order_by(table.lft).all()
+
+    def get_current_tree(self):
+        """ Return tree branch of current node.
+            SELECT * FROM tree WHERE rgt > $left AND lft < $right ORDER BY lft
+        """
+        table = self.__class__
+        if not self.lft or not self.rgt:
+            return self.get_tree()
+        return DBSession.query(table)\
+            .filter(table.lft < self.rgt).filter(table.rgt > self.lft)\
+            .order_by(table.lft).all()
+
+    def get_parent(self):
+        """ Calculate parent of node.
+            SELECT * FROM tree WHERE lft <= $left AND rgt >= $right
+            AND level = $level + 1 ORDER BY lft
+        """
+        table = self.__class__
+        if not self.lft or not self.rgt or not self.level:
+            return self.get_tree()
+        return DBSession.query(table)\
+            .filter(table.lft <= self.lft).filter(table.rgt >= self.rgt)\
+            .filter(table.level == self.level + 1)\
+            .order_by(table.lft).all()
 
     id = Column(Integer, primary_key=True)
-    parent_id = Column(Integer, ForeignKey('mptt_pages.id'))
+    parent_id = Column(Integer, ForeignKey('mptt_pages2.id'))
+    parent = relationship('MPTTPages',
+                          backref=backref('children'),
+                          remote_side=[id])
+    lft = Column("lft", Integer, nullable=False)
+    rgt = Column("rgt", Integer, nullable=False)
+    level = Column(Integer, nullable=False, default=0)
+
     name = Column(String)
     description = Column(Text)
 
     visible = Column(Boolean)
-
-    # SQLAlchemy tree
-    tree_id = Column(TreeIdType, nullable=False)
-    left = Column(TreeLeftType, nullable=False)
-    right = Column(TreeRightType, nullable=False)
-    level = Column(TreeDepthType, nullable=False)
 
     # SACRUD
     verbose_name = u'MPTT pages'
@@ -315,4 +381,55 @@ class MPTTPages(Base):
     # sacrud_detail_col = [name, parent_id, description, visible, tree_id]
 
     def __repr__(self):
-        return self.name or self.id
+        return "MPTTPages(%s, %s, %s)" % (self.id, self.lft, self.rgt)
+
+
+@event.listens_for(MPTTPages, "before_insert")
+def before_insert(mapper, connection, instance):
+    if not instance.parent_id:
+        instance.lft = 1
+        instance.rgt = 2
+    else:
+        personnel = mapper.mapped_table
+        right_most_sibling = connection.scalar(
+            select([personnel.c.rgt]).
+            where(personnel.c.id == instance.parent_id)
+        )
+
+        # update key of current tree
+        # UPDATE tree SET lft = $left + 2, rgt = $right + 2 WHERE lft > $right
+        connection.execute(
+            personnel.update(
+                personnel.c.rgt >= right_most_sibling).values(
+                    lft=case(
+                        [(personnel.c.lft > right_most_sibling,
+                            personnel.c.lft + 2)],
+                        else_=personnel.c.lft
+                    ),
+                    rgt=case(
+                        [(personnel.c.rgt >= right_most_sibling,
+                          personnel.c.rgt + 2)],
+                        else_=personnel.c.rgt
+                    )
+            )
+        )
+
+        instance.lft = right_most_sibling
+        instance.rgt = right_most_sibling + 1
+
+
+@event.listens_for(MPTTPages, "after_delete")
+def after_delete(mapper, connection, instance):
+    if not instance.parent_id:
+        instance.lft = 1
+        instance.rgt = 2
+    else:
+        personnel = mapper.mapped_table
+        lft = instance.lft
+        rgt = instance.rgt
+
+        # Delete node
+        # DELETE FROM tree WHERE lft >= $lft AND rgt <= $rgt
+        connection.execute(
+            personnel.delete(and_(personnel.c.lft >= lft, personnel.c.rgt <= rgt))
+        )

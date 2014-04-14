@@ -13,7 +13,6 @@ from psycopg2.extras import register_hstore
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.config import Configurator
-from pyramid.view import view_config
 from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 from ziggurat_foundations.models import groupfinder
@@ -24,9 +23,10 @@ from example.models.auth import (Company, ExternalIdentity, Group,
                                  GroupPermission, GroupResourcePermission,
                                  PERMISSION_VIEW, Resource, User, UserGroup,
                                  UserPermission, UserResourcePermission)
-from example.models.funny_models import (Pages, TestAllTypes, TestBOOL,
-                                         TestCustomizing, TestDND, TestFile,
-                                         TestHSTORE, TestTEXT, TestUNION)
+from example.models.funny_models import (MPTTPages, Pages, TestAllTypes,
+                                         TestBOOL, TestCustomizing, TestDND,
+                                         TestFile, TestHSTORE, TestTEXT,
+                                         TestUNION)
 from example.scripts import initializedb
 
 
@@ -80,7 +80,7 @@ def main(global_config, **settings):
                                       TestFile],
                                  'Just for fun': [TestAllTypes],
                                  'Customizing example': [TestCustomizing],
-                                 'Pages': [Pages],
+                                 'Pages': [Pages, MPTTPages],
                                  'Auth': [Company, Group, GroupPermission,
                                           UserGroup, GroupResourcePermission,
                                           Resource, UserPermission,

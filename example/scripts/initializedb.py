@@ -11,9 +11,9 @@ This module for initialize project.
 """
 import os
 import sys
-import transaction
 from subprocess import PIPE, Popen
 
+import transaction
 from jinja2.utils import generate_lorem_ipsum
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
@@ -21,7 +21,7 @@ from sqlalchemy import engine_from_config
 from example.lib.fixture import add_fixture
 from example.models import Base, DBSession
 from example.models.auth import Company, User
-from example.models.funny_models import (TestAllTypes, TestBOOL,
+from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION)
 
@@ -126,6 +126,23 @@ def add_company():
     add_fixture(Company, company)
 
 
+def add_mptt_pages():
+    """ Nested Sets example
+       (1)1(8)_____
+          |        |
+       (2)2(5)  (6)4(7)
+          |
+       (3)3(4)
+    """
+    pages = (
+        {'id': '1', 'parent_id': None},
+        {'id': '2', 'parent_id': '1'},
+        {'id': '3', 'parent_id': '2'},
+        {'id': '4', 'parent_id': '1'},
+    )
+    add_fixture(MPTTPages, pages)
+
+
 def add_user(user):
     new_user = User(user_name=user['login'], email=user['email'])
     new_user.regenerate_security_code()
@@ -163,6 +180,7 @@ def main(argv=sys.argv):
     add_alltypes()
     add_customizing()
     add_file()
+    add_mptt_pages()
 
     # Auth
     add_company()
