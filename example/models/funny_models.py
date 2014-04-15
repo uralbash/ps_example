@@ -364,8 +364,8 @@ class MPTTPages(Base):
     parent = relationship('MPTTPages',
                           backref=backref('children'),
                           remote_side=[id])
-    lft = Column("lft", Integer, nullable=False)
-    rgt = Column("rgt", Integer, nullable=False)
+    left = Column("lft", Integer, nullable=False)
+    right = Column("rgt", Integer, nullable=False)
     level = Column(Integer, nullable=False, default=0)
 
     name = Column(String)
@@ -381,14 +381,14 @@ class MPTTPages(Base):
     # sacrud_detail_col = [name, parent_id, description, visible, tree_id]
 
     def __repr__(self):
-        return "MPTTPages(%s, %s, %s)" % (self.id, self.lft, self.rgt)
+        return "MPTTPages(%s, %s, %s)" % (self.id, self.left, self.right)
 
 
 @event.listens_for(MPTTPages, "before_insert")
 def before_insert(mapper, connection, instance):
     if not instance.parent_id:
-        instance.lft = 1
-        instance.rgt = 2
+        instance.left = 1
+        instance.right = 2
     else:
         personnel = mapper.mapped_table
         right_most_sibling = connection.scalar(
@@ -414,19 +414,19 @@ def before_insert(mapper, connection, instance):
             )
         )
 
-        instance.lft = right_most_sibling
-        instance.rgt = right_most_sibling + 1
+        instance.left = right_most_sibling
+        instance.right = right_most_sibling + 1
 
 
 @event.listens_for(MPTTPages, "after_delete")
 def after_delete(mapper, connection, instance):
     if not instance.parent_id:
-        instance.lft = 1
-        instance.rgt = 2
+        instance.left = 1
+        instance.right = 2
     else:
         personnel = mapper.mapped_table
-        lft = instance.lft
-        rgt = instance.rgt
+        lft = instance.left
+        rgt = instance.right
 
         # Delete node
         # DELETE FROM tree WHERE lft >= $lft AND rgt <= $rgt
