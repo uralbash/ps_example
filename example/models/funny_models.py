@@ -397,7 +397,6 @@ def before_insert(mapper, connection, instance):
         )
 
         # update key of current tree
-        # UPDATE tree SET lft = $left + 2, rgt = $right + 2 WHERE lft > $right
         connection.execute(
             personnel.update(
                 personnel.c.rgt >= right_most_sibling).values(
@@ -420,16 +419,39 @@ def before_insert(mapper, connection, instance):
 
 @event.listens_for(MPTTPages, "after_delete")
 def after_delete(mapper, connection, instance):
-    if not instance.parent_id:
-        instance.left = 1
-        instance.right = 2
-    else:
-        personnel = mapper.mapped_table
-        lft = instance.left
-        rgt = instance.right
+    personnel = mapper.mapped_table
+    lft = instance.left
+    rgt = instance.right
 
-        # Delete node
-        # DELETE FROM tree WHERE lft >= $lft AND rgt <= $rgt
+    # Delete node or baranch of node
+    # DELETE FROM tree WHERE lft >= $lft AND rgt <= $rgt
+    connection.execute(
+        personnel.delete(and_(personnel.c.lft >= lft, personnel.c.rgt <= rgt))
+    )
+
+    if instance.parent_id:
+        """ update key of current tree
+            UPDATE tree
+            SET left_id = CASE
+                    WHEN left_id > $leftId THEN left_id - 2
+                    ELSE left_id
+                END,
+                right_id = CASE
+                    WHEN right_id > $rightId THEN right_id - 2
+                    ELSE right_id
+                END
+        """
         connection.execute(
-            personnel.delete(and_(personnel.c.lft >= lft, personnel.c.rgt <= rgt))
+            personnel.update().values(
+                lft=case(
+                    [(personnel.c.lft > lft,
+                      personnel.c.lft - 2)],
+                    else_=personnel.c.lft
+                ),
+                rgt=case(
+                    [(personnel.c.rgt > rgt,
+                      personnel.c.rgt - 2)],
+                    else_=personnel.c.rgt
+                )
+            )
         )

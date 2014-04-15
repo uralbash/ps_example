@@ -95,7 +95,8 @@ def add_customizing():
         </body>
         </html>
     '''
-    objs = [{'name': ('%06x' % random.randrange(16 ** 6)).upper(), 'description': description}
+    objs = [{'name': ('%06x' % random.randrange(16 ** 6)).upper(),
+             'description': description, 'date': '2024-04-04'}
             for x in range(10)]
     add_fixture(TestCustomizing, objs)
 
