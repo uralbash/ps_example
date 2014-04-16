@@ -360,10 +360,20 @@ class MPTTPages(Base):
             .order_by(table.lft).all()
 
     id = Column(Integer, primary_key=True)
+
+    tree_id = Column(Integer, ForeignKey('mptt_pages2.id'))
+    tree = relationship('MPTTPages', primaryjoin=(id == tree_id),
+                        backref=backref('children_tree'),  # for delete
+                        remote_side=[id],  # for show in sacrud
+                        post_update=True   # CircularDependencyError
+                        )
+
     parent_id = Column(Integer, ForeignKey('mptt_pages2.id'))
-    parent = relationship('MPTTPages',
-                          backref=backref('children'),
-                          remote_side=[id])
+    parent = relationship('MPTTPages', primaryjoin=(id == parent_id),
+                          backref=backref('children'),  # for delete
+                          remote_side=[id]  # for show in sacrud relation
+                          )
+
     left = Column("lft", Integer, nullable=False)
     right = Column("rgt", Integer, nullable=False)
     level = Column(Integer, nullable=False, default=0)
@@ -389,27 +399,32 @@ def before_insert(mapper, connection, instance):
     if not instance.parent_id:
         instance.left = 1
         instance.right = 2
+        instance.tree_id = instance.id
     else:
-        personnel = mapper.mapped_table
-        right_most_sibling = connection.scalar(
-            select([personnel.c.rgt]).
-            where(personnel.c.id == instance.parent_id)
-        )
+        table = mapper.mapped_table
+        right_most_sibling, parent_tree_id = connection.execute(
+            select([table.c.rgt, table.c.tree_id]).
+            where(table.c.id == instance.parent_id)
+        ).fetchone()
+
+        instance.tree_id = parent_tree_id
 
         # update key of current tree
         connection.execute(
-            personnel.update(
-                personnel.c.rgt >= right_most_sibling).values(
-                    lft=case(
-                        [(personnel.c.lft > right_most_sibling,
-                            personnel.c.lft + 2)],
-                        else_=personnel.c.lft
-                    ),
-                    rgt=case(
-                        [(personnel.c.rgt >= right_most_sibling,
-                          personnel.c.rgt + 2)],
-                        else_=personnel.c.rgt
-                    )
+            table.update(
+                and_(table.c.rgt >= right_most_sibling,
+                     table.c.tree_id == parent_tree_id)
+            ).values(
+                lft=case(
+                    [(table.c.lft > right_most_sibling,
+                      table.c.lft + 2)],
+                    else_=table.c.lft
+                ),
+                rgt=case(
+                    [(table.c.rgt >= right_most_sibling,
+                      table.c.rgt + 2)],
+                    else_=table.c.rgt
+                )
             )
         )
 
@@ -419,39 +434,42 @@ def before_insert(mapper, connection, instance):
 
 @event.listens_for(MPTTPages, "after_delete")
 def after_delete(mapper, connection, instance):
-    personnel = mapper.mapped_table
+    table = mapper.mapped_table
     lft = instance.left
     rgt = instance.right
+    tree_id = instance.tree_id
+    delta = rgt - lft + 1
 
     # Delete node or baranch of node
     # DELETE FROM tree WHERE lft >= $lft AND rgt <= $rgt
     connection.execute(
-        personnel.delete(and_(personnel.c.lft >= lft, personnel.c.rgt <= rgt))
+        table.delete(and_(table.c.lft >= lft, table.c.rgt <= rgt,
+                          table.c.tree_id == tree_id))
     )
 
     if instance.parent_id:
-        """ update key of current tree
+        """ Update key of current tree
+
             UPDATE tree
             SET left_id = CASE
-                    WHEN left_id > $leftId THEN left_id - 2
+                    WHEN left_id > $leftId THEN left_id - $delta
                     ELSE left_id
                 END,
                 right_id = CASE
-                    WHEN right_id > $rightId THEN right_id - 2
+                    WHEN right_id >= $rightId THEN right_id - $delta
                     ELSE right_id
                 END
         """
         connection.execute(
-            personnel.update().values(
+            table.update(and_(table.c.rgt >= rgt, table.c.tree_id == tree_id))
+            .values(
                 lft=case(
-                    [(personnel.c.lft > lft,
-                      personnel.c.lft - 2)],
-                    else_=personnel.c.lft
+                    [(table.c.lft > lft, table.c.lft - delta)],
+                    else_=table.c.lft
                 ),
                 rgt=case(
-                    [(personnel.c.rgt > rgt,
-                      personnel.c.rgt - 2)],
-                    else_=personnel.c.rgt
+                    [(table.c.rgt >= rgt, table.c.rgt - delta)],
+                    else_=table.c.rgt
                 )
             )
         )
