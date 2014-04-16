@@ -195,7 +195,7 @@
 			"file": "/F/ITCase/sacrud/sacrud/templates/sacrud/list.jinja2",
 			"settings":
 			{
-				"buffer_size": 1107,
+				"buffer_size": 1472,
 				"line_ending": "Windows"
 			}
 		},
@@ -1178,15 +1178,15 @@
 					"file": "/F/ITCase/sacrud/sacrud/templates/sacrud/list.jinja2",
 					"settings":
 					{
-						"buffer_size": 1107,
+						"buffer_size": 1472,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								432,
-								432
+								641,
+								641
 							]
 						],
 						"settings":
@@ -1434,7 +1434,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 280.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -4883,6 +4883,10 @@
 		"selected_items":
 		[
 			[
+				"list",
+				"sacrud/sacrud/templates/sacrud/list.jinja2"
+			],
+			[
 				"he",
 				"sacrud/sacrud/static/css/header/header.css"
 			],
@@ -4949,10 +4953,6 @@
 			[
 				"header",
 				"sacrud/sacrud/static/css/header/header.css"
-			],
-			[
-				"list",
-				"sacrud/sacrud/templates/sacrud/list.jinja2"
 			],
 			[
 				"logo",
