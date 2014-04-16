@@ -128,12 +128,12 @@ def add_company():
 
 
 def add_mptt_pages():
-    """ Nested Sets example
-        (1)1(8)_____       (1)5(8)_____
-           |        |         |        |
-        (2)2(5)  (6)4(7)   (2)6(5)  (6)8(7)
-           |                  |
-        (3)3(4)            (3)7(4)
+    """ level           Nested sets example
+          1   (1)1(8)_____      (1)5(8)_____      (1)9(8)_____
+                 |        |        |        |        |        |
+          2   (2)2(5)  (6)4(7)  (2)6(5)  (6)8(7)  (2)10(5)  (6)12(7)
+                 |                 |                 |
+          3   (3)3(4)           (3)7(4)           (3)11(4)
     """
     pages = (
         {'id': '1', 'parent_id': None},
@@ -145,6 +145,11 @@ def add_mptt_pages():
         {'id': '6', 'parent_id': '5'},
         {'id': '7', 'parent_id': '6'},
         {'id': '8', 'parent_id': '5'},
+
+        {'id': '9', 'parent_id': None},
+        {'id': '10', 'parent_id': '9'},
+        {'id': '11', 'parent_id': '10'},
+        {'id': '12', 'parent_id': '9'},
     )
     add_fixture(MPTTPages, pages)
 

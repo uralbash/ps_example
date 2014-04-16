@@ -10,5 +10,5 @@ waitress
 psycopg2
 ziggurat_foundations
 git+https://github.com/ITCase/sacrud.git
-git+https://github.com/monetizeio/sqlalchemy-orm-tree.git
 git+https://github.com/ITCase/pyramid_elfinder.git
+git+https://github.com/ITCase/sqlalchemy_mptt.git

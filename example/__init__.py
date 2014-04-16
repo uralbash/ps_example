@@ -23,7 +23,7 @@ from example.models.auth import (Company, ExternalIdentity, Group,
                                  GroupPermission, GroupResourcePermission,
                                  PERMISSION_VIEW, Resource, User, UserGroup,
                                  UserPermission, UserResourcePermission)
-from example.models.funny_models import (MPTTPages, Pages, TestAllTypes,
+from example.models.funny_models import (MPTTPages, TestAllTypes,
                                          TestBOOL, TestCustomizing, TestDND,
                                          TestFile, TestHSTORE, TestTEXT,
                                          TestUNION)
@@ -80,7 +80,7 @@ def main(global_config, **settings):
                                       TestFile],
                                  'Just for fun': [TestAllTypes],
                                  'Customizing example': [TestCustomizing],
-                                 'Pages': [Pages, MPTTPages],
+                                 'Pages': [MPTTPages],
                                  'Auth': [Company, Group, GroupPermission,
                                           UserGroup, GroupResourcePermission,
                                           Resource, UserPermission,
