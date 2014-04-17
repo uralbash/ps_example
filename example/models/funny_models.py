@@ -12,22 +12,19 @@ Models for example
 import os
 import uuid
 
-from sqlalchemy import (and_, between, BigInteger, Boolean, case, Column, Date,
-                        DateTime, Enum, event, Float, ForeignKey, Index,
-                        Integer, Numeric, select, String, Text, Unicode,
-                        UnicodeText)
+from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
+                        Float, ForeignKey, Integer, Numeric, String, Text,
+                        Unicode, UnicodeText)
 from sqlalchemy.dialects.postgresql import ARRAY, HSTORE  # JSON,
 from sqlalchemy.event import listen
 from sqlalchemy.ext.mutable import MutableDict
-from sqlalchemy.orm import backref, relationship
-from sqlalchemy_tree.manager import TreeManager
-from sqlalchemy_tree.types import (TreeDepthType, TreeIdType, TreeLeftType,
-                                   TreeRightType)
+from sqlalchemy.orm import relationship
 
-from example.models import Base, DBSession
+from example.models import Base
 from sacrud.common.custom import horizontal_field
 from sacrud.exttype import FileStore, GUID
 from sacrud.position import before_insert
+from sqlalchemy_mptt import BaseNestedSets
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'static')
 
@@ -259,124 +256,13 @@ class TestCustomizing(Base):
                          description2]
 
 
-class Pages(Base):
-    __tablename__ = "mptt_pages"
+class MPTTPages(Base, BaseNestedSets):
 
-    id = Column(Integer, primary_key=True)
-    parent_id = Column(Integer, ForeignKey('mptt_pages.id'))
-    name = Column(String)
-    description = Column(Text)
-
-    visible = Column(Boolean)
-
-    # SQLAlchemy tree
-    parent = relationship('Pages',
-                          backref=backref('children'),
-                          remote_side=[id])
-    tree_id = Column(TreeIdType, nullable=False)
-    left = Column(TreeLeftType, nullable=False)
-    right = Column(TreeRightType, nullable=False)
-    level = Column(TreeDepthType, nullable=False)
-
-    # SACRUD
-    verbose_name = u'SA-tree pages'
-    sacrud_css_class = {'tinymce': [description],
-                        'content': [description],
-                        'name': [name], }
-    # sacrud_detail_col = [name, parent_id, description, visible, tree_id]
-
-    def __repr__(self):
-        return self.name or self.id
-
-Pages.tree = TreeManager(Base.metadata.tables['mptt_pages'])
-Pages.tree.register()
-
-
-class MPTTPages(Base):
     """ https://bitbucket.org/zzzeek/sqlalchemy/src/73095b353124/examples/nested_sets/nested_sets.py?at=master
     """
     __tablename__ = "mptt_pages2"
-    __table_args__ = (
-        Index('mptt_pages2_lft', "lft"),
-        Index('mptt_pages2_rgt', "rgt"),
-        Index('mptt_pages2_level', "level"),
-    )
-    __mapper_args__ = {
-        'batch': False  # allows extension to fire for each
-                        # instance before going to the next.
-    }
-
-    def get_tree(self):
-        """ Return tree ordered by left key.
-            SELECT * FROM tree ORDER BY lft
-        """
-        table = self.__class__
-        return DBSession.query(table).order_by(table.lft).all()
-
-    def get_childrens_tree(self):
-        """ Return drill down tree from current node.
-            SELECT * FROM tree WHERE lft BETWEEN $left AND $right ORDER BY lft
-        """
-        table = self.__class__
-        if not self.lft or not self.rgt:
-            return self.get_tree()
-        return DBSession.query(table)\
-            .filter(between(table.lft, self.lft, self.rgt))\
-            .order_by(table.lft).all()
-
-    def get_parents_tree(self):
-        """ Return parents from current node.
-            SELECT * FROM tree WHERE lft <= $left AND rgt >= $right ORDER BY lft
-        """
-        table = self.__class__
-        if not self.lft or not self.rgt:
-            return self.get_tree()
-        return DBSession.query(table)\
-            .filter(table.lft <= self.lft).filter(table.rgt >= self.rgt)\
-            .order_by(table.lft).all()
-
-    def get_current_tree(self):
-        """ Return tree branch of current node.
-            SELECT * FROM tree WHERE rgt > $left AND lft < $right ORDER BY lft
-        """
-        table = self.__class__
-        if not self.lft or not self.rgt:
-            return self.get_tree()
-        return DBSession.query(table)\
-            .filter(table.lft < self.rgt).filter(table.rgt > self.lft)\
-            .order_by(table.lft).all()
-
-    def get_parent(self):
-        """ Calculate parent of node.
-            SELECT * FROM tree WHERE lft <= $left AND rgt >= $right
-            AND level = $level + 1 ORDER BY lft
-        """
-        table = self.__class__
-        if not self.lft or not self.rgt or not self.level:
-            return self.get_tree()
-        return DBSession.query(table)\
-            .filter(table.lft <= self.lft).filter(table.rgt >= self.rgt)\
-            .filter(table.level == self.level + 1)\
-            .order_by(table.lft).all()
 
     id = Column(Integer, primary_key=True)
-
-    tree_id = Column(Integer, ForeignKey('mptt_pages2.id'))
-    tree = relationship('MPTTPages', primaryjoin=(id == tree_id),
-                        backref=backref('children_tree'),  # for delete
-                        remote_side=[id],  # for show in sacrud
-                        post_update=True   # CircularDependencyError
-                        )
-
-    parent_id = Column(Integer, ForeignKey('mptt_pages2.id'))
-    parent = relationship('MPTTPages', primaryjoin=(id == parent_id),
-                          backref=backref('children'),  # for delete
-                          remote_side=[id]  # for show in sacrud relation
-                          )
-
-    left = Column("lft", Integer, nullable=False)
-    right = Column("rgt", Integer, nullable=False)
-    level = Column(Integer, nullable=False, default=0)
 
     name = Column(String)
     description = Column(Text)
@@ -384,6 +270,7 @@ class MPTTPages(Base):
     visible = Column(Boolean)
 
     # SACRUD
+    items_per_page = 20
     verbose_name = u'MPTT pages'
     sacrud_css_class = {'tinymce': [description],
                         'content': [description],
@@ -393,83 +280,4 @@ class MPTTPages(Base):
     def __repr__(self):
         return "MPTTPages(%s, %s, %s)" % (self.id, self.left, self.right)
 
-
-@event.listens_for(MPTTPages, "before_insert")
-def before_insert(mapper, connection, instance):
-    if not instance.parent_id:
-        instance.left = 1
-        instance.right = 2
-        instance.tree_id = instance.id
-    else:
-        table = mapper.mapped_table
-        right_most_sibling, parent_tree_id = connection.execute(
-            select([table.c.rgt, table.c.tree_id]).
-            where(table.c.id == instance.parent_id)
-        ).fetchone()
-
-        instance.tree_id = parent_tree_id
-
-        # update key of current tree
-        connection.execute(
-            table.update(
-                and_(table.c.rgt >= right_most_sibling,
-                     table.c.tree_id == parent_tree_id)
-            ).values(
-                lft=case(
-                    [(table.c.lft > right_most_sibling,
-                      table.c.lft + 2)],
-                    else_=table.c.lft
-                ),
-                rgt=case(
-                    [(table.c.rgt >= right_most_sibling,
-                      table.c.rgt + 2)],
-                    else_=table.c.rgt
-                )
-            )
-        )
-
-        instance.left = right_most_sibling
-        instance.right = right_most_sibling + 1
-
-
-@event.listens_for(MPTTPages, "after_delete")
-def after_delete(mapper, connection, instance):
-    table = mapper.mapped_table
-    lft = instance.left
-    rgt = instance.right
-    tree_id = instance.tree_id
-    delta = rgt - lft + 1
-
-    # Delete node or baranch of node
-    # DELETE FROM tree WHERE lft >= $lft AND rgt <= $rgt
-    connection.execute(
-        table.delete(and_(table.c.lft >= lft, table.c.rgt <= rgt,
-                          table.c.tree_id == tree_id))
-    )
-
-    if instance.parent_id:
-        """ Update key of current tree
-
-            UPDATE tree
-            SET left_id = CASE
-                    WHEN left_id > $leftId THEN left_id - $delta
-                    ELSE left_id
-                END,
-                right_id = CASE
-                    WHEN right_id >= $rightId THEN right_id - $delta
-                    ELSE right_id
-                END
-        """
-        connection.execute(
-            table.update(and_(table.c.rgt >= rgt, table.c.tree_id == tree_id))
-            .values(
-                lft=case(
-                    [(table.c.lft > lft, table.c.lft - delta)],
-                    else_=table.c.lft
-                ),
-                rgt=case(
-                    [(table.c.rgt >= rgt, table.c.rgt - delta)],
-                    else_=table.c.rgt
-                )
-            )
-        )
+MPTTPages.register_tree()
