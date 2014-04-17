@@ -17,6 +17,7 @@ from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Unicode, UnicodeText)
 from sqlalchemy.dialects.postgresql import ARRAY, HSTORE  # JSON,
 from sqlalchemy.event import listen
+from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
@@ -257,7 +258,6 @@ class TestCustomizing(Base):
 
 
 class MPTTPages(Base, BaseNestedSets):
-
     """ https://bitbucket.org/zzzeek/sqlalchemy/src/73095b353124/examples/nested_sets/nested_sets.py?at=master
     """
     __tablename__ = "mptt_pages2"
@@ -275,7 +275,11 @@ class MPTTPages(Base, BaseNestedSets):
     sacrud_css_class = {'tinymce': [description],
                         'content': [description],
                         'name': [name], }
-    # sacrud_detail_col = [name, parent_id, description, visible, tree_id]
+
+    @declared_attr
+    def sacrud_list_col(cls):
+        return [cls.id, cls.level, cls.tree_id,
+                cls.parent_id, cls.left, cls.right]
 
     def __repr__(self):
         return "MPTTPages(%s, %s, %s)" % (self.id, self.left, self.right)
