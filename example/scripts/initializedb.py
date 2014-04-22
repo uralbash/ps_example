@@ -140,17 +140,19 @@ def add_mptt_pages():
         {'id': '2', 'parent_id': '1'},
         {'id': '3', 'parent_id': '2'},
         {'id': '4', 'parent_id': '1'},
-
+    )
+    """
         {'id': '5', 'parent_id': None},
         {'id': '6', 'parent_id': '5'},
         {'id': '7', 'parent_id': '6'},
         {'id': '8', 'parent_id': '5'},
-
+    )
         {'id': '9', 'parent_id': None},
         {'id': '10', 'parent_id': '9'},
         {'id': '11', 'parent_id': '10'},
         {'id': '12', 'parent_id': '9'},
     )
+    """
     add_fixture(MPTTPages, pages)
 
 
