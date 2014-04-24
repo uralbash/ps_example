@@ -1,7 +1,7 @@
 [![Stories in Ready](https://badge.waffle.io/itcase/pyramid_sacrud_example.png?label=ready&title=Ready)](https://waffle.io/itcase/pyramid_sacrud_example)
 [![Build Status](https://travis-ci.org/ITCase/pyramid_sacrud_example.png?branch=master)](https://travis-ci.org/ITCase/pyramid_sacrud_example)
 
-App demostration pyramid CRUD interface powered by sacrud package.
+App demostration pyramid CRUD interface powered by sacrud package. 
 
 Documentation http://pyramid-sacrud-example.readthedocs.org/en/latest/
 
