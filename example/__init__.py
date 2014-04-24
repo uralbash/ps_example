@@ -23,7 +23,7 @@ from example.models.auth import (Company, ExternalIdentity, Group,
                                  GroupPermission, GroupResourcePermission,
                                  PERMISSION_VIEW, Resource, User, UserGroup,
                                  UserPermission, UserResourcePermission)
-from example.models.funny_models import (MPTTPages, TestAllTypes,
+from example.models.funny_models import (TestAllTypes, MPTTPages,
                                          TestBOOL, TestCustomizing, TestDND,
                                          TestFile, TestHSTORE, TestTEXT,
                                          TestUNION)

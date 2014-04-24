@@ -128,31 +128,51 @@ def add_company():
 
 
 def add_mptt_pages():
-    """ level           Nested sets example
-          1                   (1)1(22)
+    """ level           Nested sets tree1
+          1                    1(1)22
                   _______________|___________________
                  |               |                   |
-          2   (2)2(5)         (6)4(11)           (12)7(21)
+          2    2(2)5           6(4)11             12(7)21
                  |               ^                   ^
-          3   (3)3(4)     (7)5(8) (9)6(10)  (13)8(16) (17)10(20)
-                                               |           |
-          4                                (14)9(15)  (18)11(19)
+          3    3(3)4       7(5)8   9(6)10    13(8)16   17(10)20
+                                                |          |
+          4                                  14(9)15   18(11)19
+
+        level           Nested sets tree2
+          1                    1(12)22
+                  _______________|___________________
+                 |               |                   |
+          2    2(13)5         6(15)11             12(18)21
+                 |               ^                    ^
+          3    3(14)4     7(16)8   9(17)10   13(19)16   17(21)20
+                                                 |          |
+          4                                  14(20)15   18(22)19
+
     """
     pages = (
         {'id': '1', 'parent_id': None},
-
         {'id': '2', 'parent_id': '1'},
         {'id': '3', 'parent_id': '2'},
-
         {'id': '4', 'parent_id': '1'},
         {'id': '5', 'parent_id': '4'},
         {'id': '6', 'parent_id': '4'},
-
         {'id': '7', 'parent_id': '1'},
         {'id': '8', 'parent_id': '7'},
         {'id': '9', 'parent_id': '8'},
         {'id': '10', 'parent_id': '7'},
         {'id': '11', 'parent_id': '10'},
+
+        {'id': '12', 'parent_id': None, 'tree_id': '12'},
+        {'id': '13', 'parent_id': '12', 'tree_id': '12'},
+        {'id': '14', 'parent_id': '13', 'tree_id': '12'},
+        {'id': '15', 'parent_id': '12', 'tree_id': '12'},
+        {'id': '16', 'parent_id': '15', 'tree_id': '12'},
+        {'id': '17', 'parent_id': '15', 'tree_id': '12'},
+        {'id': '18', 'parent_id': '12', 'tree_id': '12'},
+        {'id': '19', 'parent_id': '18', 'tree_id': '12'},
+        {'id': '20', 'parent_id': '19', 'tree_id': '12'},
+        {'id': '21', 'parent_id': '18', 'tree_id': '12'},
+        {'id': '22', 'parent_id': '21', 'tree_id': '12'},
     )
     add_fixture(MPTTPages, pages)
 
