@@ -26,7 +26,7 @@ install:
   - sudo apt-get install -q postgresql-common
   - sudo apt-get install -q postgresql-plpython-9.1
   - pip install nose coverage
-  - pip install sqlalchemy
+  - pip install sqlalchemy, pyramid
   - pip install -r requirements.txt
 
 before_script:
