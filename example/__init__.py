@@ -88,6 +88,9 @@ def main(global_config, **settings):
                                           ExternalIdentity]
                                  }
 
+    # sacrud_pages
+    config.include("sacrud_pages")
+
     config.add_static_view('static', 'static', cache_max_age=3600)
 
     add_routes(config)
