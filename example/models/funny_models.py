@@ -21,10 +21,9 @@ from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
 from example.models import Base
-from sacrud.common.custom import horizontal_field, as_link
+from sacrud.common.custom import as_link, horizontal_field
 from sacrud.exttype import FileStore, GUID
 from sacrud.position import before_insert
-from sacrud_pages.models import MPTTPages
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
                          'static')
@@ -255,5 +254,3 @@ class TestCustomizing(Base):
                          horizontal_field(in_menu, visible, in_banner,
                                           sacrud_name=u"Расположение"),
                          description2]
-
-MPTTPages.register_tree()

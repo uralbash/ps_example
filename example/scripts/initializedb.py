@@ -21,9 +21,10 @@ from sqlalchemy import engine_from_config
 from example.lib.fixture import add_fixture
 from example.models import Base, DBSession
 from example.models.auth import Company, User
-from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
+from example.models.funny_models import (TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION)
+from sacrud_pages.models import MPTTPages
 
 
 def usage(argv):
@@ -198,11 +199,14 @@ def main(argv=sys.argv):
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
+
     # drop database
     Base.metadata.drop_all(engine)
+
     # add postgres extension
     add_extension(engine, "plpythonu", "hstore", "uuid-ossp")
 
+    # create database
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
 

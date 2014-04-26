@@ -23,11 +23,11 @@ from example.models.auth import (Company, ExternalIdentity, Group,
                                  GroupPermission, GroupResourcePermission,
                                  PERMISSION_VIEW, Resource, User, UserGroup,
                                  UserPermission, UserResourcePermission)
-from example.models.funny_models import (TestAllTypes, MPTTPages,
-                                         TestBOOL, TestCustomizing, TestDND,
-                                         TestFile, TestHSTORE, TestTEXT,
-                                         TestUNION)
+from example.models.funny_models import (TestAllTypes, TestBOOL,
+                                         TestCustomizing, TestDND, TestFile,
+                                         TestHSTORE, TestTEXT, TestUNION)
 from example.scripts import initializedb
+from sacrud_pages.models import MPTTPages
 
 
 def add_routes(config):
@@ -42,15 +42,6 @@ def add_routes(config):
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    # Database
-    engine = engine_from_config(settings, 'sqlalchemy.')
-    DBSession.configure(bind=engine)
-    Base.metadata.bind = engine
-    conn = DBSession.connection()
-    register_hstore(conn.engine.raw_connection(), True)
-    ini_file = global_config['__file__']
-    initializedb.main(argv=["init", ini_file])
-
     # Auth
     session_factory = session_factory_from_settings(settings)
     config = Configurator(settings=settings,
@@ -64,6 +55,20 @@ def main(global_config, **settings):
 
     config.add_request_method(get_user, 'user', reify=True)
     config.set_default_permission(PERMISSION_VIEW)
+
+    # sacrud_pages
+    config.include("sacrud_pages")
+
+    # Database
+    engine = engine_from_config(settings, 'sqlalchemy.')
+    DBSession.configure(bind=engine)
+    Base.metadata.bind = engine
+    conn = DBSession.connection()
+
+    initializedb.add_extension(engine, 'hstore')
+    register_hstore(conn.engine.raw_connection(), True)
+    ini_file = global_config['__file__']
+    initializedb.main(argv=["init", ini_file])
 
     # pyramid_jinja2 configuration
     config.include('pyramid_jinja2')
@@ -87,9 +92,6 @@ def main(global_config, **settings):
                                           UserResourcePermission, User,
                                           ExternalIdentity]
                                  }
-
-    # sacrud_pages
-    config.include("sacrud_pages")
 
     config.add_static_view('static', 'static', cache_max_age=3600)
 
