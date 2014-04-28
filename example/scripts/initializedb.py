@@ -21,9 +21,10 @@ from sqlalchemy import engine_from_config
 from example.lib.fixture import add_fixture
 from example.models import Base, DBSession
 from example.models.auth import Company, User
-from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
+from example.models.funny_models import (TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION)
+from sacrud_pages.models import MPTTPages
 
 
 def usage(argv):
@@ -128,31 +129,52 @@ def add_company():
 
 
 def add_mptt_pages():
-    """ level           Nested sets example
-          1   (1)1(8)_____      (1)5(8)_____      (1)9(8)_____
-                 |        |        |        |        |        |
-          2   (2)2(5)  (6)4(7)  (2)6(5)  (6)8(7)  (2)10(5)  (6)12(7)
-                 |                 |                 |
-          3   (3)3(4)           (3)7(4)           (3)11(4)
+    """ level           Nested sets tree1
+          1                    1(1)22
+                  _______________|___________________
+                 |               |                   |
+          2    2(2)5           6(4)11             12(7)21
+                 |               ^                   ^
+          3    3(3)4       7(5)8   9(6)10    13(8)16   17(10)20
+                                                |          |
+          4                                  14(9)15   18(11)19
+
+        level           Nested sets tree2
+          1                    1(12)22
+                  _______________|___________________
+                 |               |                   |
+          2    2(13)5         6(15)11             12(18)21
+                 |               ^                    ^
+          3    3(14)4     7(16)8   9(17)10   13(19)16   17(21)20
+                                                 |          |
+          4                                  14(20)15   18(22)19
+
     """
     pages = (
         {'id': '1', 'parent_id': None},
         {'id': '2', 'parent_id': '1'},
         {'id': '3', 'parent_id': '2'},
         {'id': '4', 'parent_id': '1'},
-    )
-    """
-        {'id': '5', 'parent_id': None},
-        {'id': '6', 'parent_id': '5'},
-        {'id': '7', 'parent_id': '6'},
-        {'id': '8', 'parent_id': '5'},
-    )
-        {'id': '9', 'parent_id': None},
-        {'id': '10', 'parent_id': '9'},
+        {'id': '5', 'parent_id': '4'},
+        {'id': '6', 'parent_id': '4'},
+        {'id': '7', 'parent_id': '1'},
+        {'id': '8', 'parent_id': '7'},
+        {'id': '9', 'parent_id': '8'},
+        {'id': '10', 'parent_id': '7'},
         {'id': '11', 'parent_id': '10'},
-        {'id': '12', 'parent_id': '9'},
+
+        {'id': '12', 'parent_id': None, 'tree_id': '12'},
+        {'id': '13', 'parent_id': '12', 'tree_id': '12'},
+        {'id': '14', 'parent_id': '13', 'tree_id': '12'},
+        {'id': '15', 'parent_id': '12', 'tree_id': '12'},
+        {'id': '16', 'parent_id': '15', 'tree_id': '12'},
+        {'id': '17', 'parent_id': '15', 'tree_id': '12'},
+        {'id': '18', 'parent_id': '12', 'tree_id': '12'},
+        {'id': '19', 'parent_id': '18', 'tree_id': '12'},
+        {'id': '20', 'parent_id': '19', 'tree_id': '12'},
+        {'id': '21', 'parent_id': '18', 'tree_id': '12'},
+        {'id': '22', 'parent_id': '21', 'tree_id': '12'},
     )
-    """
     add_fixture(MPTTPages, pages)
 
 
@@ -177,11 +199,14 @@ def main(argv=sys.argv):
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
+
     # drop database
     Base.metadata.drop_all(engine)
+
     # add postgres extension
     add_extension(engine, "plpythonu", "hstore", "uuid-ossp")
 
+    # create database
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
 

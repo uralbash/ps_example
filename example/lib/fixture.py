@@ -24,8 +24,10 @@ def add_fixture(model, fixtures):
     hashes = ({'foo': {'foo': 'bar', '1': '2'}}, {'foo': {'test': 'data'}})
     add_fixture(TestHSTORE, hashes)
     """
+    model.__table__.create(checkfirst=True, bind=DBSession.bind.engine)
     with transaction.manager:
         DBSession.query(model).delete()
+
         for fixture in fixtures:
             DBSession.add(model(**fixture))
 

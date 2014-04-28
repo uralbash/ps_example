@@ -1,5 +1,5 @@
 pyramid
-pyramid_jinja2
+pyramid_jinja2==1.10
 pyramid_beaker
 SQLAlchemy
 transaction
@@ -9,6 +9,7 @@ zope.sqlalchemy
 waitress
 psycopg2
 ziggurat_foundations
-git+https://github.com/ITCase/sacrud.git
+git+https://github.com/ITCase/sacrud.git@develop
 git+https://github.com/ITCase/pyramid_elfinder.git
 git+https://github.com/ITCase/sqlalchemy_mptt.git
+git+https://github.com/ITCase/sacrud_pages.git
