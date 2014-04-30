@@ -247,10 +247,13 @@ class TestCustomizing(Base):
                         'content': [description],
                         'name': [name], 'Date': [date]}
     sacrud_list_col = [as_link(name, sacrud_name=u'name'), name_ru, name_cze]
-    sacrud_detail_col = [name,
-                         horizontal_field(name_ru, name_bg, name_fr, name_cze,
-                                          sacrud_name=u"i18n names"),
-                         description, date,
-                         horizontal_field(in_menu, visible, in_banner,
-                                          sacrud_name=u"Расположение"),
-                         description2]
+    sacrud_detail_col = [('name space', [name,
+                                         horizontal_field(name_ru, name_bg,
+                                                          name_fr, name_cze,
+                                                          sacrud_name=u"i18n names")]),
+                         ('description', [description, date,
+                                          horizontal_field(in_menu, visible,
+                                                           in_banner,
+                                                           sacrud_name=u"Расположение"),
+                                          description2])
+                         ]
