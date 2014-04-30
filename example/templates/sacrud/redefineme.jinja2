@@ -3,10 +3,6 @@
 {% block userspace %}
   {{ super() }}
 
-  <!-- Date field -->
-  <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
   <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
   <style>
     .content {
@@ -16,13 +12,6 @@
       width: 400px;
     }
   </style>
-
-
-  <!--script>
-    $(function() {
-      $(".Date").datepicker({ dateFormat: 'yy-mm-dd' });
-    });
-  </script-->
 
   <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
   {% include 'elfinder/tinymce.jinja2' %}
