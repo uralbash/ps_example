@@ -151,17 +151,17 @@ def add_mptt_pages():
 
     """
     pages = (
-        {'id': '1',  'slug': 'foo1',  'name': 'foo1', 'visible': True, 'parent_id': None},
-        {'id': '2',  'slug': 'foo2',  'name': u'Foo ♥  Bar', 'visible': True, 'parent_id': '1'},
-        {'id': '3',  'slug': 'foo3',  'name': 'foo3', 'visible': True, 'parent_id': '2'},
-        {'id': '4',  'slug': 'foo4',  'name': 'foo4', 'visible': False, 'parent_id': '1'},
-        {'id': '5',  'slug': 'foo5',  'name': 'foo5', 'visible': True, 'parent_id': '4'},
-        {'id': '6',  'slug': 'foo6',  'name': 'foo6', 'visible': False, 'parent_id': '4'},
-        {'id': '7',  'slug': 'foo7',  'name': 'foo7', 'visible': True, 'parent_id': '1'},
-        {'id': '8',  'slug': 'foo8',  'name': 'foo8', 'visible': True, 'parent_id': '7'},
-        {'id': '9',  'slug': 'foo9',  'name': 'foo9', 'visible': False, 'parent_id': '8'},
-        {'id': '10', 'slug': 'foo10', 'name': 'foo10', 'visible': True,  'parent_id': '7'},
-        {'id': '11', 'slug': 'foo11', 'name': 'foo11', 'visible': True,  'parent_id': '10'},
+        {'id': '1',  'slug': 'about-company',  'name': 'About company', 'visible': True, 'parent_id': None},
+        {'id': '2',  'slug': 'we-love-gevent',  'name': u'We ♥  gevent', 'visible': True, 'parent_id': '1'},
+        {'id': '3',  'slug': 'and-pyramid',  'name': 'And Pyramid', 'visible': True, 'parent_id': '2'},
+        {'id': '4',  'slug': 'our-history',  'name': 'Our history', 'visible': False, 'parent_id': '1'},
+        {'id': '5',  'slug': 'foo',  'name': 'foo', 'visible': True, 'parent_id': '4'},
+        {'id': '6',  'slug': 'kompania-itcase',  'name': u'компания ITCase', 'visible': False, 'parent_id': '4'},
+        {'id': '7',  'slug': 'our-strategy',  'name': 'Our strategy', 'visible': True, 'parent_id': '1'},
+        {'id': '8',  'slug': 'wordwide',  'name': 'Wordwide', 'visible': True, 'parent_id': '7'},
+        {'id': '9',  'slug': 'technology',  'name': 'Technology', 'visible': False, 'parent_id': '8'},
+        {'id': '10', 'slug': 'what-we-do', 'name': 'What we do', 'visible': True,  'parent_id': '7'},
+        {'id': '11', 'slug': 'at a glance', 'name': 'at a gnace', 'visible': True,  'parent_id': '10'},
 
         {'id': '12', 'slug': 'foo12', 'name': 'foo12', 'visible': True, 'parent_id': None, 'tree_id': '12'},
         {'id': '13', 'slug': 'foo13', 'name': 'foo13', 'visible': False, 'parent_id': '12', 'tree_id': '12'},
