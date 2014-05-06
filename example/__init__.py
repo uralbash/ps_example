@@ -56,9 +56,6 @@ def main(global_config, **settings):
     config.add_request_method(get_user, 'user', reify=True)
     config.set_default_permission(PERMISSION_VIEW)
 
-    # sacrud_pages
-    config.include("sacrud_pages")
-
     # Database
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
@@ -97,5 +94,8 @@ def main(global_config, **settings):
 
     add_routes(config)
     config.scan()
+
+    # sacrud_pages - put it after all routes
+    config.include("sacrud_pages")
 
     return config.make_wsgi_app()

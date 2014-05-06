@@ -151,29 +151,29 @@ def add_mptt_pages():
 
     """
     pages = (
-        {'id': '1', 'parent_id': None},
-        {'id': '2', 'parent_id': '1'},
-        {'id': '3', 'parent_id': '2'},
-        {'id': '4', 'parent_id': '1'},
-        {'id': '5', 'parent_id': '4'},
-        {'id': '6', 'parent_id': '4'},
-        {'id': '7', 'parent_id': '1'},
-        {'id': '8', 'parent_id': '7'},
-        {'id': '9', 'parent_id': '8'},
-        {'id': '10', 'parent_id': '7'},
-        {'id': '11', 'parent_id': '10'},
+        {'id': '1',  'name': 'foo1', 'visible': True, 'parent_id': None},
+        {'id': '2',  'name': 'foo2', 'visible': True, 'parent_id': '1'},
+        {'id': '3',  'name': 'foo3', 'visible': True, 'parent_id': '2'},
+        {'id': '4',  'name': 'foo4', 'visible': False, 'parent_id': '1'},
+        {'id': '5',  'name': 'foo5', 'visible': True, 'parent_id': '4'},
+        {'id': '6',  'name': 'foo6', 'visible': False, 'parent_id': '4'},
+        {'id': '7',  'name': 'foo7', 'visible': True, 'parent_id': '1'},
+        {'id': '8',  'name': 'foo8', 'visible': True, 'parent_id': '7'},
+        {'id': '9',  'name': 'foo9', 'visible': False, 'parent_id': '8'},
+        {'id': '10', 'name': 'foo10', 'visible': True,  'parent_id': '7'},
+        {'id': '11', 'name': 'foo11', 'visible': True,  'parent_id': '10'},
 
-        {'id': '12', 'parent_id': None, 'tree_id': '12'},
-        {'id': '13', 'parent_id': '12', 'tree_id': '12'},
-        {'id': '14', 'parent_id': '13', 'tree_id': '12'},
-        {'id': '15', 'parent_id': '12', 'tree_id': '12'},
-        {'id': '16', 'parent_id': '15', 'tree_id': '12'},
-        {'id': '17', 'parent_id': '15', 'tree_id': '12'},
-        {'id': '18', 'parent_id': '12', 'tree_id': '12'},
-        {'id': '19', 'parent_id': '18', 'tree_id': '12'},
-        {'id': '20', 'parent_id': '19', 'tree_id': '12'},
-        {'id': '21', 'parent_id': '18', 'tree_id': '12'},
-        {'id': '22', 'parent_id': '21', 'tree_id': '12'},
+        {'id': '12', 'name': 'foo12', 'visible': True, 'parent_id': None, 'tree_id': '12'},
+        {'id': '13', 'name': 'foo13', 'visible': False, 'parent_id': '12', 'tree_id': '12'},
+        {'id': '14', 'name': 'foo14', 'visible': False, 'parent_id': '13', 'tree_id': '12'},
+        {'id': '15', 'name': 'foo15', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
+        {'id': '16', 'name': 'foo16', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
+        {'id': '17', 'name': 'foo17', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
+        {'id': '18', 'name': 'foo18', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
+        {'id': '19', 'name': 'foo19', 'visible': True, 'parent_id': '18', 'tree_id': '12'},
+        {'id': '20', 'name': 'foo20', 'visible': True, 'parent_id': '19', 'tree_id': '12'},
+        {'id': '21', 'name': 'foo21', 'visible': True, 'parent_id': '18', 'tree_id': '12'},
+        {'id': '22', 'name': 'foo22', 'visible': True, 'parent_id': '21', 'tree_id': '12'},
     )
     add_fixture(MPTTPages, pages)
 
@@ -202,6 +202,7 @@ def main(argv=sys.argv):
 
     # drop database
     Base.metadata.drop_all(engine)
+    transaction.commit()
 
     # add postgres extension
     add_extension(engine, "plpythonu", "hstore", "uuid-ossp")
