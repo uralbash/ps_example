@@ -161,7 +161,7 @@ def add_mptt_pages():
         {'id': '8',  'slug': 'wordwide',  'name': 'Wordwide', 'visible': True, 'parent_id': '7'},
         {'id': '9',  'slug': 'technology',  'name': 'Technology', 'visible': False, 'parent_id': '8'},
         {'id': '10', 'slug': 'what-we-do', 'name': 'What we do', 'visible': True,  'parent_id': '7'},
-        {'id': '11', 'slug': 'at a glance', 'name': 'at a gnace', 'visible': True,  'parent_id': '10'},
+        {'id': '11', 'slug': 'at-a-glance', 'name': 'at a gnace', 'visible': True,  'parent_id': '10'},
 
         {'id': '12', 'slug': 'foo12', 'name': 'foo12', 'visible': True, 'parent_id': None, 'tree_id': '12'},
         {'id': '13', 'slug': 'foo13', 'name': 'foo13', 'visible': False, 'parent_id': '12', 'tree_id': '12'},
