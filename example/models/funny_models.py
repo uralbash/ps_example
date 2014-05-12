@@ -228,7 +228,7 @@ class TestCustomizing(Base):
     __tablename__ = "test_customizing"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String)
+    name = Column(String, info={"description": "put there name"})
     date = Column(Date, info={"verbose_name": 'date JQuery-ui'})
     name_ru = Column(String, info={"verbose_name": u'Название', })
     name_fr = Column(String, info={"verbose_name": u'nom', })
@@ -238,7 +238,8 @@ class TestCustomizing(Base):
     description2 = Column(Text)
 
     visible = Column(Boolean)
-    in_menu = Column(Boolean, info={"verbose_name": u'menu?', })
+    in_menu = Column(Boolean, info={"verbose_name": u'menu?',
+                                    "description": "Added this page in menu"})
     in_banner = Column(Boolean, info={"verbose_name": u'on banner?', })
 
     # SACRUD
