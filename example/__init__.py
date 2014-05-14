@@ -25,7 +25,8 @@ from example.models.auth import (Company, ExternalIdentity, Group,
                                  UserPermission, UserResourcePermission)
 from example.models.funny_models import (TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
-                                         TestHSTORE, TestTEXT, TestUNION)
+                                         TestHSTORE, TestTEXT, TestUNION,
+                                         WidgetPosition)
 from example.scripts import initializedb
 from sacrud_pages.models import MPTTPages
 
@@ -56,6 +57,53 @@ def main(global_config, **settings):
     config.add_request_method(get_user, 'user', reify=True)
     config.set_default_permission(PERMISSION_VIEW)
 
+    # Columns and positions start at 0
+    sacrud_models = {
+        'Postgres': {
+            'tables': [TestHSTORE],
+            'column': 0,
+            'position': 0,
+        },
+        '': {
+            'tables': [TestTEXT, TestBOOL, TestDND, TestUNION, TestFile],
+             'column': 0,
+             'position': 1,
+        },
+        'Just for fun': {
+            'tables': [TestAllTypes],
+            'column': 1,
+            'position': 0,
+        },
+        'Customizing example': {
+            'tables': [TestCustomizing],
+            'column': 1,
+            'position': 1,
+        },
+        'Pages': {
+            'tables': [MPTTPages],
+            'column': 2,
+            'position': 0,
+        },
+        'Auth': {
+            'tables': [Company, Group, GroupPermission, UserGroup,
+                       GroupResourcePermission, Resource, UserPermission,
+                       UserResourcePermission, User, ExternalIdentity],
+            'column': 2,
+            'position': 1,
+        },
+    }
+
+    # sacrud_models = {
+    #     'Postgres': [TestHSTORE],
+    #      '': [TestTEXT, TestBOOL, TestDND, TestUNION, TestFile],
+    #      'Just for fun': [TestAllTypes],
+    #      'Customizing example': [TestCustomizing],
+    #      'Pages': [MPTTPages],
+    #      'Auth': [Company, Group, GroupPermission, UserGroup,
+    #               GroupResourcePermission, Resource, UserPermission,
+    #               UserResourcePermission, User, ExternalIdentity]
+    # }
+
     # Database
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
@@ -65,7 +113,7 @@ def main(global_config, **settings):
     initializedb.add_extension(engine, 'hstore')
     register_hstore(conn.engine.raw_connection(), True)
     ini_file = global_config['__file__']
-    initializedb.main(argv=["init", ini_file])
+    initializedb.main(argv=["init", ini_file], sacrud_models=sacrud_models)
 
     # pyramid_jinja2 configuration
     config.include('pyramid_jinja2')
@@ -77,18 +125,7 @@ def main(global_config, **settings):
     # SACRUD
     config.include('sacrud.pyramid_ext', route_prefix='/admin')
     settings = config.registry.settings
-    settings['sacrud.models'] = {'Postgres': [TestHSTORE],
-                                 '': [TestTEXT, TestBOOL, TestDND, TestUNION,
-                                      TestFile],
-                                 'Just for fun': [TestAllTypes],
-                                 'Customizing example': [TestCustomizing],
-                                 'Pages': [MPTTPages],
-                                 'Auth': [Company, Group, GroupPermission,
-                                          UserGroup, GroupResourcePermission,
-                                          Resource, UserPermission,
-                                          UserResourcePermission, User,
-                                          ExternalIdentity]
-                                 }
+    settings['sacrud.models'] = sacrud_models
 
     config.add_static_view('static', 'static', cache_max_age=3600)
 

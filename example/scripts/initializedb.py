@@ -23,7 +23,9 @@ from example.models import Base, DBSession
 from example.models.auth import Company, User
 from example.models.funny_models import (TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
-                                         TestHSTORE, TestTEXT, TestUNION)
+                                         TestHSTORE, TestTEXT, TestUNION,
+                                         WidgetPosition)
+
 from sacrud_pages.models import MPTTPages
 
 
@@ -128,6 +130,14 @@ def add_company():
     add_fixture(Company, company)
 
 
+def add_widgets_position(sacrud_models):
+    row = ()
+    for model_name, values in sacrud_models.items():
+        row += ({'widget': model_name, 'column': values['column'],
+                 'position': values['position']}, )
+    add_fixture(WidgetPosition, row)
+
+
 def add_mptt_pages():
     """ level           Nested sets tree1
           1                    1(1)22
@@ -192,7 +202,7 @@ def add_user(user):
     transaction.commit()
 
 
-def main(argv=sys.argv):
+def main(argv=sys.argv, sacrud_models=None):
     if len(argv) != 2:
         usage(argv)
     config_uri = argv[1]
@@ -220,6 +230,7 @@ def main(argv=sys.argv):
     add_customizing()
     add_file()
     add_mptt_pages()
+    add_widgets_position(sacrud_models)
 
     # Auth
     add_company()

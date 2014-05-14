@@ -257,3 +257,16 @@ class TestCustomizing(Base):
                                                            sacrud_name=u"Расположение"),
                                           description2])
                          ]
+
+
+class WidgetPosition(Base):
+    """SACRUD main page widgets position"""
+
+    __tablename__ = "widget_position"
+
+    id = Column(Integer, primary_key=True)
+    widget = Column(String)
+    column = Column(Integer)
+    position = Column(Integer)
+
+    __mapper_args__ = {'order_by': [column, position]}
