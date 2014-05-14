@@ -64,8 +64,6 @@ def main(global_config, **settings):
         },
         '': {
             'tables': [TestTEXT, TestBOOL, TestDND, TestUNION, TestFile],
-            'column': 0,
-            'position': 1,
         },
         'Just for fun': {
             'tables': [TestAllTypes],
