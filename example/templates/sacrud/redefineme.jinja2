@@ -36,5 +36,16 @@
 {% endblock %}
 
 {% block sa_menu %}
-  {{ super() }}
+  <div class="header">
+      <div class="header__inner clear-fix">
+          <div class="logo">
+              <div class="logo__text">
+                  <a href="/admin/" class="logo__text-link">SACRUD v: {{ sacrud_ver }}</a>
+              </div>
+          </div>
+          <div class="header__inner-menu">
+            {% include "/auth/user_in_head.jinja2" %}
+          </div>
+      </div>
+  </div>
 {% endblock %}
