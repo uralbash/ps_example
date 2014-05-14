@@ -61,13 +61,11 @@ def main(global_config, **settings):
     sacrud_models = {
         'Postgres': {
             'tables': [TestHSTORE],
-            'column': 0,
-            'position': 0,
         },
         '': {
             'tables': [TestTEXT, TestBOOL, TestDND, TestUNION, TestFile],
-             'column': 0,
-             'position': 1,
+            'column': 0,
+            'position': 1,
         },
         'Just for fun': {
             'tables': [TestAllTypes],

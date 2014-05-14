@@ -133,8 +133,8 @@ def add_company():
 def add_widgets_position(sacrud_models):
     row = ()
     for model_name, values in sacrud_models.items():
-        row += ({'widget': model_name, 'column': values['column'],
-                 'position': values['position']}, )
+        row += ({'widget': model_name, 'column': values.get('column', 0),
+                 'position': values.get('position', 0)}, )
     add_fixture(WidgetPosition, row)
 
 
