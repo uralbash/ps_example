@@ -89,17 +89,6 @@ def main(global_config, **settings):
         },
     }
 
-    # sacrud_models = {
-    #     'Postgres': [TestHSTORE],
-    #      '': [TestTEXT, TestBOOL, TestDND, TestUNION, TestFile],
-    #      'Just for fun': [TestAllTypes],
-    #      'Customizing example': [TestCustomizing],
-    #      'Pages': [MPTTPages],
-    #      'Auth': [Company, Group, GroupPermission, UserGroup,
-    #               GroupResourcePermission, Resource, UserPermission,
-    #               UserResourcePermission, User, ExternalIdentity]
-    # }
-
     # Database
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
