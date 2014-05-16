@@ -71,7 +71,7 @@ def main(global_config, **settings):
             'position': 0,
         },
         'Customizing example': {
-            'tables': [TestCustomizing],
+            'tables': [TestCustomizing, WidgetPosition],
             'column': 1,
             'position': 1,
         },
