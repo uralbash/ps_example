@@ -21,12 +21,10 @@ from sqlalchemy import engine_from_config
 from example.lib.fixture import add_fixture
 from example.models import Base, DBSession
 from example.models.auth import Company, User
-from example.models.funny_models import (TestAllTypes, TestBOOL,
+from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION,
                                          WidgetPosition)
-
-from sacrud_pages.models import MPTTPages
 
 
 def usage(argv):

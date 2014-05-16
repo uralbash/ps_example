@@ -23,12 +23,11 @@ from example.models.auth import (Company, ExternalIdentity, Group,
                                  GroupPermission, GroupResourcePermission,
                                  PERMISSION_VIEW, Resource, User, UserGroup,
                                  UserPermission, UserResourcePermission)
-from example.models.funny_models import (TestAllTypes, TestBOOL,
+from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION,
                                          WidgetPosition)
 from example.scripts import initializedb
-from sacrud_pages.models import MPTTPages
 
 
 def add_routes(config):
@@ -118,6 +117,8 @@ def main(global_config, **settings):
     config.scan()
 
     # sacrud_pages - put it after all routes
+    config.set_request_property(lambda x: MPTTPages,
+                                'sacrud_pages_model', reify=True)
     config.include("sacrud_pages")
 
     return config.make_wsgi_app()
