@@ -19,14 +19,9 @@ from ziggurat_foundations.models import groupfinder
 
 from example.lib.common import get_user
 from example.models import Base, DBSession
-from example.models.auth import (Company, ExternalIdentity, Group,
-                                 GroupPermission, GroupResourcePermission,
-                                 PERMISSION_VIEW, Resource, User, UserGroup,
-                                 UserPermission, UserResourcePermission)
-from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
-                                         TestCustomizing, TestDND, TestFile,
-                                         TestHSTORE, TestTEXT, TestUNION,
-                                         WidgetPosition)
+from example.models.auth import PERMISSION_VIEW
+from example.models.funny_models import MPTTPages
+from example.sacrud_config import get_sacrud_models
 from example.scripts import initializedb
 
 
@@ -56,48 +51,17 @@ def main(global_config, **settings):
     config.add_request_method(get_user, 'user', reify=True)
     config.set_default_permission(PERMISSION_VIEW)
 
-    # Columns and positions start at 0
-    sacrud_models = {
-        'Postgres': {
-            'tables': [TestHSTORE],
-        },
-        '': {
-            'tables': [TestTEXT, TestBOOL, TestDND, TestUNION, TestFile],
-        },
-        'Just for fun': {
-            'tables': [TestAllTypes],
-            'column': 1,
-            'position': 0,
-        },
-        'Customizing example': {
-            'tables': [TestCustomizing, WidgetPosition],
-            'column': 1,
-            'position': 1,
-        },
-        'Pages': {
-            'tables': [MPTTPages],
-            'column': 2,
-            'position': 0,
-        },
-        'Auth': {
-            'tables': [Company, Group, GroupPermission, UserGroup,
-                       GroupResourcePermission, Resource, UserPermission,
-                       UserResourcePermission, User, ExternalIdentity],
-            'column': 2,
-            'position': 1,
-        },
-    }
-
     # Database
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     conn = DBSession.connection()
 
+    # initializedb
     initializedb.add_extension(engine, 'hstore')
     register_hstore(conn.engine.raw_connection(), True)
     ini_file = global_config['__file__']
-    initializedb.main(argv=["init", ini_file], sacrud_models=sacrud_models)
+    initializedb.main(argv=["init", ini_file])
 
     # pyramid_jinja2 configuration
     config.include('pyramid_jinja2')
@@ -109,7 +73,7 @@ def main(global_config, **settings):
     # SACRUD
     config.include('sacrud.pyramid_ext', route_prefix='/admin')
     settings = config.registry.settings
-    settings['sacrud.models'] = sacrud_models
+    settings['sacrud.models'] = get_sacrud_models()
 
     config.add_static_view('static', 'static', cache_max_age=3600)
 

@@ -18,6 +18,7 @@ from jinja2.utils import generate_lorem_ipsum
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
 
+from example import get_sacrud_models
 from example.lib.fixture import add_fixture
 from example.models import Base, DBSession
 from example.models.auth import Company, User
@@ -200,7 +201,7 @@ def add_user(user):
     transaction.commit()
 
 
-def main(argv=sys.argv, sacrud_models=None):
+def main(argv=sys.argv):
     if len(argv) != 2:
         usage(argv)
     config_uri = argv[1]
@@ -228,7 +229,7 @@ def main(argv=sys.argv, sacrud_models=None):
     add_customizing()
     add_file()
     add_mptt_pages()
-    add_widgets_position(sacrud_models)
+    add_widgets_position(get_sacrud_models())
 
     # Auth
     add_company()
