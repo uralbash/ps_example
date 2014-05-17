@@ -11,8 +11,8 @@ Anykey for sacrud
 """
 from example.models.auth import (Company, ExternalIdentity, Group,
                                  GroupPermission, GroupResourcePermission,
-                                 PERMISSION_VIEW, Resource, User, UserGroup,
-                                 UserPermission, UserResourcePermission)
+                                 Resource, User, UserGroup, UserPermission,
+                                 UserResourcePermission)
 from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION,
