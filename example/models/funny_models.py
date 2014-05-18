@@ -289,7 +289,8 @@ class MPTTPages(BasePages, Base):
     @TableProperty
     def sacrud_detail_col(cls):
         col = cls.columns
-        return [('', [col.name, col.slug, col.description, col.visible]),
+        return [('', [col.name, col.slug, col.description, col.visible,
+                      col.in_menu]),
                 ('Redirection', [col.redirect_url, col.redirect_page,
                                  col.redirect_type]),
                 ('SEO', [col.seo_title, col.seo_keywords, col.seo_description,
