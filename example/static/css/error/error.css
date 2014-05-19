@@ -1,0 +1,36 @@
+.error
+{
+	width: 100%;
+}
+	.error__wrapper
+	{
+		min-width: 960px;
+		max-width: 1100px;
+		margin: 0 auto;
+		position: relative;
+	}
+		.error__inner
+		{
+
+		}
+			.error__title
+			{
+				font: 1.8em 'Trebuchet MS', ans-serifsans-serif;
+				color: #000;
+				padding: 5em 0 0.4em 50px;
+			}
+			.error__text
+			{
+				font: 0.9em Arial;
+				color: #000;
+				line-height: 1.6em;
+				padding: 0 0 0 50px;
+			}
+			.error__link
+			{
+				color: #000;
+			}
+			.error__link:hover
+			{
+				color: #aa1237;
+			}

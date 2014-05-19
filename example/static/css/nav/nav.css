@@ -1,0 +1,45 @@
+.nav
+{
+	position: relative;
+	margin: 0 0 1em 0;
+}
+	.nav__button
+	{
+		display: inline-block;
+		position: relative;
+		z-index: 1001;
+	}
+	.nav__link
+	{
+		font: 0.8em Arial, Helvetica, sans-serif;;
+		color: #008ACE;
+	}
+	.nav__link:hover
+	{
+		color: #CC0000;
+	}
+	.nav__link:visited
+	{
+		color: #551A8B
+	}
+	.nav__link:visited:hover 
+	{
+		color: #CC0000;
+	}
+	.nav__separator
+	{
+		width: 6px;
+		height: 10px;
+		font: 1.1em Arial, Helvetica, sans-serif;;
+		background-repeat: no-repeat;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAKCAYAAACXDi8zAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8wNi8xMgAJ6E8AAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAAfklEQVQImXXPMRHCYBQD4K9FADjAQiVUAg4Q0DewsSLiCUBCJVQCSGDv0Cr4WX447oBMuSSXS5phGDqMOGTmTUWLCXtMEdF9GpfKtxgjYgdNKUVEXHGsgTv6ppQCX2brD9pfafSbeZ5POFdxRZeZy+eqFX1mLq+qHo8qvg8+AWmDKi7TM8UiAAAAAElFTkSuQmCC);
+		background-position: 50% 68%;
+		text-decoration: none;
+		position: relative;
+		padding: 0 0.5em;
+	}
+	.nav__item_state_current
+	{
+		font: bold 0.8em Arial, Helvetica, sans-serif;;
+		top: 0.5em;
+	}

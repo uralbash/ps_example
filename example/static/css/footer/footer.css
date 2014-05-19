@@ -1,0 +1,44 @@
+.footer
+{
+	clear: both;
+	margin: 0 0 3em 0;
+	padding: 5em 0 0 1em;
+}
+	.footer__c1
+	{
+		max-width: 310px;
+		float: left;
+	}
+		.footer__text
+		{
+			
+		}
+		.footer__text p
+		{
+			font: 0.8em Arial;
+			color: #777;
+			padding: 0;
+			margin: 0 0 1em 0;
+		}
+		.footer__text a
+		{
+			color: #007cc6;
+		}
+		.footer__text a:hover
+		{
+			color: #EF7F1B;
+		}
+		.footer__copyright
+		{
+			font: 0.7em Arial;
+			color: #777;
+		}
+	.footer__c2
+	{
+		float: left;
+		padding: 0 0 0 20px;
+	}
+		.footer__c2 div
+		{
+			text-align: left;
+		}
