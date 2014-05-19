@@ -13,6 +13,7 @@ from psycopg2.extras import register_hstore
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.config import Configurator
+from pyramid.events import BeforeRender, subscriber
 from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 from ziggurat_foundations.models import groupfinder
@@ -23,6 +24,16 @@ from example.models.auth import PERMISSION_VIEW
 from example.models.funny_models import MPTTPages
 from example.sacrud_config import get_sacrud_models
 from example.scripts import initializedb
+from sacrud_pages.common import get_pages_menu
+
+
+def get_menu(**kwargs):
+    return get_pages_menu(DBSession, MPTTPages, **kwargs)
+
+
+@subscriber(BeforeRender)
+def add_global(event):
+    event['page_menu'] = get_menu
 
 
 def add_routes(config):
@@ -85,4 +96,8 @@ def main(global_config, **settings):
                                 'sacrud_pages_model', reify=True)
     config.include("sacrud_pages")
 
+    # sacrud_catalog
+    config.include("sacrud_catalog")
+
     return config.make_wsgi_app()
+

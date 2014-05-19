@@ -45,7 +45,7 @@
                 <div class="popup-inner__ie">
                     <div class="popup-inner__content">
                         <a href="#" class="popup-inner__content-link">
-                            <span class="popup-inner__content-link-text">закрыть</span>
+                            <span class="popup-inner__content-link-text">close</span>
                         </a>
                         <div class="popup-inner__content-content">&nbsp;</div>
                     </div>
@@ -62,6 +62,9 @@
                         <img src="{{ request.static_url('example:static/img/logo.png') }}" class="header__logo-link-image" alt="" title="" />
                     </a>
                 </div>
+                {% with menu=page_menu(from_lvl=1, to_lvl=1) %}
+                  {% include 'sacrud_pages/menu.jinja2' with context %}
+                {% endwith %}
                 <div class="header__menu">
                     <div class="menu">
                         <ul class="menu-list">
