@@ -18,6 +18,7 @@ requires = [
     'waitress',
     #'sacrud',
     'psycopg2',
+    'ziggurat_foundations',
     ]
 
 setup(name='example',
