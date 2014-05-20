@@ -10,8 +10,12 @@
 helper for SQLAlchemy fixtures in Pyramid
 """
 
-import transaction
 from random import randint
+
+import transaction
+
+from sacrud.action import create
+
 from ..models import DBSession
 
 
@@ -21,15 +25,14 @@ def add_fixture(model, fixtures):
 
     Example::
 
-    hashes = ({'foo': {'foo': 'bar', '1': '2'}}, {'foo': {'test': 'data'}})
+    hashes = ({'foo': "{'foo': 'bar', '1': '2'}}", {'foo': "{'test': 'data'}"})
     add_fixture(TestHSTORE, hashes)
     """
     model.__table__.create(checkfirst=True, bind=DBSession.bind.engine)
-    with transaction.manager:
-        DBSession.query(model).delete()
-
-        for fixture in fixtures:
-            DBSession.add(model(**fixture))
+    DBSession.query(model).delete()
+    transaction.commit()
+    for fixture in fixtures:
+        create(DBSession, model, fixture)
 
 
 def rand_id(model):
