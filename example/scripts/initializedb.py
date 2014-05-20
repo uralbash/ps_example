@@ -160,7 +160,7 @@ def add_mptt_pages():
 
     """
     pages = (
-        {'id': '1',  'in_menu': True,  'slug': '',   'name': 'About company', 'visible': True, 'parent_id': None},
+        {'id': '1',  'in_menu': True,  'slug': '/',   'name': 'About company', 'visible': True, 'parent_id': None},
         {'id': '2',  'in_menu': True,  'slug': 'we-love-gevent',  'name': u'We ♥  gevent',    'visible': True, 'parent_id': '1'},
         {'id': '3',  'in_menu': True,  'slug': 'and-pyramid',     'name': 'And Pyramid',      'visible': True, 'parent_id': '2'},
         {'id': '4',  'in_menu': True,  'slug': 'our-history',     'name': 'Our history',      'visible': False, 'parent_id': '1'},

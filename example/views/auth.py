@@ -32,7 +32,7 @@ def sign_in(request):
     #    return HTTPFound(location=request.context.came_from,
     #                     headers=request.context.headers)
     # else:
-    return HTTPFound(location=request.route_url('home'),
+    return HTTPFound(location='/',
                      headers=request.context.headers)
 
 
@@ -45,7 +45,7 @@ def bad_auth(request):
 
 @view_config(context=ZigguratSignOut, permission=NO_PERMISSION_REQUIRED)
 def sign_out(request):
-    return HTTPFound(location=request.route_url('home'),
+    return HTTPFound(location='/',
                      headers=request.context.headers)
 
 
@@ -57,7 +57,7 @@ def login(request):
 
 @view_config(route_name='user_password_send', permission=NO_PERMISSION_REQUIRED)
 def password_send(request):
-    return HTTPFound(location=request.route_url('home'))
+    return HTTPFound(location='/')
 
 
 @view_config(context=HTTPForbidden, renderer='403.jinja2',

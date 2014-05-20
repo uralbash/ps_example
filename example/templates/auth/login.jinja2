@@ -1,6 +1,7 @@
 {% extends "/base.jinja2" %}
 
 {% block content %}
+
     <form class="form form_type_auth ng-pristine ng-valid" method="post" action="{{request.route_url('ziggurat.routes.sign_in')}}">
         <input type="hidden" value="OPTIONAL" name="came_from" id="came_from">
         <div class="form__title">Log in to SACRUD</div>

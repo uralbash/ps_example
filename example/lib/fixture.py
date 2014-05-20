@@ -30,7 +30,6 @@ def add_fixture(model, fixtures):
 
         for fixture in fixtures:
             DBSession.add(model(**fixture))
-        transaction.commit()
 
 
 def rand_id(model):
