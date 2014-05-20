@@ -160,7 +160,7 @@ def add_mptt_pages():
 
     """
     pages = (
-        {'id': '1',  'in_menu': True,  'slug': 'about-company',   'name': 'About company',    'visible': True, 'parent_id': None},
+        {'id': '1',  'in_menu': True,  'slug': '',   'name': 'About company', 'visible': True, 'parent_id': None},
         {'id': '2',  'in_menu': True,  'slug': 'we-love-gevent',  'name': u'We ♥  gevent',    'visible': True, 'parent_id': '1'},
         {'id': '3',  'in_menu': True,  'slug': 'and-pyramid',     'name': 'And Pyramid',      'visible': True, 'parent_id': '2'},
         {'id': '4',  'in_menu': True,  'slug': 'our-history',     'name': 'Our history',      'visible': False, 'parent_id': '1'},
@@ -176,9 +176,9 @@ def add_mptt_pages():
         {'id': '13', 'in_menu': False, 'slug': 'foo13', 'name': 'foo13', 'visible': False, 'parent_id': '12', 'tree_id': '12'},
         {'id': '14', 'in_menu': False, 'slug': 'foo14', 'name': 'foo14', 'visible': False, 'parent_id': '13', 'tree_id': '12'},
         {'id': '15', 'in_menu': True,  'slug': 'foo15', 'name': 'foo15', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
-        {'id': '16', 'in_menu': True,  'slug': 'foo16', 'name': 'foo16', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
-        {'id': '17', 'in_menu': False, 'slug': 'foo17', 'name': 'foo17', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
-        {'id': '18', 'in_menu': True,  'slug': 'foo18', 'name': 'foo18', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
+        {'id': '16', 'in_menu': True,  'slug': 'foo16', 'name': 'foo16', 'redirect_type': '200', 'redirect_page': '2', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
+        {'id': '17', 'in_menu': False, 'slug': 'foo17', 'name': 'foo17', 'redirect_type': '301', 'redirect_page': '3', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
+        {'id': '18', 'in_menu': True,  'slug': 'foo18', 'name': 'foo18', 'redirect_type': '302', 'redirect_url': 'http://ya.ru', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
         {'id': '19', 'in_menu': False, 'slug': 'foo19', 'name': 'foo19', 'visible': True, 'parent_id': '18', 'tree_id': '12'},
         {'id': '20', 'in_menu': True,  'slug': 'foo20', 'name': 'foo20', 'visible': True, 'parent_id': '19', 'tree_id': '12'},
         {'id': '21', 'in_menu': True,  'slug': 'foo21', 'name': 'foo21', 'visible': True, 'parent_id': '18', 'tree_id': '12'},
