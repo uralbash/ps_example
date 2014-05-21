@@ -13,7 +13,9 @@ from example.models.auth import (Company, ExternalIdentity, Group,
                                  GroupPermission, GroupResourcePermission,
                                  Resource, User, UserGroup, UserPermission,
                                  UserResourcePermission)
-from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
+from example.models.funny_models import (CatalogCategory, CatalogGroup,
+                                         MPTTPages, CatalogProduct, CatalogStock,
+                                         TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION,
                                          WidgetPosition)
@@ -49,5 +51,11 @@ def get_sacrud_models():
                        UserResourcePermission, User, ExternalIdentity],
             'column': 2,
             'position': 1,
+        },
+        'Catalog': {
+            'tables': [CatalogProduct, CatalogCategory, CatalogGroup,
+                       CatalogStock],
+            'column': 1,
+            'position': 3,
         },
     }

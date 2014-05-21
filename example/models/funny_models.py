@@ -22,9 +22,11 @@ from sqlalchemy.orm import relationship
 
 from example.models import Base
 from sacrud.common.custom import as_link, horizontal_field
+from sacrud.common.sa_helpers import TableProperty
 from sacrud.exttype import FileStore, GUID
 from sacrud.position import before_insert
-from sacrud.common.sa_helpers import TableProperty
+from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
+                                   BaseStock)
 from sacrud_pages.models import BasePages
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
@@ -298,3 +300,19 @@ class MPTTPages(BasePages, Base):
                 ]
 
 MPTTPages.register_tree()
+
+
+class CatalogProduct(Base, BaseProduct):
+    pass
+
+
+class CatalogCategory(Base, BaseCategory):
+    pass
+
+
+class CatalogGroup(Base, BaseGroup):
+    pass
+
+
+class CatalogStock(Base, BaseStock):
+    pass
