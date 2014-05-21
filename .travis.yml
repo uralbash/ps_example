@@ -11,8 +11,11 @@ language: python
 notifications:
   email: "sacrud@uralbash.ru"
 
-services:
-  - postgresql
+#services:
+#  - postgresql
+  
+addons:
+  postgresql: 9.3
 
 python:
   - "2.7"
@@ -24,7 +27,7 @@ install:
   - sudo apt-get install -q fortune fortunes fortunes-ru
   - sudo apt-get install -q postgresql-contrib
   - sudo apt-get install -q postgresql-common
-  - sudo apt-get install -q postgresql-plpython-9.1
+  #- sudo apt-get install -q postgresql-plpython-9.1
   - pip install nose coverage
   - pip install sqlalchemy pyramid
   - pip install git+https://github.com/ITCase/sqlalchemy_mptt.git
