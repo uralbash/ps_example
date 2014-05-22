@@ -23,7 +23,7 @@ from sqlalchemy.orm import relationship
 from example.models import Base
 from sacrud.common.custom import as_link, horizontal_field
 from sacrud.common.sa_helpers import TableProperty
-from sacrud.exttype import FileStore, GUID
+from sacrud.exttype import FileStore, GUID, ChoiceType
 from sacrud.position import before_insert
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
                                    BaseStock)
@@ -197,6 +197,9 @@ class TestAllTypes(Base):
     """
     __tablename__ = 'test_alltypes'
 
+    TEST_CHOICES = {'val_1': 'val_1', 'val_2': 'val_2', 'val_3': 'val_3',
+                    'val_4': 'val_4', 'val_5': 'val_5', 'val_6': 'val_6'}
+
     col_pk = Column(Integer, primary_key=True)
     col_array = Column(ARRAY(Integer, as_tuple=True))
     col_bigint = Column(BigInteger)
@@ -205,6 +208,8 @@ class TestAllTypes(Base):
     col_date = Column(DateTime)
     col_date2 = Column(DateTime)
     col_enum = Column(Enum(u'IPv6', u'IPv4', name=u"ip_type"))
+    col_choice = Column(ChoiceType(choices=TEST_CHOICES),
+                        info={"verbose_name": u'Проверка select', })
     col_float = Column(Float)
 
     # http://sqlalchemy.readthedocs.org/en/latest/orm/relationships.html?highlight=remote_side#adjacency-list-relationships
