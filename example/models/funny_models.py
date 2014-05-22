@@ -26,7 +26,7 @@ from sacrud.common.sa_helpers import TableProperty
 from sacrud.exttype import FileStore, GUID, ChoiceType
 from sacrud.position import before_insert
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
-                                   BaseStock)
+                                   BaseStock, Category2Group)
 from sacrud_pages.models import BasePages
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
@@ -320,4 +320,8 @@ class CatalogGroup(Base, BaseGroup):
 
 
 class CatalogStock(Base, BaseStock):
+    pass
+
+
+class Category2Group(Base, Category2Group):
     pass
