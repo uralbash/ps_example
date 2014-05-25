@@ -297,7 +297,7 @@ class MPTTPages(BasePages, Base):
     def sacrud_detail_col(cls):
         col = cls.columns
         return [('', [col.name, col.slug, col.description, col.visible,
-                      col.in_menu]),
+                      col.in_menu, col.parent_id]),
                 ('Redirection', [col.redirect_url, col.redirect_page,
                                  col.redirect_type]),
                 ('SEO', [col.seo_title, col.seo_keywords, col.seo_description,
@@ -312,7 +312,14 @@ class CatalogProduct(Base, BaseProduct):
 
 
 class CatalogCategory(Base, BaseCategory):
-    pass
+
+    @TableProperty
+    def sacrud_detail_col(cls):
+        from sqlalchemy import inspect
+        rel = inspect(cls).relationship
+        col = cls.columns
+        return [('', [col.id, col.name, col.abstract, rel]),
+                ]
 
 
 class CatalogGroup(Base, BaseGroup):
