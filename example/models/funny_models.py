@@ -23,7 +23,7 @@ from sqlalchemy.orm import relationship
 from example.models import Base
 from sacrud.common.custom import as_link, horizontal_field
 from sacrud.common.sa_helpers import TableProperty
-from sacrud.exttype import FileStore, GUID, ChoiceType
+from sacrud.exttype import FileStore, GUID, ChoiceType, ElfinderString
 from sacrud.position import before_insert
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
                                    BaseStock, Category2Group)
@@ -217,6 +217,8 @@ class TestAllTypes(Base):
     fk_test_union = Column(Integer, ForeignKey('test_union.id'))
     testalltypes = relationship('TestAllTypes')
     testunion = relationship('TestUNION')
+
+    col_elfinder = Column(ElfinderString, info={"verbose_name": u'Проверка Elfinder', })
 
     col_guid = Column(GUID(), default=uuid.uuid4)
     col_hstore = Column(MutableDict.as_mutable(HSTORE))
