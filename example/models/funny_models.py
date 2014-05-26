@@ -15,15 +15,15 @@ import uuid
 from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Float, ForeignKey, Integer, Numeric, String, Text,
                         Unicode, UnicodeText)
-from sqlalchemy.dialects.postgresql import ARRAY, HSTORE  # JSON,
+from sqlalchemy.dialects.postgresql import ARRAY, HSTORE, JSON
 from sqlalchemy.event import listen
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
 from example.models import Base
-from sacrud.common.custom import as_link, horizontal_field
+from sacrud.common.custom import widget_horizontal, widget_link, widget_m2m
 from sacrud.common.sa_helpers import TableProperty
-from sacrud.exttype import FileStore, GUID, ChoiceType, ElfinderString
+from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID
 from sacrud.position import before_insert
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
                                    BaseStock, Category2Group)
@@ -223,8 +223,9 @@ class TestAllTypes(Base):
     col_guid = Column(GUID(), default=uuid.uuid4)
     col_hstore = Column(MutableDict.as_mutable(HSTORE))
     col_integer = Column(Integer)
+
     # for postgresql 9.3 version
-    # col_json = Column(JSON)
+    col_json = Column(JSON)
     col_numeric = Column(Numeric(10, 2))
     col_string = Column(String)
     col_text = Column(Text)
@@ -258,15 +259,15 @@ class TestCustomizing(Base):
     sacrud_css_class = {'tinymce': [description, description2],
                         'content': [description],
                         'name': [name], 'Date': [date]}
-    sacrud_list_col = [as_link(name, sacrud_name=u'name'), name_ru, name_cze]
+    sacrud_list_col = [widget_link(column=name, sacrud_name=u'name'), name_ru, name_cze]
     sacrud_detail_col = [('name space', [name,
-                                         horizontal_field(name_ru, name_bg,
-                                                          name_fr, name_cze,
-                                                          sacrud_name=u"i18n names")]),
+                                         widget_horizontal(name_ru, name_bg,
+                                                           name_fr, name_cze,
+                                                           sacrud_name=u"i18n names")]),
                          ('description', [description, date,
-                                          horizontal_field(in_menu, visible,
-                                                           in_banner,
-                                                           sacrud_name=u"Расположение"),
+                                          widget_horizontal(in_menu, visible,
+                                                            in_banner,
+                                                            sacrud_name=u"Расположение"),
                                           description2])
                          ]
 
@@ -313,24 +314,28 @@ class CatalogProduct(Base, BaseProduct):
     pass
 
 
-class CatalogCategory(Base, BaseCategory):
+class CatalogCategory(BaseCategory, Base):
+
+    def __repr__(self):
+        return self.name
 
     @TableProperty
     def sacrud_detail_col(cls):
-        from sqlalchemy import inspect
-        rel = inspect(cls).relationship
-        col = cls.columns
-        return [('', [col.id, col.name, col.abstract, rel]),
+        model = CatalogCategory
+        return [('', [model.name, model.id, model.abstract,
+                      widget_m2m(column=model.group)]),
                 ]
 
 
-class CatalogGroup(Base, BaseGroup):
+class CatalogGroup(BaseGroup, Base):
+
+    def __repr__(self):
+        return self.name
+
+
+class CatalogStock(BaseStock, Base):
     pass
 
 
-class CatalogStock(Base, BaseStock):
-    pass
-
-
-class Category2Group(Base, Category2Group):
+class Category2Group(Category2Group, Base):
     pass

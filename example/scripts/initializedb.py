@@ -22,7 +22,8 @@ from example import get_sacrud_models
 from example.lib.fixture import add_fixture
 from example.models import Base, DBSession
 from example.models.auth import Company, User
-from example.models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
+from example.models.funny_models import (CatalogCategory, CatalogGroup,
+                                         MPTTPages, TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION,
                                          WidgetPosition)
@@ -127,6 +128,30 @@ def add_company():
         {'name': u'Pylons'},
     )
     add_fixture(Company, company)
+
+
+def add_catalog_category():
+    group = DBSession.query(CatalogGroup).all()
+    rows = (
+        {'name': u'TV'},
+        {'name': u'PC'},
+        {'name': u'Electro'},
+        {'name': u'Software'},
+    )
+    add_fixture(CatalogCategory, rows)
+    tv = DBSession.query(CatalogCategory).first()
+    tv.group = [group[0], group[2]]
+    transaction.commit()
+
+
+def add_catalog_group():
+    rows = (
+        {'name': u'3d Glass'},
+        {'name': u'foo'},
+        {'name': u'Canonical'},
+        {'name': u'Pylons'},
+    )
+    add_fixture(CatalogGroup, rows)
 
 
 def add_widgets_position(sacrud_models):
@@ -256,6 +281,10 @@ def main(argv=sys.argv):
     add_file()
     add_mptt_pages()
     add_widgets_position(get_sacrud_models())
+
+    # Catalog
+    add_catalog_group()
+    add_catalog_category()
 
     # Auth
     add_company()
