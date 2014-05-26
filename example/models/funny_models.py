@@ -322,7 +322,7 @@ class CatalogCategory(BaseCategory, Base):
     @TableProperty
     def sacrud_detail_col(cls):
         model = CatalogCategory
-        return [('', [model.name, model.id, model.abstract,
+        return [('', [model.name, model.visible, model.abstract,
                       widget_m2m(column=model.group)]),
                 ]
 
@@ -331,6 +331,13 @@ class CatalogGroup(BaseGroup, Base):
 
     def __repr__(self):
         return self.name
+
+    @TableProperty
+    def sacrud_detail_col(cls):
+        model = CatalogGroup
+        return [('', [model.name, model.visible,
+                      widget_m2m(column=model.category)]),
+                ]
 
 
 class CatalogStock(BaseStock, Base):
