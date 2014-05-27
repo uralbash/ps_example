@@ -270,7 +270,8 @@ class TestCustomizing(Base):
                                                             sacrud_name=u"Расположение"),
                                           description2])
                          ]
-
+    # Sacrud search
+    sacrud_search_col = [name]
 
 class WidgetPosition(Base):
     """SACRUD main page widgets position"""
