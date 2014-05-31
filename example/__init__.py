@@ -74,29 +74,29 @@ def main(global_config, **settings):
     ini_file = global_config['__file__']
     initializedb.main(argv=["init", ini_file])
 
-    # pyramid_jinja2 configuration
     config.include('pyramid_jinja2')
+    config.commit()
+    config.add_jinja2_extension('jinja2.ext.with_')
     config.add_jinja2_search_path("example:templates")
-
-    # pyramid_elfinder
-    config.include('pyramid_elfinder.connector')
 
     # SACRUD
     config.include('sacrud.pyramid_ext', route_prefix='/admin')
     settings = config.registry.settings
     settings['sacrud.models'] = get_sacrud_models()
 
-    config.add_static_view('static', 'static', cache_max_age=3600)
+    # pyramid_elfinder
+    config.include('pyramid_elfinder.connector')
 
+    # sacrud_catalog
+    config.include("sacrud_catalog")
+
+    config.add_static_view('static', 'static', cache_max_age=3600)
     add_routes(config)
-    config.scan()
 
     # sacrud_pages - put it after all routes
     config.set_request_property(lambda x: MPTTPages,
                                 'sacrud_pages_model', reify=True)
     config.include("sacrud_pages")
 
-    # sacrud_catalog
-    config.include("sacrud_catalog")
-
+    config.scan()
     return config.make_wsgi_app()
