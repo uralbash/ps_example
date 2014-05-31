@@ -24,6 +24,7 @@ from example.models.auth import PERMISSION_VIEW
 from example.models.funny_models import MPTTPages
 from example.sacrud_config import get_sacrud_models
 from example.scripts import initializedb
+from sacrud.common.pyramid_helpers import set_jinja2_silent_none
 from sacrud_pages.common import get_pages_menu
 
 
@@ -98,5 +99,6 @@ def main(global_config, **settings):
                                 'sacrud_pages_model', reify=True)
     config.include("sacrud_pages")
 
+    set_jinja2_silent_none(config)
     config.scan()
     return config.make_wsgi_app()
