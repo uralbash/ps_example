@@ -23,7 +23,8 @@ from example.lib.fixture import add_fixture
 from example.models import Base, DBSession
 from example.models.auth import Company, User
 from example.models.funny_models import (CatalogCategory, CatalogGroup,
-                                         MPTTPages, TestAllTypes, TestBOOL,
+                                         CatalogProduct, MPTTPages,
+                                         TestAllTypes, TestBOOL,
                                          TestCustomizing, TestDND, TestFile,
                                          TestHSTORE, TestTEXT, TestUNION,
                                          WidgetPosition)
@@ -133,10 +134,12 @@ def add_company():
 def add_catalog_category():
     group = DBSession.query(CatalogGroup).all()
     rows = (
-        {'name': u'TV'},
-        {'name': u'PC'},
-        {'name': u'Electro'},
-        {'name': u'Software'},
+        {'name': u'Electronics'},
+        {'name': u'Clothing'},
+        {'name': u'Tableware'},
+        {'name': u'Musical instruments'},
+        {'name': u'Toys'},
+        {'name': u'Weapon'},
     )
     add_fixture(CatalogCategory, rows)
     tv = DBSession.query(CatalogCategory).first()
@@ -146,12 +149,76 @@ def add_catalog_category():
 
 def add_catalog_group():
     rows = (
-        {'name': u'3d Glass'},
+        {'name': u'3D Glass'},
         {'name': u'foo'},
-        {'name': u'Canonical'},
-        {'name': u'Pylons'},
+        {'name': u'bar'},
+        {'name': u'baz'},
     )
     add_fixture(CatalogGroup, rows)
+
+
+def add_catalog_product():
+    shoes = (
+        {'name': u'Valenki'},
+        {'name': u'Kamik'},
+        {'name': u'Lapti'},
+        {'name': u'Galoshes'},
+        {'name': u'Sandals'},
+    )
+    music_instruments = (
+        {'name': u'Balalaika'},
+        {'name': u'Garmon'},
+        {'name': u'Bayan'},
+        {'name': u'Gypsy guitar'},
+        {'name': u'Spoons'},
+        {'name': u'Treshchotka'},
+        {'name': u'Tambourine'},
+    )
+    weapon = (
+        {'name': u'Shashka'},
+    )
+    tableware = (
+        {'name': u'Granyonyi stakan'},
+        {'name': u'Podstakannik'},
+        {'name': u'Samovar'},
+    )
+    toys = (
+        {'name': u'Cheburashka'},
+        {'name': u'Matryoshka'},
+        {'name': u'Petrushka'},
+    )
+    eat = (
+        {'name': 'subway sub'},
+        {'name': 'Borscht'},
+        {'name': 'Solyanka'},
+        {'name': u'Knedlík'},
+        {'name': 'Manti'},
+        {'name': 'Pelmeni'},
+        {'name': 'Bliny'},
+        {'name': 'Okroshka'},
+        {'name': 'Shashlik'},
+        {'name': 'Shchi'},
+        {'name': 'Ukha'},
+        {'name': 'Sausage'},
+        {'name': u'Ciorbă'},
+        {'name': u'Königsberger Klopse'},
+    )
+    drinks = (
+        {'name': 'Kissel'},
+        {'name': 'Coca-Cola'},
+        {'name': 'Kvass'},
+        {'name': 'Lemonade'},
+        {'name': 'Tea'},
+        {'name': 'Coffe'},
+        {'name': 'Medovukha'},
+    )
+    add_fixture(CatalogProduct, shoes)
+    add_fixture(CatalogProduct, music_instruments,  delete=False)
+    add_fixture(CatalogProduct, weapon,             delete=False)
+    add_fixture(CatalogProduct, tableware,          delete=False)
+    add_fixture(CatalogProduct, toys,               delete=False)
+    add_fixture(CatalogProduct, eat,                delete=False)
+    add_fixture(CatalogProduct, drinks,             delete=False)
 
 
 def add_widgets_position(sacrud_models):
@@ -262,6 +329,7 @@ def main(argv=sys.argv):
     # Catalog
     add_catalog_group()
     add_catalog_category()
+    add_catalog_product()
 
     # Auth
     add_company()

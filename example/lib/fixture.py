@@ -14,12 +14,12 @@ from random import randint
 
 import transaction
 
-from sacrud.action import create
+from sacrud.action import CRUD
 
 from ..models import DBSession
 
 
-def add_fixture(model, fixtures):
+def add_fixture(model, fixtures, delete=True):
     """
     Add fixtures to database.
 
@@ -28,11 +28,12 @@ def add_fixture(model, fixtures):
     hashes = ({'foo': "{'foo': 'bar', '1': '2'}}", {'foo': "{'test': 'data'}"})
     add_fixture(TestHSTORE, hashes)
     """
-    model.__table__.create(checkfirst=True, bind=DBSession.bind.engine)
-    DBSession.query(model).delete()
-    transaction.commit()
+    if delete:
+        model.__table__.create(checkfirst=True, bind=DBSession.bind.engine)
+        DBSession.query(model).delete()
+        transaction.commit()
     for fixture in fixtures:
-        create(DBSession, model, fixture)
+        CRUD(DBSession, model, request=fixture).add()
 
 
 def rand_id(model):

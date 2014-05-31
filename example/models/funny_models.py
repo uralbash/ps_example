@@ -26,7 +26,7 @@ from sacrud.common.sa_helpers import TableProperty
 from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID
 from sacrud.position import before_insert
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
-                                   BaseStock, Category2Group)
+                                   BaseStock, Category2Group, Product2Category)
 from sacrud_pages.models import BasePages
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
@@ -273,6 +273,7 @@ class TestCustomizing(Base):
     # Sacrud search
     sacrud_search_col = [name]
 
+
 class WidgetPosition(Base):
     """SACRUD main page widgets position"""
 
@@ -312,13 +313,16 @@ MPTTPages.register_tree()
 
 
 class CatalogProduct(Base, BaseProduct):
-    pass
+
+    @TableProperty
+    def sacrud_detail_col(cls):
+        model = CatalogProduct
+        return [('', [model.name, model.visible,
+                      widget_m2m(column=model.category)]),
+                ]
 
 
 class CatalogCategory(BaseCategory, Base):
-
-    def __repr__(self):
-        return self.name
 
     @TableProperty
     def sacrud_detail_col(cls):
@@ -329,9 +333,6 @@ class CatalogCategory(BaseCategory, Base):
 
 
 class CatalogGroup(BaseGroup, Base):
-
-    def __repr__(self):
-        return self.name
 
     @TableProperty
     def sacrud_detail_col(cls):
@@ -346,4 +347,8 @@ class CatalogStock(BaseStock, Base):
 
 
 class Category2Group(Category2Group, Base):
+    pass
+
+
+class Product2Category(Product2Category, Base):
     pass

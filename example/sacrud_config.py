@@ -16,10 +16,10 @@ from example.models.auth import (Company, ExternalIdentity, Group,
 from example.models.funny_models import (CatalogCategory, CatalogGroup,
                                          CatalogProduct, CatalogStock,
                                          Category2Group, MPTTPages,
-                                         TestAllTypes, TestBOOL,
-                                         TestCustomizing, TestDND, TestFile,
-                                         TestHSTORE, TestTEXT, TestUNION,
-                                         WidgetPosition)
+                                         Product2Category, TestAllTypes,
+                                         TestBOOL, TestCustomizing, TestDND,
+                                         TestFile, TestHSTORE, TestTEXT,
+                                         TestUNION, WidgetPosition)
 
 
 def get_sacrud_models():
@@ -55,7 +55,7 @@ def get_sacrud_models():
         },
         'Catalog': {
             'tables': [CatalogProduct, CatalogCategory, CatalogGroup,
-                       CatalogStock, Category2Group],
+                       CatalogStock, Category2Group, Product2Category],
             'column': 1,
             'position': 3,
         },
