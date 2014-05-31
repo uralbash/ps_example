@@ -25,9 +25,8 @@ from example.models.auth import Company, User
 from example.models.funny_models import (CatalogCategory, CatalogGroup,
                                          CatalogProduct, MPTTPages,
                                          TestAllTypes, TestBOOL,
-                                         TestCustomizing, TestDND, TestFile,
-                                         TestHSTORE, TestTEXT, TestUNION,
-                                         WidgetPosition)
+                                         TestCustomizing, TestFile, TestHSTORE,
+                                         TestTEXT, TestUNION, WidgetPosition)
 
 
 def usage(argv):
@@ -58,16 +57,6 @@ def add_text():
             out = generate_lorem_ipsum()
         text.append({'foo': out, 'ufoo': out, 'fooText': out, 'ufooText': out})
     add_fixture(TestTEXT, text)
-
-
-def add_dnd():
-    dnd = ({'name': 'foo', 'value': 1, 'position1': 1},
-           {'name': 'foo1', 'value': 2, 'position1': 2},
-           {'name': 'foo2', 'value': 3, 'position1': 3},
-           {'name': 'foo3', 'value': 4, 'position1': 4},
-           {'name': 'foo4', 'value': 5, 'position1': 5},
-           {'name': 'foo5', 'value': 6, 'position1': 6})
-    add_fixture(TestDND, dnd)
 
 
 def add_union():
@@ -317,7 +306,6 @@ def main(argv=sys.argv):
 
     add_hstore()
     add_bool()
-    add_dnd()
     add_text()
     add_union()
     add_alltypes()

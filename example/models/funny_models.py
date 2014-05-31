@@ -16,7 +16,6 @@ from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Float, ForeignKey, Integer, Numeric, String, Text,
                         Unicode, UnicodeText)
 from sqlalchemy.dialects.postgresql import ARRAY, HSTORE, JSON
-from sqlalchemy.event import listen
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
@@ -24,7 +23,6 @@ from example.models import Base
 from sacrud.common.custom import widget_horizontal, widget_link, widget_m2m
 from sacrud.common.sa_helpers import TableProperty
 from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID
-from sacrud.position import before_insert
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
                                    BaseStock, Category2Group, Product2Category)
 from sacrud_pages.models import BasePages
@@ -133,33 +131,6 @@ class TestBOOL(Base):
 
     def __init__(self, foo):
         self.foo = foo
-
-
-class TestDND(Base):
-
-    """
-    SQLAlchemy model for demonstration draggable field.
-
-    :param id: standart pk.
-    :param name: :class:`sqlalchemy.Unicode` field.
-    :param value: :class:`sqlalchemy.Integer` field.
-    :param position1: :class:`sqlalchemy.Integer` field.
-    """
-    __tablename__ = 'test_dnd'
-    __mapper_args__ = {'order_by': 'position1'}
-
-    id = Column(Integer, primary_key=True)
-    name = Column(Unicode)
-    value = Column(Integer)
-    position1 = Column(Integer, default=0)
-
-    def __init__(self, name, value, position1):
-        self.name = name
-        self.value = value
-        self.position1 = position1
-
-listen(TestDND, "before_insert", before_insert)
-listen(TestDND, "before_update", before_insert)
 
 
 class TestUNION(Base):

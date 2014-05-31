@@ -17,7 +17,7 @@ from example.models.funny_models import (CatalogCategory, CatalogGroup,
                                          CatalogProduct, CatalogStock,
                                          Category2Group, MPTTPages,
                                          Product2Category, TestAllTypes,
-                                         TestBOOL, TestCustomizing, TestDND,
+                                         TestBOOL, TestCustomizing,
                                          TestFile, TestHSTORE, TestTEXT,
                                          TestUNION, WidgetPosition)
 
@@ -29,7 +29,7 @@ def get_sacrud_models():
             'tables': [TestHSTORE],
         },
         '': {
-            'tables': [TestTEXT, TestBOOL, TestDND, TestUNION, TestFile],
+            'tables': [TestTEXT, TestBOOL, TestUNION, TestFile],
         },
         'Just for fun': {
             'tables': [TestAllTypes],
