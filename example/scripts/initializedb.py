@@ -120,86 +120,83 @@ def add_company():
     add_fixture(Company, company)
 
 
-def add_catalog_category():
-    group = DBSession.query(CatalogGroup).all()
-    rows = (
-        {'name': u'Electronics'},
-        {'name': u'Clothing'},
-        {'name': u'Tableware'},
-        {'name': u'Musical instruments'},
-        {'name': u'Toys'},
-        {'name': u'Weapon'},
-    )
-    add_fixture(CatalogCategory, rows)
-    tv = DBSession.query(CatalogCategory).first()
-    tv.group = [group[0], group[2]]
-    transaction.commit()
-
-
 def add_catalog_group():
     rows = (
         {'name': u'3D Glass'},
-        {'name': u'foo'},
+        {'name': u'Drinks'},
         {'name': u'bar'},
         {'name': u'baz'},
     )
     add_fixture(CatalogGroup, rows)
 
 
+def add_catalog_category():
+    rows = (
+        {'name': u'Electronics', 'group[]': ['1', '2']},
+        {'name': u'Clothing'},
+        {'name': u'Tableware'},
+        {'name': u'Musical instruments'},
+        {'name': u'Toys'},
+        {'name': u'Weapon'},
+        {'name': u'Melt'},
+    )
+    add_fixture(CatalogCategory, rows)
+
+
 def add_catalog_product():
     shoes = (
-        {'name': u'Valenki'},
-        {'name': u'Kamik'},
-        {'name': u'Lapti'},
-        {'name': u'Galoshes'},
-        {'name': u'Sandals'},
+        {'name': u'Valenki',    'category[]': ['2']},
+        {'name': u'Kamik',      'category[]': ['2']},
+        {'name': u'Lapti',      'category[]': ['2']},
+        {'name': u'Galoshes',   'category[]': ['2']},
+        {'name': u'Sandals',    'category[]': ['2']},
     )
     music_instruments = (
-        {'name': u'Balalaika'},
-        {'name': u'Garmon'},
-        {'name': u'Bayan'},
-        {'name': u'Gypsy guitar'},
-        {'name': u'Spoons'},
-        {'name': u'Treshchotka'},
-        {'name': u'Tambourine'},
+        {'name': u'Balalaika',      'category[]': ['4']},
+        {'name': u'Garmon',         'category[]': ['4']},
+        {'name': u'Bayan',          'category[]': ['4']},
+        {'name': u'Gypsy guitar',   'category[]': ['4']},
+        {'name': u'Spoons',         'category[]': ['4']},
+        {'name': u'Treshchotka',    'category[]': ['4']},
+        {'name': u'Tambourine',     'category[]': ['4']},
     )
     weapon = (
-        {'name': u'Shashka'},
+        {'name': u'Shashka', 'category[]': ['6']},
     )
     tableware = (
-        {'name': u'Granyonyi stakan'},
-        {'name': u'Podstakannik'},
-        {'name': u'Samovar'},
+        {'name': u'Granyonyi stakan', 'category[]': ['3']},
+        {'name': u'Podstakannik', 'category[]': ['3']},
+        {'name': u'Samovar', 'category[]': ['3']},
     )
     toys = (
-        {'name': u'Cheburashka'},
-        {'name': u'Matryoshka'},
-        {'name': u'Petrushka'},
+        {'name': u'Cheburashka', 'category[]': ['5']},
+        {'name': u'Matryoshka', 'category[]': ['5']},
+        {'name': u'Petrushka',  'category[]': ['5']},
     )
     eat = (
-        {'name': 'subway sub'},
-        {'name': 'Borscht'},
-        {'name': 'Solyanka'},
-        {'name': u'Knedlík'},
-        {'name': 'Manti'},
-        {'name': 'Pelmeni'},
-        {'name': 'Bliny'},
-        {'name': 'Okroshka'},
-        {'name': 'Shashlik'},
-        {'name': 'Shchi'},
-        {'name': 'Ukha'},
-        {'name': 'Sausage'},
-        {'name': u'Ciorbă'},
-        {'name': u'Königsberger Klopse'},
+        {'name': 'subway sub',  'category[]': ['7']},
+        {'name': 'Borscht',     'category[]': ['7']},
+        {'name': 'Solyanka',    'category[]': ['7']},
+        {'name': u'Knedlík',    'category[]': ['7']},
+        {'name': 'Manti',       'category[]': ['7']},
+        {'name': 'Pelmeni',     'category[]': ['7']},
+        {'name': 'Bliny',       'category[]': ['7']},
+        {'name': 'Okroshka',    'category[]': ['7']},
+        {'name': 'Shashlik',    'category[]': ['7']},
+        {'name': 'Shchi',       'category[]': ['7']},
+        {'name': 'Ukha',        'category[]': ['7']},
+        {'name': 'Sausage',     'category[]': ['7']},
+        {'name': u'Ciorbă',     'category[]': ['7']},
+        {'name': u'Königsberger Klopse', 'category[]': ['7']},
     )
     drinks = (
-        {'name': 'Kissel'},
-        {'name': 'Coca-Cola'},
-        {'name': 'Kvass'},
-        {'name': 'Lemonade'},
-        {'name': 'Tea'},
-        {'name': 'Coffe'},
-        {'name': 'Medovukha'},
+        {'name': u'Kissel',     'category[]': ['7'], 'group[]': '2'},
+        {'name': 'Coca-Cola',   'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Kvass',       'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Lemonade',    'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Tea',         'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Coffe',       'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Medovukha',   'category[]': ['7'], 'group[]': ['2']},
     )
     add_fixture(CatalogProduct, shoes)
     add_fixture(CatalogProduct, music_instruments,  delete=False)
