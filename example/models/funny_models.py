@@ -24,7 +24,8 @@ from sacrud.common.custom import widget_horizontal, widget_link, widget_m2m
 from sacrud.common.sa_helpers import TableProperty
 from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
-                                   BaseStock, Category2Group, Product2Category)
+                                   BaseStock, Category2Group, Product2Category,
+                                   Product2Group)
 from sacrud_pages.models import BasePages
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
@@ -289,7 +290,9 @@ class CatalogProduct(Base, BaseProduct):
     def sacrud_detail_col(cls):
         model = CatalogProduct
         return [('', [model.name, model.visible,
-                      widget_m2m(column=model.category)]),
+                      widget_m2m(column=model.category),
+                      widget_m2m(column=model.group),
+                      model.params]),
                 ]
 
 
@@ -322,4 +325,8 @@ class Category2Group(Category2Group, Base):
 
 
 class Product2Category(Product2Category, Base):
+    pass
+
+
+class Product2Group(Product2Group, Base):
     pass
