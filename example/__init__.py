@@ -38,8 +38,6 @@ def add_global(event):
 
 
 def add_routes(config):
-    # config.add_route('home', '/')
-
     # Auth
     config.add_route('login', '/login/')
     config.add_route('user_password_send',
