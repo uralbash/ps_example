@@ -17,46 +17,52 @@ from example.models.funny_models import (CatalogCategory, CatalogGroup,
                                          CatalogProduct, CatalogStock,
                                          Category2Group, MPTTPages,
                                          Product2Category, TestAllTypes,
-                                         TestBOOL, TestCustomizing,
-                                         TestFile, TestHSTORE, TestTEXT,
-                                         TestUNION, WidgetPosition)
+                                         TestBOOL, TestCustomizing, TestFile,
+                                         TestHSTORE, TestTEXT, TestUNION,
+                                         WidgetPosition)
 
 
 def get_sacrud_models():
-    # Columns and positions start at 0
+    """ col1 col2 col3
+         w1   w2   w3
+         w4   w5   w6
+         w7   w8   w9
+    """
     return {
+        # Column 1
         'Postgres': {
             'tables': [TestHSTORE],
+            'position': 1,
         },
         '': {
             'tables': [TestTEXT, TestBOOL, TestUNION, TestFile],
+            'position': 4,
         },
         'Just for fun': {
             'tables': [TestAllTypes],
-            'column': 1,
-            'position': 0,
+            'position': 7,
         },
+
+        # Column 2
         'Customizing example': {
             'tables': [TestCustomizing, WidgetPosition],
-            'column': 1,
-            'position': 1,
+            'position': 2,
         },
         'Pages': {
             'tables': [MPTTPages],
-            'column': 2,
-            'position': 0,
+            'position': 5,
         },
         'Auth': {
             'tables': [Company, Group, GroupPermission, UserGroup,
                        GroupResourcePermission, Resource, UserPermission,
                        UserResourcePermission, User, ExternalIdentity],
-            'column': 2,
-            'position': 1,
+            'position': 8,
         },
+
+        # Column 3
         'Catalog': {
             'tables': [CatalogProduct, CatalogCategory, CatalogGroup,
                        CatalogStock, Category2Group, Product2Category],
-            'column': 1,
             'position': 3,
         },
     }

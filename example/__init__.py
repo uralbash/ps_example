@@ -61,6 +61,10 @@ def main(global_config, **settings):
     config.add_request_method(get_user, 'user', reify=True)
     config.set_default_permission(PERMISSION_VIEW)
 
+    # Static
+    config.add_static_view('static', 'static', cache_max_age=3600)
+    add_routes(config)
+
     # Database
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
@@ -89,14 +93,12 @@ def main(global_config, **settings):
     # sacrud_catalog
     config.include("sacrud_catalog")
 
-    config.add_static_view('static', 'static', cache_max_age=3600)
-    add_routes(config)
-
     # sacrud_pages - put it after all routes
     config.set_request_property(lambda x: MPTTPages,
                                 'sacrud_pages_model', reify=True)
     config.include("sacrud_pages")
 
+    # change None in Jinja2 template on empty string
     set_jinja2_silent_none(config)
     config.scan()
     return config.make_wsgi_app()

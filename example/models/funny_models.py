@@ -253,10 +253,9 @@ class WidgetPosition(Base):
 
     id = Column(Integer, primary_key=True)
     widget = Column(String)
-    column = Column(Integer)
-    position = Column(Integer)
+    position = Column(Integer, unique=True, nullable=False)
 
-    __mapper_args__ = {'order_by': [column, position]}
+    __mapper_args__ = {'order_by': [position]}
 
 
 class MPTTPages(BasePages, Base):

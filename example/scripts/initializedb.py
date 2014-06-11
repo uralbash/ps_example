@@ -210,8 +210,7 @@ def add_catalog_product():
 def add_widgets_position(sacrud_models):
     row = ()
     for model_name, values in sacrud_models.items():
-        row += ({'widget': model_name, 'column': values.get('column', 0),
-                 'position': values.get('position', 0)}, )
+        row += ({'widget': model_name, 'position': values.get('position')}, )
     add_fixture(WidgetPosition, row)
 
 
