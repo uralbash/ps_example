@@ -15,3 +15,4 @@ example/static/uploaded/*
 !example/static/uploaded/anekdot.gif
 !example/static/uploaded/foo.png
 .ropeproject
+_build

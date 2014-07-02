@@ -14,7 +14,7 @@ Install fortune:
 
 .. note::
     For Debian like pkg system.
-    
+
 Clone project to local machine:
 
 :code:`git clone git@github.com:uralbash/pyramid_sacrud_example.git`
