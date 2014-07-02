@@ -6,8 +6,8 @@
 #
 # Distributed under terms of the MIT license.
 
-from example.models import DBSession
-from example.models.auth import User
+from ..models import DBSession
+from ..models.auth import User
 
 from pyramid.security import unauthenticated_userid
 

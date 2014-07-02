@@ -16,14 +16,13 @@ requires = [
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
     'waitress',
-    #'sacrud',
     'psycopg2',
     'ziggurat_foundations',
     ]
 
-setup(name='example',
+setup(name='sacrud_example',
       version='0.0',
-      description='example',
+      description='Pyramid sacrud example',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
           "Programming Language :: Python",
@@ -38,12 +37,12 @@ setup(name='example',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='example',
+      test_suite='sacrud_example',
       install_requires=requires,
       entry_points="""\
       [paste.app_factory]
-      main = example:main
+      main = sacrud_example:main
       [console_scripts]
-      initialize_example_db = example.scripts.initializedb:main
+      initialize_example_db = sacrud_example.scripts.initializedb:main
       """,
       )

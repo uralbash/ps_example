@@ -8,7 +8,7 @@ from pyramid.paster import setup_logging
 # access to the values within the .ini file in use.
 config = context.config
 
-from example.models import Base
+from .models import Base
 
 setup_logging(config.config_file_name)
 

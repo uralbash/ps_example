@@ -17,7 +17,7 @@ from ziggurat_foundations.models import (ExternalIdentityMixin, GroupMixin,
                                          UserMixin, UserPermissionMixin,
                                          UserResourcePermissionMixin)
 
-from example.models import Base
+from ..models import Base
 
 
 class Company(Base):
@@ -87,6 +87,7 @@ ziggurat_model_init(User, Group, UserGroup, GroupPermission, UserPermission,
                     ExternalIdentity, passwordmanager=None)
 
 PERMISSION_VIEW = u'view'
+
 
 class RootFactory(object):
     def __init__(self, request):

@@ -18,12 +18,12 @@ from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 from ziggurat_foundations.models import groupfinder
 
-from example.lib.common import get_user
-from example.models import Base, DBSession
-from example.models.auth import PERMISSION_VIEW
-from example.models.funny_models import MPTTPages
-from example.sacrud_config import get_sacrud_models
-from example.scripts import initializedb
+from .lib.common import get_user
+from .models import Base, DBSession
+from .models.auth import PERMISSION_VIEW
+from .models.funny_models import MPTTPages
+from .sacrud_config import get_sacrud_models
+from .scripts import initializedb
 from sacrud.common.pyramid_helpers import set_jinja2_silent_none
 from sacrud_pages.common import get_pages_menu
 
@@ -50,7 +50,7 @@ def main(global_config, **settings):
     # Auth
     session_factory = session_factory_from_settings(settings)
     config = Configurator(settings=settings,
-                          root_factory='example.models.auth.RootFactory',
+                          root_factory='sacrud_example.models.auth.RootFactory',
                           session_factory=session_factory)
     authn_policy = AuthTktAuthenticationPolicy('sosecret', callback=groupfinder,
                                                hashalg='sha512')
@@ -80,7 +80,7 @@ def main(global_config, **settings):
     config.include('pyramid_jinja2')
     config.commit()
     config.add_jinja2_extension('jinja2.ext.with_')
-    config.add_jinja2_search_path("example:templates")
+    config.add_jinja2_search_path("sacrud_example:templates")
 
     # SACRUD
     config.include('sacrud.pyramid_ext', route_prefix='/admin')

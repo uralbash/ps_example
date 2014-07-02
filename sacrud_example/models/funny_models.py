@@ -19,7 +19,7 @@ from sqlalchemy.dialects.postgresql import ARRAY, HSTORE, JSON
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
-from example.models import Base
+from ..models import Base
 from sacrud.common.custom import widget_horizontal, widget_link, widget_m2m
 from sacrud.common.sa_helpers import TableProperty
 from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID

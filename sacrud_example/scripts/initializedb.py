@@ -18,15 +18,16 @@ from jinja2.utils import generate_lorem_ipsum
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
 
-from example import get_sacrud_models
-from example.lib.fixture import add_fixture
-from example.models import Base, DBSession
-from example.models.auth import Company, User
-from example.models.funny_models import (CatalogCategory, CatalogGroup,
-                                         CatalogProduct, MPTTPages,
-                                         TestAllTypes, TestBOOL,
-                                         TestCustomizing, TestFile, TestHSTORE,
-                                         TestTEXT, TestUNION, WidgetPosition)
+from sacrud_example import get_sacrud_models
+
+from ..lib.fixture import add_fixture
+from ..models import Base, DBSession
+from ..models.auth import Company, User
+from ..models.funny_models import (CatalogCategory, CatalogGroup,
+                                   CatalogProduct, MPTTPages, TestAllTypes,
+                                   TestBOOL, TestCustomizing, TestFile,
+                                   TestHSTORE, TestTEXT, TestUNION,
+                                   WidgetPosition)
 
 
 def usage(argv):
@@ -95,7 +96,8 @@ def add_customizing():
 
 
 def add_file():
-    objs = [{'image': '/static/upload/60563666-c52a-4ec2-bc31-e21f9dcde296.gif'}]
+    objs = [
+        {'image': '/static/upload/60563666-c52a-4ec2-bc31-e21f9dcde296.gif'}]
     add_fixture(TestFile, objs)
 
 
@@ -237,29 +239,51 @@ def add_mptt_pages():
 
     """
     pages = (
-        {'in_menu': True,  'slug': '/',   'name': 'About company', 'visible': True, 'parent_id': None},
-        {'in_menu': True,  'slug': 'we-love-gevent',  'name': u'We ♥  gevent',    'visible': True, 'parent_id': '1'},
-        {'in_menu': True,  'slug': 'and-pyramid',     'name': 'And Pyramid',      'visible': True, 'parent_id': '2'},
-        {'in_menu': True,  'slug': 'our-history',     'name': 'Our history',      'visible': False, 'parent_id': '1'},
-        {'in_menu': True,  'slug': 'foo',             'name': 'foo',              'visible': True, 'parent_id': '4'},
-        {'in_menu': True,  'slug': 'kompania-itcase', 'name': u'компания ITCase', 'visible': False, 'parent_id': '4'},
-        {'in_menu': False, 'slug': 'our-strategy',    'name': 'Our strategy',     'visible': True, 'parent_id': '1'},
-        {'in_menu': False, 'slug': 'wordwide',        'name': 'Wordwide',         'visible': True, 'parent_id': '7'},
-        {'in_menu': True,  'slug': 'technology',      'name': 'Technology',       'visible': False, 'parent_id': '8'},
-        {'in_menu': False, 'slug': 'what-we-do',      'name': 'What we do',       'visible': True,  'parent_id': '7'},
-        {'in_menu': True,  'slug': 'at-a-glance',     'name': 'at a glance',      'visible': True,  'parent_id': '10'},
+        {'in_menu': True,  'slug': '/',   'name': 'About company',
+            'visible': True, 'parent_id': None},
+        {'in_menu': True,  'slug': 'we-love-gevent',
+            'name': u'We ♥  gevent',    'visible': True, 'parent_id': '1'},
+        {'in_menu': True,  'slug': 'and-pyramid',
+            'name': 'And Pyramid',      'visible': True, 'parent_id': '2'},
+        {'in_menu': True,  'slug': 'our-history',     'name': 'Our history',
+            'visible': False, 'parent_id': '1'},
+        {'in_menu': True,  'slug': 'foo',             'name': 'foo',
+            'visible': True, 'parent_id': '4'},
+        {'in_menu': True,  'slug': 'kompania-itcase',
+            'name': u'компания ITCase', 'visible': False, 'parent_id': '4'},
+        {'in_menu': False, 'slug': 'our-strategy',
+            'name': 'Our strategy',     'visible': True, 'parent_id': '1'},
+        {'in_menu': False, 'slug': 'wordwide',        'name': 'Wordwide',
+            'visible': True, 'parent_id': '7'},
+        {'in_menu': True,  'slug': 'technology',      'name': 'Technology',
+            'visible': False, 'parent_id': '8'},
+        {'in_menu': False, 'slug': 'what-we-do',      'name': 'What we do',
+            'visible': True,  'parent_id': '7'},
+        {'in_menu': True,  'slug': 'at-a-glance',     'name': 'at a glance',
+            'visible': True,  'parent_id': '10'},
 
-        {'in_menu': True,  'slug': 'foo12', 'name': 'foo12', 'visible': True, 'parent_id': None, 'tree_id': '12'},
-        {'in_menu': False, 'slug': 'foo13', 'name': 'foo13', 'visible': False, 'parent_id': '12', 'tree_id': '12'},
-        {'in_menu': False, 'slug': 'foo14', 'name': 'foo14', 'visible': False, 'parent_id': '13', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo15', 'name': 'foo15', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo16', 'name': 'foo16', 'redirect_type': '200', 'redirect_page': '2', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
-        {'in_menu': False, 'slug': 'foo17', 'name': 'foo17', 'redirect_type': '301', 'redirect_page': '3', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo18', 'name': 'foo18', 'redirect_type': '302', 'redirect_url': 'http://ya.ru', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
-        {'in_menu': False, 'slug': 'foo19', 'name': 'foo19', 'visible': True, 'parent_id': '18', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo20', 'name': 'foo20', 'visible': True, 'parent_id': '19', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo21', 'name': 'foo21', 'visible': True, 'parent_id': '18', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo22', 'name': 'foo22', 'visible': True, 'parent_id': '21', 'tree_id': '12'},
+        {'in_menu': True,  'slug': 'foo12', 'name': 'foo12',
+            'visible': True, 'parent_id': None, 'tree_id': '12'},
+        {'in_menu': False, 'slug': 'foo13', 'name': 'foo13',
+            'visible': False, 'parent_id': '12', 'tree_id': '12'},
+        {'in_menu': False, 'slug': 'foo14', 'name': 'foo14',
+            'visible': False, 'parent_id': '13', 'tree_id': '12'},
+        {'in_menu': True,  'slug': 'foo15', 'name': 'foo15',
+            'visible': True, 'parent_id': '12', 'tree_id': '12'},
+        {'in_menu': True,  'slug': 'foo16', 'name': 'foo16', 'redirect_type': '200',
+            'redirect_page': '2', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
+        {'in_menu': False, 'slug': 'foo17', 'name': 'foo17', 'redirect_type': '301',
+            'redirect_page': '3', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
+        {'in_menu': True,  'slug': 'foo18', 'name': 'foo18', 'redirect_type': '302',
+            'redirect_url': 'http://ya.ru', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
+        {'in_menu': False, 'slug': 'foo19', 'name': 'foo19',
+            'visible': True, 'parent_id': '18', 'tree_id': '12'},
+        {'in_menu': True,  'slug': 'foo20', 'name': 'foo20',
+            'visible': True, 'parent_id': '19', 'tree_id': '12'},
+        {'in_menu': True,  'slug': 'foo21', 'name': 'foo21',
+            'visible': True, 'parent_id': '18', 'tree_id': '12'},
+        {'in_menu': True,  'slug': 'foo22', 'name': 'foo22',
+            'visible': True, 'parent_id': '21', 'tree_id': '12'},
     )
     add_fixture(MPTTPages, pages)
 

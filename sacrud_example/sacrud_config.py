@@ -9,17 +9,17 @@
 """
 Anykey for sacrud
 """
-from example.models.auth import (Company, ExternalIdentity, Group,
-                                 GroupPermission, GroupResourcePermission,
-                                 Resource, User, UserGroup, UserPermission,
-                                 UserResourcePermission)
-from example.models.funny_models import (CatalogCategory, CatalogGroup,
-                                         CatalogProduct, CatalogStock,
-                                         Category2Group, MPTTPages,
-                                         Product2Category, TestAllTypes,
-                                         TestBOOL, TestCustomizing, TestFile,
-                                         TestHSTORE, TestTEXT, TestUNION,
-                                         WidgetPosition)
+from .models.auth import (Company, ExternalIdentity, Group,
+                          GroupPermission, GroupResourcePermission,
+                          Resource, User, UserGroup, UserPermission,
+                          UserResourcePermission)
+from .models.funny_models import (CatalogCategory, CatalogGroup,
+                                  CatalogProduct, CatalogStock,
+                                  Category2Group, MPTTPages,
+                                  Product2Category, TestAllTypes,
+                                  TestBOOL, TestCustomizing, TestFile,
+                                  TestHSTORE, TestTEXT, TestUNION,
+                                  WidgetPosition)
 
 
 def get_sacrud_models():
