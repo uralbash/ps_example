@@ -21,7 +21,7 @@ requires = [
     ]
 
 setup(name='sacrud_example',
-      version='0.0',
+      version='0.0.1',
       description='Pyramid sacrud example',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[

@@ -21,8 +21,6 @@ from ..models import Base
 
 
 class Company(Base):
-    """ Название мед. учреждения. Например УГМК-Здоровье, Доктор+ итд
-    """
     __tablename__ = 'company'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -64,8 +62,6 @@ class UserResourcePermission(UserResourcePermissionMixin, Base):
 
 
 class User(UserMixin, Base):
-    """
-    """
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(Unicode, nullable=False)
     middlename = Column(Unicode, nullable=False)
