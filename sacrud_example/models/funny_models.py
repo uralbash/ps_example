@@ -279,8 +279,6 @@ class MPTTPages(BasePages, Base):
                          col.seo_metatags])
                 ]
 
-MPTTPages.register_tree()
-
 
 class CatalogProduct(Base, BaseProduct):
 
