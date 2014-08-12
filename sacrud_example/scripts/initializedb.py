@@ -18,16 +18,13 @@ from jinja2.utils import generate_lorem_ipsum
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
 
-from sacrud_example import get_sacrud_models
-
 from ..lib.fixture import add_fixture
 from ..models import Base, DBSession
 from ..models.auth import Company, User
 from ..models.funny_models import (CatalogCategory, CatalogGroup,
                                    CatalogProduct, MPTTPages, TestAllTypes,
                                    TestBOOL, TestCustomizing, TestFile,
-                                   TestHSTORE, TestTEXT, TestUNION,
-                                   WidgetPosition)
+                                   TestHSTORE, TestTEXT, TestUNION)
 
 
 def usage(argv):
@@ -209,13 +206,6 @@ def add_catalog_product():
     add_fixture(CatalogProduct, drinks,             delete=False)
 
 
-def add_widgets_position(sacrud_models):
-    row = ()
-    for model_name, values in sacrud_models.items():
-        row += ({'widget': model_name, 'position': values.get('position')}, )
-    add_fixture(WidgetPosition, row)
-
-
 def add_mptt_pages():
     """ level           Nested sets tree1
           1                    1(1)22
@@ -332,7 +322,6 @@ def main(argv=sys.argv):
     add_customizing()
     add_file()
     add_mptt_pages()
-    add_widgets_position(get_sacrud_models())
 
     # Catalog
     add_catalog_group()

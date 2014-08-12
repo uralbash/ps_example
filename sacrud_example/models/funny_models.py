@@ -245,18 +245,6 @@ class TestCustomizing(Base):
     sacrud_search_col = [name]
 
 
-class WidgetPosition(Base):
-    """SACRUD main page widgets position"""
-
-    __tablename__ = "widget_position"
-
-    id = Column(Integer, primary_key=True)
-    widget = Column(String)
-    position = Column(Integer, unique=True, nullable=False)
-
-    __mapper_args__ = {'order_by': [position]}
-
-
 class MPTTPages(BasePages, Base):
     __tablename__ = "mptt_pages"
 
