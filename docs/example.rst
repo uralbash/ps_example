@@ -1,4 +1,4 @@
-example package
+sacrud_example package
 ===============
 
 Subpackages
@@ -14,10 +14,10 @@ Subpackages
 Submodules
 ----------
 
-example.sacrud_config module
+sacrud_example.sacrud_config module
 ----------------------------
 
-.. automodule:: example.sacrud_config
+.. automodule:: sacrud_example.sacrud_config
     :members:
     :undoc-members:
     :show-inheritance:
@@ -26,7 +26,7 @@ example.sacrud_config module
 Module contents
 ---------------
 
-.. automodule:: example
+.. automodule:: sacrud_example
     :members:
     :undoc-members:
     :show-inheritance:

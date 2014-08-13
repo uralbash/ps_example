@@ -1,13 +1,13 @@
-example.views package
+sacrud_example.views package
 =====================
 
 Submodules
 ----------
 
-example.views.auth module
+sacrud_example.views.auth module
 -------------------------
 
-.. automodule:: example.views.auth
+.. automodule:: sacrud_example.views.auth
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ example.views.auth module
 Module contents
 ---------------
 
-.. automodule:: example.views
+.. automodule:: sacrud_example.views
     :members:
     :undoc-members:
     :show-inheritance:

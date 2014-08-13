@@ -24,7 +24,7 @@ from .models.auth import PERMISSION_VIEW
 from .models.funny_models import MPTTPages
 from .sacrud_config import get_sacrud_models
 from .scripts import initializedb
-from sacrud.common.pyramid_helpers import set_jinja2_silent_none
+from pyramid_sacrud.common import set_jinja2_silent_none
 from sacrud_pages.common import get_pages_menu
 
 
@@ -83,9 +83,9 @@ def main(global_config, **settings):
     config.add_jinja2_search_path("sacrud_example:templates")
 
     # SACRUD
-    config.include('sacrud.pyramid_ext', route_prefix='/admin')
+    config.include('pyramid_sacrud', route_prefix='/admin')
     settings = config.registry.settings
-    settings['sacrud.models'] = get_sacrud_models()
+    settings['pyramid_sacrud.models'] = get_sacrud_models()
 
     # pyramid_elfinder
     config.include('pyramid_elfinder.connector')

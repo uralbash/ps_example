@@ -1,16 +1,16 @@
-example.scripts package
+sacrud_example.scripts package
 =======================
 
 Submodules
 ----------
 
-example.scripts.initializedb module
+sacrud_example.scripts.initializedb module
 -----------------------------------
 
 .. note::
     Works only with PostgreSQL database.
 
-.. automodule:: example.scripts.initializedb
+.. automodule:: sacrud_example.scripts.initializedb
     :members:
     :undoc-members:
     :show-inheritance:
@@ -19,7 +19,7 @@ example.scripts.initializedb module
 Module contents
 ---------------
 
-.. automodule:: example.scripts
+.. automodule:: sacrud_example.scripts
     :members:
     :undoc-members:
     :show-inheritance:

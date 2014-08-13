@@ -1,21 +1,21 @@
-example.lib package
+sacrud_example.lib package
 ===================
 
 Submodules
 ----------
 
-example.lib.common module
+sacrud_example.lib.common module
 -------------------------
 
-.. automodule:: example.lib.common
+.. automodule:: sacrud_example.lib.common
     :members:
     :undoc-members:
     :show-inheritance:
 
-example.lib.fixture module
+sacrud_example.lib.fixture module
 --------------------------
 
-.. automodule:: example.lib.fixture
+.. automodule:: sacrud_example.lib.fixture
     :members:
     :undoc-members:
     :show-inheritance:
@@ -24,7 +24,7 @@ example.lib.fixture module
 Module contents
 ---------------
 
-.. automodule:: example.lib
+.. automodule:: sacrud_example.lib
     :members:
     :undoc-members:
     :show-inheritance:

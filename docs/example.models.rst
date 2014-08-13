@@ -1,13 +1,13 @@
-example.models package
+sacrud_example.models package
 ======================
 
 Submodules
 ----------
 
-example.models.funny_models module
+sacrud_example.models.funny_models module
 ----------------------------------
 
-.. automodule:: example.models.funny_models
+.. automodule:: sacrud_example.models.funny_models
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ example.models.funny_models module
 Module contents
 ---------------
 
-.. automodule:: example.models
+.. automodule:: sacrud_example.models
     :members:
     :undoc-members:
     :show-inheritance:
