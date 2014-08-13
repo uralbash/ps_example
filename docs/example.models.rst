@@ -1,11 +1,11 @@
 sacrud_example.models package
-======================
+=============================
 
 Submodules
 ----------
 
 sacrud_example.models.funny_models module
-----------------------------------
+-----------------------------------------
 
 .. automodule:: sacrud_example.models.funny_models
     :members:

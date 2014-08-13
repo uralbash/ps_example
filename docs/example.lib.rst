@@ -1,11 +1,11 @@
 sacrud_example.lib package
-===================
+==========================
 
 Submodules
 ----------
 
 sacrud_example.lib.common module
--------------------------
+--------------------------------
 
 .. automodule:: sacrud_example.lib.common
     :members:
@@ -13,7 +13,7 @@ sacrud_example.lib.common module
     :show-inheritance:
 
 sacrud_example.lib.fixture module
---------------------------
+---------------------------------
 
 .. automodule:: sacrud_example.lib.fixture
     :members:

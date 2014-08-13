@@ -1,5 +1,5 @@
 sacrud_example package
-===============
+======================
 
 Subpackages
 -----------
@@ -15,7 +15,7 @@ Submodules
 ----------
 
 sacrud_example.sacrud_config module
-----------------------------
+-----------------------------------
 
 .. automodule:: sacrud_example.sacrud_config
     :members:

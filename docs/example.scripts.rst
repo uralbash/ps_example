@@ -1,11 +1,11 @@
 sacrud_example.scripts package
-=======================
+==============================
 
 Submodules
 ----------
 
 sacrud_example.scripts.initializedb module
------------------------------------
+------------------------------------------
 
 .. note::
     Works only with PostgreSQL database.
