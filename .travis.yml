@@ -28,7 +28,9 @@ install:
   - pip install nose coverage
   - pip install sqlalchemy pyramid
 
+  - pip install -r https://raw.githubusercontent.com/ITCase/pyramid_sacrud/master/requirements.txt
   - pip install git+http://github.com/ITCase/pyramid_sacrud.git
+
   - pip install git+https://github.com/ITCase/sqlalchemy_mptt.git
   - pip install git+https://github.com/ITCase/sacrud_pages.git
   - pip install -r requirements.txt
