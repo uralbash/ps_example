@@ -15,18 +15,20 @@ import uuid
 from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Float, ForeignKey, Integer, Numeric, String, Text,
                         Unicode, UnicodeText)
-from sqlalchemy.dialects.postgresql import ARRAY, HSTORE, JSON
+from sqlalchemy.dialects.postgresql import ARRAY, BYTEA, HSTORE, JSON
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
-from ..models import Base
-from sacrud.common.custom import widget_horizontal, widget_link, widget_m2m
-from sacrud.common.sa_helpers import TableProperty
+from pyramid_sacrud.common.custom import (widget_horizontal, widget_link,
+                                          widget_m2m)
+from sacrud.common import TableProperty
 from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
                                    BaseStock, Category2Group, Product2Category,
                                    Product2Group)
 from sacrud_pages.models import BasePages
+
+from ..models import Base
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
                          'static')
@@ -202,6 +204,8 @@ class TestAllTypes(Base):
     col_text = Column(Text)
     col_unicode = Column(Unicode)
     col_unicode_text = Column(UnicodeText)
+
+    sak = Column(BYTEA, default="FF")
 
     def __repr__(self):
         return self.col_pk
