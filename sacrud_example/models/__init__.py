@@ -11,6 +11,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from zope.sqlalchemy import ZopeTransactionExtension
 
-DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
+from sqlalchemy_mptt import mptt_sessionmaker
+
+DBSession = scoped_session(mptt_sessionmaker(
+    sessionmaker(extension=ZopeTransactionExtension())))
 Base = declarative_base()
 ziggurat_foundations.models.DBSession = DBSession
