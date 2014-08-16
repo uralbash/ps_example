@@ -23,9 +23,9 @@ from .models.funny_models import (CatalogCategory, CatalogGroup,
 
 def get_sacrud_models():
     """ col1 col2 col3
-         w1   w2   w3
-         w4   w5   w6
-         w7   w8   w9
+         w1   w4   w7
+         w2   w5   w9
+         w3
     """
     return {
         # Column 1
@@ -33,35 +33,35 @@ def get_sacrud_models():
             'tables': [TestHSTORE],
             'position': 1,
         },
-        '': {
-            'tables': [TestTEXT, TestBOOL, TestUNION, TestFile],
-            'position': 4,
-        },
-        'Just for fun': {
-            'tables': [TestAllTypes],
-            'position': 7,
-        },
-
-        # Column 2
         'Customizing example': {
             'tables': [TestCustomizing],
             'position': 2,
         },
+        'Catalog': {
+            'tables': [CatalogProduct, CatalogCategory, CatalogGroup,
+                       CatalogStock, Category2Group, Product2Category],
+            'position': 3,
+        },
+
+        # Column 2
+        '': {
+            'tables': [TestTEXT, TestBOOL, TestUNION, TestFile],
+            'position': 4,
+        },
         'Pages': {
             'tables': [MPTTPages],
             'position': 5,
+        },
+
+        # Column 3
+        'Just for fun': {
+            'tables': [TestAllTypes],
+            'position': 7,
         },
         'Auth': {
             'tables': [Company, Group, GroupPermission, UserGroup,
                        GroupResourcePermission, Resource, UserPermission,
                        UserResourcePermission, User, ExternalIdentity],
             'position': 8,
-        },
-
-        # Column 3
-        'Catalog': {
-            'tables': [CatalogProduct, CatalogCategory, CatalogGroup,
-                       CatalogStock, Category2Group, Product2Category],
-            'position': 3,
         },
     }
