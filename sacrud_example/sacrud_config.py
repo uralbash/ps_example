@@ -9,15 +9,13 @@
 """
 Anykey for sacrud
 """
-from .models.auth import (Company, ExternalIdentity, Group,
-                          GroupPermission, GroupResourcePermission,
-                          Resource, User, UserGroup, UserPermission,
-                          UserResourcePermission)
-from .models.funny_models import (CatalogCategory, CatalogGroup,
-                                  CatalogProduct, CatalogStock,
-                                  Category2Group, MPTTPages,
-                                  Product2Category, TestAllTypes,
-                                  TestBOOL, TestCustomizing, TestFile,
+from .models.auth import (Company, ExternalIdentity, Group, GroupPermission,
+                          GroupResourcePermission, Resource, User, UserGroup,
+                          UserPermission, UserResourcePermission)
+from .models.funny_models import (CatalogCategory, CatalogGroup, CatalogProduct,
+                                  CatalogStock, Category2Group, MPTTPages,
+                                  Product2Category, TestAllTypes, TestBOOL,
+                                  TestCustomizing, TestDeform, TestFile,
                                   TestHSTORE, TestTEXT, TestUNION)
 
 
@@ -34,7 +32,7 @@ def get_sacrud_models():
             'position': 1,
         },
         'Customizing example': {
-            'tables': [TestCustomizing],
+            'tables': [TestCustomizing, TestDeform],
             'position': 2,
         },
         'Catalog': {

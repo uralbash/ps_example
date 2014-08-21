@@ -34,6 +34,28 @@ file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
                          'static')
 
 
+class TestDeform(Base):
+    __tablename__ = "test_deform"
+
+    id = Column(Integer, primary_key=True)
+    hstore = Column(MutableDict.as_mutable(HSTORE))
+    filestore = Column(FileStore(path="/static/uploaded/",
+                                 abspath=os.path.join(file_path, 'uploaded')))
+
+    TEST_CHOICES = {'val_1': 'val_1', 'val_2': 'val_2', 'val_3': 'val_3',
+                    'val_4': 'val_4', 'val_5': 'val_5', 'val_6': 'val_6'}
+
+    choice = Column(ChoiceType(choices=TEST_CHOICES))
+    guid = Column(GUID(), default=uuid.uuid4)
+    json = Column(JSON)  # for postgresql 9.3 version
+    enum = Column(Enum(u'IPv6', u'IPv4', name=u"ip_type"))
+
+    elfinder = Column(ElfinderString,
+                      info={"verbose_name": u'Проверка Elfinder', })
+
+    # TODO: add slugtype
+
+
 class TestHSTORE(Base):
 
     """
