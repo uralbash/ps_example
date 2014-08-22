@@ -41,9 +41,16 @@ class TestDeform(Base):
     hstore = Column(MutableDict.as_mutable(HSTORE))
     filestore = Column(FileStore(path="/static/uploaded/",
                                  abspath=os.path.join(file_path, 'uploaded')))
+    filestore2 = Column(FileStore(path="/static/uploaded/",
+                                  abspath=os.path.join(file_path, 'uploaded')))
+    filestore3 = Column(FileStore(path="/static/uploaded/",
+                                  abspath=os.path.join(file_path, 'uploaded')))
 
-    TEST_CHOICES = {'val_1': 'val_1', 'val_2': 'val_2', 'val_3': 'val_3',
-                    'val_4': 'val_4', 'val_5': 'val_5', 'val_6': 'val_6'}
+    TEST_CHOICES = (
+        ('OK (200)', '200'),
+        ('Moved Permanently (301)', '301'),
+        ('Moved Temporarily (302)', '302'),
+    )
 
     choice = Column(ChoiceType(choices=TEST_CHOICES))
     guid = Column(GUID(), default=uuid.uuid4)
