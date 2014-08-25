@@ -22,7 +22,7 @@ from sqlalchemy.orm import relationship
 from pyramid_sacrud.common.custom import (widget_horizontal, widget_link,
                                           widget_m2m)
 from sacrud.common import TableProperty
-from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID
+from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID, SlugType
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
                                    BaseStock, Category2Group, Product2Category,
                                    Product2Group)
@@ -60,7 +60,8 @@ class TestDeform(Base):
     elfinder = Column(ElfinderString,
                       info={"verbose_name": u'Проверка Elfinder', })
 
-    # TODO: add slugtype
+    foo = Column(String)
+    slug = Column(SlugType('foo', False))
 
 
 class TestHSTORE(Base):
