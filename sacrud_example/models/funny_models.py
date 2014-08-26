@@ -19,8 +19,7 @@ from sqlalchemy.dialects.postgresql import ARRAY, BYTEA, HSTORE, JSON
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
-from pyramid_sacrud.common.custom import (widget_horizontal, widget_link,
-                                          widget_m2m)
+from pyramid_sacrud.common.custom import widget_link, widget_m2m
 from sacrud.common import TableProperty
 from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID, SlugType
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
@@ -266,13 +265,14 @@ class TestCustomizing(Base):
                         'name': [name], 'Date': [date]}
     sacrud_list_col = [widget_link(column=name, sacrud_name=u'name'), name_ru, name_cze]
     sacrud_detail_col = [('name space', [name,
-                                         widget_horizontal(name_ru, name_bg,
-                                                           name_fr, name_cze,
-                                                           sacrud_name=u"i18n names")]),
+                                         ('i18 names', (name_ru, name_bg,
+                                                        name_fr, name_cze)
+                                          )]
+                          ),
                          ('description', [description, date,
-                                          widget_horizontal(in_menu, visible,
-                                                            in_banner,
-                                                            sacrud_name=u"Расположение"),
+                                          (u"Расположение",
+                                           (in_menu, visible, in_banner)
+                                           ),
                                           description2])
                          ]
     # Sacrud search
