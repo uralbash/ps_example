@@ -91,7 +91,7 @@ def main(global_config, **settings):
     config.include('pyramid_elfinder.connector')
 
     # sacrud_catalog
-    config.include("sacrud_catalog")
+    config.include("pyramid_sacrud_catalog")
 
     # sacrud_pages - put it after all routes
     config.set_request_property(lambda x: MPTTPages,
