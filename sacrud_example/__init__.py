@@ -25,7 +25,7 @@ from .models.funny_models import MPTTPages
 from .sacrud_config import get_sacrud_models
 from .scripts import initializedb
 from pyramid_sacrud.common import set_jinja2_silent_none
-from sacrud_pages.common import get_pages_menu
+from pyramid_sacrud_pages.common import get_pages_menu
 
 
 def get_menu(**kwargs):
@@ -96,7 +96,7 @@ def main(global_config, **settings):
     # sacrud_pages - put it after all routes
     config.set_request_property(lambda x: MPTTPages,
                                 'sacrud_pages_model', reify=True)
-    config.include("sacrud_pages")
+    config.include("pyramid_sacrud_pages")
 
     # change None in Jinja2 template on empty string
     set_jinja2_silent_none(config)

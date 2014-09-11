@@ -20,12 +20,12 @@ from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
 from pyramid_sacrud.common.custom import widget_link, widget_m2m
+from pyramid_sacrud_pages.models import BasePages
 from sacrud.common import TableProperty
 from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID, SlugType
 from sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
                                    BaseStock, Category2Group, Product2Category,
                                    Product2Group)
-from sacrud_pages.models import BasePages
 
 from ..models import Base
 
