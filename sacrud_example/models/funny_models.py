@@ -125,6 +125,7 @@ class TestTEXT(Base):
 
     """
     __tablename__ = 'test_text'
+    __mapper_args__ = {'order_by': 'id'}
 
     id = Column(Integer, primary_key=True)
     foo = Column(String)
@@ -278,6 +279,10 @@ class TestCustomizing(Base):
     # Sacrud search
     sacrud_search_col = [name]
 
+"""
+        PAGES here
+"""
+
 
 class MPTTPages(BasePages, Base):
     __tablename__ = "mptt_pages"
@@ -300,6 +305,10 @@ class MPTTPages(BasePages, Base):
                 ('SEO', [col.seo_title, col.seo_keywords, col.seo_description,
                          col.seo_metatags])
                 ]
+
+"""
+        CATALOG of product here
+"""
 
 
 class CatalogProduct(Base, BaseProduct):
