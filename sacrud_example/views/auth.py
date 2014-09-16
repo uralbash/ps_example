@@ -39,7 +39,7 @@ def sign_in(request):
 @view_config(context=ZigguratSignInBadAuth, permission=NO_PERMISSION_REQUIRED)
 def bad_auth(request):
     # action like a warning flash message on bad logon
-    return HTTPFound(location=request.route_url('home'),
+    return HTTPFound(location=request.route_url('login'),
                      headers=request.context.headers)
 
 
