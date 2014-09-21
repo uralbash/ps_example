@@ -19,7 +19,7 @@ from sqlalchemy.dialects.postgresql import ARRAY, BYTEA, HSTORE, JSON
 from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
-from pyramid_sacrud.common.custom import widget_link, widget_m2m
+from pyramid_sacrud.common.custom import widget_link, WidgetM2M
 from pyramid_sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
                                            BaseStock, Category2Group,
                                            Product2Category, Product2Group)
@@ -317,8 +317,8 @@ class CatalogProduct(Base, BaseProduct):
     def sacrud_detail_col(cls):
         model = CatalogProduct
         return [('', [model.name, model.visible,
-                      widget_m2m(column=model.category),
-                      widget_m2m(column=model.group),
+                      WidgetM2M(column=model.category),
+                      WidgetM2M(column=model.group),
                       model.params]),
                 ]
 
@@ -329,7 +329,8 @@ class CatalogCategory(BaseCategory, Base):
     def sacrud_detail_col(cls):
         model = CatalogCategory
         return [('', [model.name, model.visible, model.abstract,
-                      widget_m2m(column=model.group)]),
+                      WidgetM2M(column=model.group,
+                                name='group')]),
                 ]
 
 
@@ -339,7 +340,7 @@ class CatalogGroup(BaseGroup, Base):
     def sacrud_detail_col(cls):
         model = CatalogGroup
         return [('', [model.name, model.visible,
-                      widget_m2m(column=model.category)]),
+                      WidgetM2M(column=model.category)]),
                 ]
 
 
