@@ -29,8 +29,8 @@ install:
   - pip install sqlalchemy pyramid
   - pip install psycopg2
 
-  - pip install -r https://raw.githubusercontent.com/ITCase/pyramid_sacrud/master/requirements.txt
-  - pip install git+http://github.com/ITCase/pyramid_sacrud.git
+  - pip install -r https://raw.githubusercontent.com/ITCase/pyramid_sacrud/develop/requirements.txt
+  - pip install git+http://github.com/ITCase/pyramid_sacrud.git@develop
 
   - pip install git+https://github.com/ITCase/sqlalchemy_mptt.git
   - pip install git+https://github.com/ITCase/pyramid_sacrud_pages.git
