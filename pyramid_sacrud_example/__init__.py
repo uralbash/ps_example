@@ -9,7 +9,6 @@
 """
 Main for example
 """
-from psycopg2.extras import register_hstore
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.config import Configurator
@@ -74,6 +73,7 @@ def main(global_config, **settings):
     conn = DBSession.connection()
     dialect = conn.dialect.name.lower()
     if dialect == 'postgresql':
+        from psycopg2.extras import register_hstore
         initializedb.add_extension(engine, 'hstore')
         register_hstore(conn.engine.raw_connection(), True)
 
