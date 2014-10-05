@@ -27,7 +27,6 @@ setup(name='pyramid_sacrud_example',
       include_package_data=True,
       zip_safe=False,
       test_suite='pyramid_sacrud_example',
-      install_requires=read('requirements.txt'),
       entry_points="""\
       [paste.app_factory]
       main = pyramid_sacrud_example:main
