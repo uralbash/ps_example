@@ -9,6 +9,8 @@ zope.sqlalchemy
 waitress
 ziggurat_foundations
 git+https://github.com/ITCase/sacrud.git@develop
+git+https://github.com/ITCase/pyramid_sacrud.git@develop
+git+https://github.com/ITCase/sacrud_deform.git@develop
 git+https://github.com/ITCase/pyramid_elfinder.git
 git+https://github.com/ITCase/sqlalchemy_mptt.git
 git+https://github.com/ITCase/pyramid_sacrud_pages.git
