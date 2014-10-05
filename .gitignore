@@ -1,6 +1,6 @@
 build
 dist
-sacrud_example.egg-info
+*.egg-info
 /sacrud
 *.swp
 *.pyc
@@ -11,8 +11,9 @@ nohup.out
 development_local.ini
 *.sublime*
 *.sublime-workspace
-sacrud_example/static/uploaded/*
-!sacrud_example/static/uploaded/anekdot.gif
-!sacrud_example/static/uploaded/foo.png
+pyramid_sacrud_example/static/uploaded/*
+!pyramid_sacrud_example/static/uploaded/anekdot.gif
+!pyramid_sacrud_example/static/uploaded/foo.png
 .ropeproject
 _build
+*.sqlite

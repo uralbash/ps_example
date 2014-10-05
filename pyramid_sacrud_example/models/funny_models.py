@@ -15,14 +15,9 @@ import uuid
 from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Float, ForeignKey, Integer, Numeric, String, Text,
                         Unicode, UnicodeText)
-from sqlalchemy.dialects.postgresql import ARRAY, BYTEA, HSTORE, JSON
-from sqlalchemy.ext.mutable import MutableDict
 from sqlalchemy.orm import relationship
 
-from pyramid_sacrud.common.custom import widget_link, WidgetM2M
-from pyramid_sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
-                                           BaseStock, Category2Group,
-                                           Product2Category, Product2Group)
+from pyramid_sacrud.common.custom import widget_link
 from pyramid_sacrud_pages.models import BasePages
 from sacrud.common import TableProperty
 from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID, SlugType
@@ -37,7 +32,6 @@ class TestDeform(Base):
     __tablename__ = "test_deform"
 
     id = Column(Integer, primary_key=True)
-    hstore = Column(MutableDict.as_mutable(HSTORE))
     filestore = Column(FileStore(path="/static/uploaded/",
                                  abspath=os.path.join(file_path, 'uploaded')))
     filestore2 = Column(FileStore(path="/static/uploaded/",
@@ -53,7 +47,6 @@ class TestDeform(Base):
 
     choice = Column(ChoiceType(choices=TEST_CHOICES))
     guid = Column(GUID(), default=uuid.uuid4)
-    json = Column(JSON)  # for postgresql 9.3 version
     enum = Column(Enum(u'IPv6', u'IPv4', name=u"ip_type"))
 
     elfinder = Column(ElfinderString,
@@ -61,33 +54,6 @@ class TestDeform(Base):
 
     foo = Column(String)
     slug = Column(SlugType('foo', False))
-
-
-class TestHSTORE(Base):
-
-    """
-    SQLAlchemy model for demonstration of the postgres dialect
-    :class:`sqlalchemy.dialects.postgresql.HSTORE` field
-
-    :param id: standart pk.
-    :param foo: :class:`sqlalchemy.dialects.postgresql.HSTORE` field.
-
-    Usage::
-
-        >>> hash = {'param1': 'foo', 'param2': 'bar'}
-        >>> hstore_obj = TestHSTORE(hash)
-        >>> hstore_obj.foo
-        {'param2': 'bar', 'param1': 'foo'}
-
-    """
-    __tablename__ = 'test_hstore'
-
-    id = Column(Integer, primary_key=True)
-    foo = Column(MutableDict.as_mutable(HSTORE),
-                 nullable=False, unique=True)
-
-    def __init__(self, foo):
-        self.foo = foo
 
 
 class TestFile(Base):
@@ -199,13 +165,12 @@ class TestAllTypes(Base):
     """
     SQLAlchemy model for demonstration all types field.
     """
-    __tablename__ = 'test_alltypes'
+    __tablename__ = 'test_all_types'
 
     TEST_CHOICES = {'val_1': 'val_1', 'val_2': 'val_2', 'val_3': 'val_3',
                     'val_4': 'val_4', 'val_5': 'val_5', 'val_6': 'val_6'}
 
     col_pk = Column(Integer, primary_key=True)
-    col_array = Column(ARRAY(Integer, as_tuple=True))
     col_bigint = Column(BigInteger)
     col_boolean = Column(Boolean)
     col_date_time = Column(Date)
@@ -217,7 +182,7 @@ class TestAllTypes(Base):
     col_float = Column(Float)
 
     # http://sqlalchemy.readthedocs.org/en/latest/orm/relationships.html?highlight=remote_side#adjacency-list-relationships
-    fk_test_alltypes = Column(Integer, ForeignKey('test_alltypes.col_pk'))
+    fk_test_alltypes = Column(Integer, ForeignKey('test_all_types.col_pk'))
     fk_test_union = Column(Integer, ForeignKey('test_union.id'))
     testalltypes = relationship('TestAllTypes')
     testunion = relationship('TestUNION')
@@ -225,17 +190,13 @@ class TestAllTypes(Base):
     col_elfinder = Column(ElfinderString, info={"verbose_name": u'Проверка Elfinder', })
 
     col_guid = Column(GUID(), default=uuid.uuid4)
-    col_hstore = Column(MutableDict.as_mutable(HSTORE))
     col_integer = Column(Integer)
 
-    col_json = Column(JSON)  # for postgresql 9.3 version
     col_numeric = Column(Numeric(10, 2))
     col_string = Column(String)
     col_text = Column(Text)
     col_unicode = Column(Unicode)
     col_unicode_text = Column(UnicodeText)
-
-    sak = Column(BYTEA, default="FF")
 
     def __repr__(self):
         return self.col_pk
@@ -305,56 +266,3 @@ class MPTTPages(BasePages, Base):
                 ('SEO', [col.seo_title, col.seo_keywords, col.seo_description,
                          col.seo_metatags])
                 ]
-
-"""
-        CATALOG of product here
-"""
-
-
-class CatalogProduct(Base, BaseProduct):
-
-    @TableProperty
-    def sacrud_detail_col(cls):
-        model = CatalogProduct
-        return [('', [model.name, model.visible,
-                      WidgetM2M(column=model.category),
-                      WidgetM2M(column=model.group),
-                      model.params]),
-                ]
-
-
-class CatalogCategory(BaseCategory, Base):
-
-    @TableProperty
-    def sacrud_detail_col(cls):
-        model = CatalogCategory
-        return [('', [model.name, model.visible, model.abstract,
-                      WidgetM2M(column=model.group,
-                                name='group')]),
-                ]
-
-
-class CatalogGroup(BaseGroup, Base):
-
-    @TableProperty
-    def sacrud_detail_col(cls):
-        model = CatalogGroup
-        return [('', [model.name, model.visible,
-                      WidgetM2M(column=model.category)]),
-                ]
-
-
-class CatalogStock(BaseStock, Base):
-    pass
-
-
-class Category2Group(Category2Group, Base):
-    pass
-
-
-class Product2Category(Product2Category, Base):
-    pass
-
-
-class Product2Group(Product2Group, Base):
-    pass

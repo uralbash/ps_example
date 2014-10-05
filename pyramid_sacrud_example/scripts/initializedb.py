@@ -21,10 +21,11 @@ from sqlalchemy import engine_from_config
 from ..lib.fixture import add_fixture
 from ..models import Base, DBSession
 from ..models.auth import Company, User
-from ..models.funny_models import (CatalogCategory, CatalogGroup,
-                                   CatalogProduct, MPTTPages, TestAllTypes,
-                                   TestBOOL, TestCustomizing, TestFile,
-                                   TestHSTORE, TestTEXT, TestUNION)
+from ..models.catalog import CatalogCategory, CatalogGroup, CatalogProduct
+from ..models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
+                                   TestCustomizing, TestFile, TestTEXT,
+                                   TestUNION)
+from ..models.postgres import TestHSTORE
 
 
 def usage(argv):
@@ -53,7 +54,9 @@ def add_text():
             out = Popen(["fortune", ""], stdout=PIPE).communicate()[0]
         except OSError:
             out = generate_lorem_ipsum()
-        text.append({'foo': out, 'ufoo': out, 'fooText': out, 'ufooText': out})
+        text.append({'foo': out.decode('utf-8'), 'ufoo': out.decode('utf-8'),
+                     'fooText': out.decode('utf-8'),
+                     'ufooText': out.decode('utf-8')})
     add_fixture(TestTEXT, text)
 
 
@@ -299,22 +302,28 @@ def main(argv=sys.argv):
     setup_logging(config_uri)
     settings = get_appsettings(config_uri)
     engine = engine_from_config(settings, 'sqlalchemy.')
+    DBSession.configure(bind=engine)
 
     # drop database
     Base.metadata.drop_all(engine)
     transaction.commit()
 
     # add postgres extension
-    add_extension(engine,
-                  # "plpythonu",
-                  "hstore",
-                  "uuid-ossp")
+    dialect = engine.dialect.name
+    if dialect == 'postgresql':
+        add_extension(engine,
+                      "plpythonu",
+                      "hstore",
+                      "uuid-ossp")
+        from ..models.postgres import Base as BasePostgres
+        from ..models.catalog import Base as BaseCatalog
+        BasePostgres.metadata.create_all(engine)
+        BaseCatalog.metadata.create_all(engine)
 
     # create database
-    DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
 
-    add_hstore()
+    # add_hstore()
     add_bool()
     add_text()
     add_union()
@@ -324,9 +333,10 @@ def main(argv=sys.argv):
     add_mptt_pages()
 
     # Catalog
-    add_catalog_group()
-    add_catalog_category()
-    add_catalog_product()
+    if dialect == 'postgres':
+        add_catalog_group()
+        add_catalog_category()
+        add_catalog_product()
 
     # Auth
     add_company()

@@ -18,14 +18,14 @@ from pyramid_beaker import session_factory_from_settings
 from sqlalchemy import engine_from_config
 from ziggurat_foundations.models import groupfinder
 
+from pyramid_sacrud_pages.common import get_pages_menu
+
 from .lib.common import get_user
 from .models import Base, DBSession
 from .models.auth import PERMISSION_VIEW
 from .models.funny_models import MPTTPages
 from .sacrud_config import get_sacrud_models
 from .scripts import initializedb
-from pyramid_sacrud.common import set_jinja2_silent_none
-from pyramid_sacrud_pages.common import get_pages_menu
 
 
 def get_menu(**kwargs):
@@ -50,7 +50,7 @@ def main(global_config, **settings):
     # Auth
     session_factory = session_factory_from_settings(settings)
     config = Configurator(settings=settings,
-                          root_factory='sacrud_example.models.auth.RootFactory',
+                          root_factory='pyramid_sacrud_example.models.auth.RootFactory',
                           session_factory=session_factory)
     authn_policy = AuthTktAuthenticationPolicy('sosecret', callback=groupfinder,
                                                hashalg='sha512')
@@ -69,36 +69,39 @@ def main(global_config, **settings):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
+
+    # init Postgres
     conn = DBSession.connection()
+    dialect = conn.dialect.name.lower()
+    if dialect == 'postgresql':
+        initializedb.add_extension(engine, 'hstore')
+        register_hstore(conn.engine.raw_connection(), True)
 
     # initializedb
-    initializedb.add_extension(engine, 'hstore')
-    register_hstore(conn.engine.raw_connection(), True)
     ini_file = global_config['__file__']
     initializedb.main(argv=["init", ini_file])
 
     config.include('pyramid_jinja2')
-    config.commit()
     config.add_jinja2_extension('jinja2.ext.with_')
-    config.add_jinja2_search_path("sacrud_example:templates")
+    config.add_jinja2_search_path("pyramid_sacrud_example:templates")
 
     # SACRUD
     config.include('pyramid_sacrud', route_prefix='/admin')
     settings = config.registry.settings
-    settings['pyramid_sacrud.models'] = get_sacrud_models()
+    settings['pyramid_sacrud.models'] = get_sacrud_models(dialect)
 
     # pyramid_elfinder
     config.include('pyramid_elfinder.connector')
 
     # sacrud_catalog
-    config.include("pyramid_sacrud_catalog")
+    if dialect == 'postgresql':
+        config.include("pyramid_sacrud_catalog")
 
     # sacrud_pages - put it after all routes
     config.set_request_property(lambda x: MPTTPages,
                                 'sacrud_pages_model', reify=True)
     config.include("pyramid_sacrud_pages")
 
-    # change None in Jinja2 template on empty string
-    set_jinja2_silent_none(config)
+    # Make WSGI application
     config.scan()
     return config.make_wsgi_app()

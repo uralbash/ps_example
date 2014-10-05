@@ -12,54 +12,53 @@ Anykey for sacrud
 from .models.auth import (Company, ExternalIdentity, Group, GroupPermission,
                           GroupResourcePermission, Resource, User, UserGroup,
                           UserPermission, UserResourcePermission)
-from .models.funny_models import (CatalogCategory, CatalogGroup, CatalogProduct,
-                                  CatalogStock, Category2Group, MPTTPages,
-                                  Product2Category, TestAllTypes, TestBOOL,
+from .models.postgres import TestHSTORE, TestPostgresTypes
+from .models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
                                   TestCustomizing, TestDeform, TestFile,
-                                  TestHSTORE, TestTEXT, TestUNION)
+                                  TestTEXT, TestUNION)
+
+from .models.catalog import (CatalogCategory, CatalogGroup, CatalogProduct,
+                             CatalogStock, Category2Group, Product2Category)
 
 
-def get_sacrud_models():
+def get_sacrud_models(dialect='sqlite'):
     """ col1 col2 col3
          w1   w4   w7
          w2   w5   w9
          w3
     """
-    return {
-        # Column 1
-        'Postgres': {
-            'tables': [TestHSTORE],
-            'position': 1,
-        },
+    widgets = {
         'Customizing example': {
             'tables': [TestCustomizing, TestDeform],
-            'position': 2,
+            'position': 1,
         },
-        'Catalog': {
-            'tables': [CatalogProduct, CatalogCategory, CatalogGroup,
-                       CatalogStock, Category2Group, Product2Category],
-            'position': 3,
-        },
-
-        # Column 2
         '': {
             'tables': [TestTEXT, TestBOOL, TestUNION, TestFile],
-            'position': 4,
+            'position': 2,
         },
         'Pages': {
             'tables': [MPTTPages],
-            'position': 5,
+            'position': 3,
         },
-
-        # Column 3
         'Just for fun': {
             'tables': [TestAllTypes],
-            'position': 7,
+            'position': 4,
         },
         'Auth': {
             'tables': [Company, Group, GroupPermission, UserGroup,
                        GroupResourcePermission, Resource, UserPermission,
                        UserResourcePermission, User, ExternalIdentity],
-            'position': 8,
+            'position': 5,
         },
     }
+    if dialect == 'postgresql':
+        widgets['Postgres'] = {
+            'tables': [TestHSTORE, TestPostgresTypes],
+            'position': 7,
+        }
+        widgets['Catalog'] = {
+            'tables': [CatalogProduct, CatalogCategory, CatalogGroup,
+                       CatalogStock, Category2Group, Product2Category],
+            'position': 8,
+        }
+    return widgets
