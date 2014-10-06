@@ -12,7 +12,7 @@ def read(name):
 setup(name='pyramid_sacrud_example',
       version='0.0.1',
       description='Pyramid sacrud example',
-      long_description=read('README.md') + '\n\n' + read('CHANGES.txt'),
+      long_description=read('README.rst') + '\n\n' + read('CHANGES.txt'),
       classifiers=[
           "Programming Language :: Python",
           "Framework :: Pyramid",
