@@ -4,8 +4,6 @@ Install
 
 **Require:**
 
-* PostgreSQL
-* psycopg2
 * fortune
 
 Install fortune:
@@ -19,7 +17,8 @@ Clone project to local machine:
 
 :code:`git clone git@github.com:uralbash/pyramid_sacrud_example.git`
 
-Edit `development.ini` postgres connection line and create db in PostgreSQL.
+SQLite support
+==============
 
 Initialize project:
 
@@ -27,13 +26,32 @@ Initialize project:
 
 Run protject:
 
-:code:`pserve development.ini`
+:code:`pserve development.ini http_port=8000`
 
-Folow to `<http://localhost:6543/admin/>`_
+Folow to `<http://localhost:8000/admin/>`_
 
-Screenshot
-==========
+PostgreSQL support
+==================
 
-.. image:: _static/pyramid_hstore.png
-.. image:: _static/pyramid_dnd.png
-.. image:: _static/pyramid_union.png
+PostgreSQL gives you additional tables with his special types (ARRAY, HSTORE, JSON, UUID, etc)
+
+**Require:**
+
+* PostgreSQL
+* psycopg2
+
+Copy `development_pg.ini` to `development_local.ini`, edit postgres connection line and create db in PostgreSQL.
+
+Initialize project:
+
+:code:`initialize_example_db development_local.ini`
+
+Run protject:
+
+:code:`pserve development_local.ini http_port=8000`
+
+Folow to `<http://localhost:8000/admin/>`_
+
+And see
+
+.. image:: _static/img/index.png

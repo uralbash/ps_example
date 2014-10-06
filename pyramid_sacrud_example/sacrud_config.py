@@ -28,18 +28,19 @@ def get_sacrud_models(dialect='sqlite'):
          w3
     """
     widgets = {
-        'Customizing example': {
-            'tables': [TestCustomizing, TestDeform],
+        'Pages': {
+            'tables': [MPTTPages],
             'position': 1,
         },
         '': {
             'tables': [TestTEXT, TestBOOL, TestUNION, TestFile],
             'position': 2,
         },
-        'Pages': {
-            'tables': [MPTTPages],
+        'Customizing example': {
+            'tables': [TestCustomizing, TestDeform],
             'position': 3,
         },
+
         'Just for fun': {
             'tables': [TestAllTypes],
             'position': 4,

@@ -15,6 +15,36 @@
 import sys
 import os
 
+
+if 'sphinx-build' in ' '.join(sys.argv):  # protect against dumb importers
+    from subprocess import call, Popen, PIPE
+
+    p = Popen('which git', shell=True, stdout=PIPE)
+    git = p.stdout.read().strip()
+    cwd = os.getcwd()
+    _themes = os.path.join(cwd, '_themes')
+
+    if not os.path.isdir(_themes):
+        call([git, 'clone', 'git@github.com:ITCase/itcase_sphinx_theme.git',
+              '_themes'])
+    else:
+        os.chdir(_themes)
+        call([git, 'checkout', 'master'])
+        call([git, 'pull'])
+        os.chdir(cwd)
+
+    sys.path.append(os.path.abspath('_themes'))
+
+    parent = os.path.dirname(os.path.dirname(__file__))
+    sys.path.append(os.path.abspath(parent))
+    wd = os.getcwd()
+    os.chdir(parent)
+    os.chdir(wd)
+
+    for item in os.listdir(parent):
+        if item.endswith('.egg'):
+            sys.path.append(os.path.join(parent, item))
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -46,8 +76,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'example'
-copyright = u'2014, Author'
+project = u'pyramid_sacrud_example'
+copyright = u'2014, Dmitry Svintsov'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -101,7 +131,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'default'
+html_theme = 'itcase'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -109,7 +139,7 @@ html_theme = 'default'
 #html_theme_options = {}
 
 # Add any paths that contain custom themes here, relative to this directory.
-#html_theme_path = []
+html_theme_path = ['_themes']
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".

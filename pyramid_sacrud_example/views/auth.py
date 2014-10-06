@@ -25,14 +25,7 @@ from ziggurat_foundations.ext.pyramid.sign_in import ZigguratSignInBadAuth
 
 @view_config(context=ZigguratSignInSuccess, permission=NO_PERMISSION_REQUIRED)
 def sign_in(request):
-    # user = request.context.user
-    # actions performed on sucessful logon, flash message/new csrf token
-    # user status validation etc.
-    # if request.context.came_from != '/':
-    #    return HTTPFound(location=request.context.came_from,
-    #                     headers=request.context.headers)
-    # else:
-    return HTTPFound(location='/',
+    return HTTPFound(location='/admin/',
                      headers=request.context.headers)
 
 

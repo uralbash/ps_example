@@ -16,4 +16,5 @@ pyramid_sacrud_example/static/uploaded/*
 !pyramid_sacrud_example/static/uploaded/foo.png
 .ropeproject
 _build
+_themes
 *.sqlite
