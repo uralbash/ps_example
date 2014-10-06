@@ -1,9 +1,17 @@
-[![Stories in Ready](https://badge.waffle.io/itcase/pyramid_sacrud_example.png?label=ready&title=Ready)](https://waffle.io/itcase/pyramid_sacrud_example)
-[![Build Status](https://travis-ci.org/ITCase/pyramid_sacrud_example.png?branch=master)](https://travis-ci.org/ITCase/pyramid_sacrud_example)
+|Stories in Ready| |Build Status|
 
-App demostration pyramid CRUD interface powered by sacrud package. 
+App demostration pyramid CRUD interface powered by sacrud package.
 
-Documentation http://pyramid-sacrud-example.readthedocs.org/en/latest/
+* Documentation http://pyramid-sacrud-example.readthedocs.org/en/latest/
+* `Online Demo <http://runnable.com/VDGfz3HpEe5wCw63/pyramid-crud-admin-interface-for-python-sacrud-sqlalchemy_mptt-and-pyramid_sacrud>`_
 
-![ScreenShot](https://raw.github.com/ITCase/pyramid_sacrud_example/master/docs/source/_static/pyramid_dnd.png)
+.. figure:: https://raw.githubusercontent.com/ITCase/pyramid_sacrud_example/master/docs/_static/img/index.png
+   :alt: ScreenShot
+
+   ScreenShot
+
+.. |Stories in Ready| image:: https://badge.waffle.io/itcase/pyramid_sacrud_example.png?label=ready&title=Ready
+   :target: https://waffle.io/itcase/pyramid_sacrud_example
+.. |Build Status| image:: https://travis-ci.org/ITCase/pyramid_sacrud_example.png?branch=master
+   :target: https://travis-ci.org/ITCase/pyramid_sacrud_example
 
