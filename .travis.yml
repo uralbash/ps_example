@@ -32,8 +32,8 @@ install:
   - pip install -r https://raw.githubusercontent.com/ITCase/pyramid_sacrud/develop/requirements.txt
   - pip install git+http://github.com/ITCase/pyramid_sacrud.git@develop
 
-  - pip install git+https://github.com/ITCase/sqlalchemy_mptt.git
-  - pip install git+https://github.com/ITCase/pyramid_sacrud_pages.git@develop
+  - pip install git+http://github.com/ITCase/sqlalchemy_mptt.git
+  - pip install git+http://github.com/ITCase/pyramid_sacrud_pages.git
   - pip install -r requirements.txt
 
 before_script:
