@@ -78,8 +78,9 @@ def main(global_config, **settings):
         register_hstore(conn.engine.raw_connection(), True)
 
     # initializedb
-    ini_file = global_config['__file__']
-    initializedb.main(argv=["init", ini_file])
+    if settings.get('sacrud.debug_reload_database', False):
+        ini_file = global_config['__file__']
+        initializedb.main(argv=["init", ini_file])
 
     config.include('pyramid_jinja2')
     config.add_jinja2_extension('jinja2.ext.with_')

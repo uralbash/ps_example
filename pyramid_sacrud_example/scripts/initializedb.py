@@ -47,9 +47,10 @@ def add_bool():
     add_fixture(TestBOOL, booles)
 
 
-def add_text():
+def add_text(settings):
     text = []
-    for i in range(100):
+    n = int(settings.get('sacrud.debug_text_rows', 100))
+    for i in range(n):
         try:
             out = Popen(["fortune", ""], stdout=PIPE).communicate()[0]
         except OSError:
@@ -325,7 +326,7 @@ def main(argv=sys.argv):
 
     # add_hstore()
     add_bool()
-    add_text()
+    add_text(settings)
     add_union()
     add_alltypes()
     add_customizing()
