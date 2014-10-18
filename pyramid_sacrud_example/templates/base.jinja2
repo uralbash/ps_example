@@ -2,9 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="myApp">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>
+        {% if page.seo_title %}
+            {{ page.seo_title }}
+        {% else %}
+            {{ page.name }}
+        {% endif %}
+    </title>
 
     {% block meta %}
+        {{ page.seo_keywords }}
+        {{ page.seo_description }}
+        {{ page.seo_metatags|safe }}
     {% endblock meta %}
 
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
