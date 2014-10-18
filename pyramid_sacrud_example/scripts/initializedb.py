@@ -268,7 +268,7 @@ def add_mptt_pages():
             'redirect_page': '2', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
         {'in_menu': False, 'slug': 'foo17', 'name': 'foo17', 'redirect_type': '301',
             'redirect_page': '3', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo18', 'name': 'foo18', 'redirect_type': '302',
+        {'in_menu': True,  'slug': 'yandex', 'name': 'yandex', 'redirect_type': '302',
             'redirect_url': 'http://ya.ru', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
         {'in_menu': False, 'slug': 'foo19', 'name': 'foo19',
             'visible': True, 'parent_id': '18', 'tree_id': '12'},
