@@ -50,9 +50,11 @@
                         <img src="{{ request.static_url('sacrud_example:static/img/logo.png') }}" class="header__logo-link-image" alt="" title="" />
                     </a>
                 </div>
-                {% with menu=page_menu(from_lvl=1, to_lvl=5) %}
-                  {% include 'pyramid_sacrud_pages/menu.jinja2' with context %}
-                {% endwith %}
+                <div class="header__menu">
+                    {% with menu=page_menu(from_lvl=1, to_lvl=5) %}
+                        {% include 'pyramid_sacrud_pages/menu.jinja2' with context %}
+                    {% endwith %}
+                </div>
                 <div class="header__user">
                     {% include 'auth/user_in_head.jinja2' %}
                 </div>
