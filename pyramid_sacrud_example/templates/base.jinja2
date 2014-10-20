@@ -3,17 +3,21 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>
-        {% if page.seo_title %}
-            {{ page.seo_title }}
-        {% else %}
-            {{ page.name }}
+        {% if page %}
+            {% if page.seo_title %}
+                {{ page.seo_title }}
+            {% else %}
+                {{ page.name }}
+            {% endif %}
         {% endif %}
     </title>
 
     {% block meta %}
-        {{ page.seo_keywords }}
-        {{ page.seo_description }}
-        {{ page.seo_metatags|safe }}
+        {% if page %}
+            {{ page.seo_keywords }}
+            {{ page.seo_description }}
+            {{ page.seo_metatags|safe }}
+        {% endif %}
     {% endblock meta %}
 
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
