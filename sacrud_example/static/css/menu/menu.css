@@ -1,37 +1,47 @@
 .menu
 {
-	position: relative;
+    position: relative;
 }
-	.menu-list
-	{
-		padding: 0;
-		margin: 0;
-	}
-		.menu-list__item
-		{
-			display: inline-block;
-			margin: 0 2em 0.2em 0;
-		}
-			.menu-list__item-link
-			{
-				font: 1em 'Segoe UI_', 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
-				text-transform: uppercase;
-				color: #F0A123;
-				text-decoration: none;
-			}
-			.menu-list__item-link:hover
-			{
-				color: #4183c4;
-			}
-			.menu-list__item-link:visited
-			{
-				color: #F0A123;
-			}
-			.menu-list__item-link:visited:hover 
-			{
-				color: #4183c4;
-			}
-		.menu-list__item_state_current .menu-list__item-link
-		{
-			font-weight: bold;
-		}
+
+    .menu-list
+    {
+        margin: 0;
+        padding: 0;
+    }
+
+        .menu-list__item
+        {
+            display: inline-block;
+
+            margin: 0 1em .2em 0;
+        }
+
+            .menu-list__item-link
+            {
+                font: .8em Arial, Helvetica, sans-serif;
+
+                text-decoration: none;
+
+                color: #777;
+            }
+
+            .menu-list__item-link:hover
+            {
+                color: #c00;
+            }
+
+            .menu-list__item-link:visited
+            {
+                color: #551a8b;
+            }
+
+            .menu-list__item-link:visited:hover
+            {
+                color: #c00;
+            }
+
+        .menu-list__item_state_current .menu-list__item-link
+        {
+            font-weight: bold;
+        }
+

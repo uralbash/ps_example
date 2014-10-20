@@ -1,32 +1,43 @@
 .header
 {
-	width: 100%;
-	position: relative;
-	padding: 20px 0 0 0;
-	margin: 0 0 20px 0;
+    position: relative;
+
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding: 20px 0 0 0;
 }
-	.header__logo
-	{
-		width: 35%;
-		float: left;
-	}
-		.header__logo-link
-		{
-			display: inline-block;
-		}
-			.header__logo-link-image
-			{
-				vertical-align: bottom;
-			}
-	.header__menu
-	{
-		width: 50%;
-		float: left;
-		text-align: right;
-		padding: 35px 0 30px 0;
-	}
-	.header__user
-	{
-		width: 10%;
-		float: right;
-	}
+    .header__top
+    {
+        width: 100%;
+        padding: 0 0 1em 0;
+    }
+    .header__menu
+    {
+        float: left;
+    }
+    .header__lang
+    {
+        float: left;
+
+        padding: 0 0 0 1em;
+    }
+    .header__search
+    {
+        float: right;
+    }
+    .header__phone
+    {
+        float: left;
+    }
+    .header__logo
+    {
+        width: 100%;
+
+        text-align: center;
+    }
+    .header__right
+    {
+        float: right;
+
+        width: 65%;
+    }

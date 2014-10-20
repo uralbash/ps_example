@@ -1,0 +1,67 @@
+.lang-switch
+{
+    position: relative;
+
+    text-align: right;
+}
+    .lang-switch__item
+    {
+        position: relative;
+
+        display: inline-block;
+
+        text-decoration: none;
+    }
+    .lang-switch__item:first-child
+    {
+        padding: 0 .3em 0 0;
+    }
+    .lang-switch__item:first-child:after
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        display: block;
+
+        width: 1px;
+        height: 1.1em;
+
+        content: '';
+
+        background: #ccc;
+    }
+    .lang-switch__item-button
+    {
+        font: .8em Arial, Helvetica, sans-serif;
+
+        margin: 0;
+        padding: 0;
+
+        cursor: pointer;
+        text-decoration: none;
+
+        color: #777;
+        border: solid 0 red;
+        background: none;
+    }
+    .lang-switch__item-button:hover
+    {
+        color: #c00;
+    }
+    .lang-switch__item-button:visited
+    {
+        color: #551a8b;
+    }
+    .lang-switch__item-button:visited:hover
+    {
+        color: #c00;
+    }
+    .lang-switch__item-button:focus
+    {
+        outline: 0;
+    }
+    .lang-switch__item_state_current .lang-switch__item-button
+    {
+        color: #777;
+    }

@@ -1,0 +1,13 @@
+.popup-inner__content-video
+{
+    display: none;
+
+    width: 860px;
+    min-height: 600px;
+    padding: 1.5em 1.1em 1.2em 1.1em;
+
+    background: #fff;
+    -webkit-box-shadow: 0 0 30px 0 #555;
+       -moz-box-shadow: 0 0 30px 0 #555;
+            box-shadow: 0 0 30px 0 #555;
+}

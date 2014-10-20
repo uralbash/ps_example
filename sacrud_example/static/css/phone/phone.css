@@ -1,18 +1,14 @@
 .phone
 {
-	width: auto;
-	text-align: center;
+    width: auto;
+    margin: 0 0 .2em 1em;
 }
+
 	.phone__number
 	{
-		font: 1.7em Arial;
-		line-height: 1em;
-		color: #000;
-		white-space: nowrap;
-	}
-	.phone__text
-	{
-		font: 0.8em Arial;
-		color: #000;
-		padding: 0.3em 0 0 0;
+	    font: bold .8em Arial, Helvetica, sans-serif;
+
+	    white-space: nowrap;
+
+	    color: #000;
 	}

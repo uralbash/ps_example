@@ -1,29 +1,33 @@
-body {
-}
-
-a {
-    outline: 0
+a
+{
+    outline: 0;
 }
 
 input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
+input::-webkit-inner-spin-button
+{
     margin: 0;
+    /* display: none; <- Crashes Chrome on hover */
+
+    -webkit-appearance: none;
 }
 
-.clear-fix {
-	zoom: 1;
+.clear-fix
+{
+    zoom: 1;
 }
 
-.clear-fix:after {
-	display: block;
-	clear: both;
-	content: "";
+.clear-fix:after
+{
+    display: block;
+    clear: both;
+
+    content: '';
 }
 .cut-button
 {
-    border: solid 1px red;
     position: relative;
     z-index: 9999;
+
+    border: solid 1px red;
 }
