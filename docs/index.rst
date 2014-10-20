@@ -3,17 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to sacrud_example's documentation!
-==========================================
+Demo application of pyramid_sacrud
+==================================
 
-Contents:
+A sample application for demonstrate admin interface with Pyramid framework.
+It use `pyramid_sacrud <https://github.com/ITCase/pyramid_sacrud>`_.
+
+.. image:: _static/img/index.png
+    :alt: SACRUD main page
+    :align: right
+    :width: 500px
 
 .. toctree::
    :maxdepth: 4
 
    install
-   example
-
+   demo
 
 Indices and tables
 ==================

@@ -3,27 +3,16 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.md')).read()
-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = [
-    'pyramid',
-    'pyramid_jinja2',
-    'pyramid_beaker',
-    'SQLAlchemy',
-    'transaction',
-    'pyramid_tm',
-    'pyramid_debugtoolbar',
-    'zope.sqlalchemy',
-    'waitress',
-    'psycopg2',
-    'ziggurat_foundations',
-    ]
 
-setup(name='sacrud_example',
+def read(name):
+    with open(os.path.join(here, name)) as f:
+        return f.read()
+
+setup(name='pyramid_sacrud_example',
       version='0.0.1',
       description='Pyramid sacrud example',
-      long_description=README + '\n\n' + CHANGES,
+      long_description=read('README.rst') + '\n\n' + read('CHANGES.txt'),
       classifiers=[
           "Programming Language :: Python",
           "Framework :: Pyramid",
@@ -37,12 +26,11 @@ setup(name='sacrud_example',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='sacrud_example',
-      install_requires=requires,
+      test_suite='pyramid_sacrud_example',
       entry_points="""\
       [paste.app_factory]
-      main = sacrud_example:main
+      main = pyramid_sacrud_example:main
       [console_scripts]
-      initialize_example_db = sacrud_example.scripts.initializedb:main
+      initialize_example_db = pyramid_sacrud_example.scripts.initializedb:main
       """,
       )

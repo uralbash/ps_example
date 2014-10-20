@@ -1,0 +1,45 @@
+{% extends "sacrud/base.jinja2" %}
+
+{% block userspace %}
+  {{ super() }}
+<<<<<<< HEAD:sacrud_example/templates/sacrud/redefineme.jinja2
+  <link rel="stylesheet" type="text/css" href="{{ request.static_url('sacrud_example:static/css/jquery-ui.css') }}" />
+=======
+
+  <link rel="stylesheet" type="text/css" href="{{ request.static_url('pyramid_sacrud_example:static/css/jquery-ui.css') }}" />
+>>>>>>> 813d97aaa90d0b24fbdb62b5b46d1ef17f2f8272:pyramid_sacrud_example/templates/sacrud/redefineme.jinja2
+  <style>
+    .content {
+      height: 550px;
+    }
+    .name {
+      width: 400px;
+    }
+  </style>
+
+  <script src="{{ request.static_url('pyramid_sacrud_example:static/js/tinymce.min.js') }}"></script>
+  {% include 'elfinder/tinymce.jinja2' %}
+  <script>
+    tinymce.init({
+      selector:'textarea.tinymce',
+      browser_spellcheck : true,
+      plugins: "image link code contextmenu fullpage fullscreen "+
+              "hr insertdatetime lists media paste preview "+
+              "print table textcolor "+
+              "visualchars wordcount",
+      toolbar1: "fullpage preview print forecolor backcolor inserttable",
+      toolbar2: "styleselect formatselect fontselect fontsizeselect cut copy paste  removeformat subscript superscript",
+      toolbar3: "undo redo | bold italic underline strikethrough | bullist numlist outdent indent blockquote | alignleft aligncenter alignright alignjustify |",
+      file_browser_callback: elFinderBrowser,
+    });
+  </script>
+{% endblock %}
+
+
+{% block sa_auth %}
+    {% include "/auth/user_in_head.jinja2" %}
+{% endblock sa_auth %}
+
+{% block sa_body %}
+    {{ super() }}
+{% endblock %}

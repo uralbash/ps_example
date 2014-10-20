@@ -27,18 +27,20 @@ install:
   - sudo apt-get install -q postgresql-plpython-9.3
   - pip install nose coverage
   - pip install sqlalchemy pyramid
+  - pip install psycopg2
 
-  - pip install -r https://raw.githubusercontent.com/ITCase/pyramid_sacrud/master/requirements.txt
-  - pip install git+http://github.com/ITCase/pyramid_sacrud.git
+  - pip install -r https://raw.githubusercontent.com/ITCase/pyramid_sacrud/develop/requirements.txt
+  - pip install git+http://github.com/ITCase/pyramid_sacrud.git@develop
 
-  - pip install git+https://github.com/ITCase/sqlalchemy_mptt.git
-  - pip install git+https://github.com/ITCase/pyramid_sacrud_pages.git
+  - pip install git+http://github.com/ITCase/sqlalchemy_mptt.git
+  - pip install git+http://github.com/ITCase/pyramid_sacrud_pages.git
   - pip install -r requirements.txt
 
 before_script:
   - psql -c 'create database sacrud;' -U postgres
   - psql -c "ALTER USER postgres with password 'secure-password';" -U postgres
   - python setup.py develop
+  - initialize_example_db development_pg.ini
   - initialize_example_db development.ini
 
 script:
