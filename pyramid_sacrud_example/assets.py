@@ -44,6 +44,8 @@ def add_css_assets(config):
             'css/**/*.css',
             filters='cssmin', output=css_file)
         config.add_webasset('sa_example_css', css_bundle)
+    else:
+        config.add_webasset('sa_css', 'css/__main.css')
 
 
 def includeme(config):
