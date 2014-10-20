@@ -104,7 +104,7 @@ def main(global_config, **settings):
     config.include("pyramid_sacrud_pages")
 
     # assets
-    config.include('pyramid_sacrud_example.assets')
+    # config.include('pyramid_sacrud_example.assets')
 
     # Make WSGI application
     config.scan()

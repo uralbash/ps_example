@@ -36,16 +36,18 @@ def webassets_init(config):
 
 def add_css_assets(config):
     settings = config.registry.settings
-    css_file = os.path.join(
-        settings["webassets.base_dir"], 'css', '__main.css')
-    if settings.get('sacrud.debug_css', False):
-        css_bundle = Bundle(                                # pragma: no cover
-            'css/*.css',
-            'css/**/*.css',
-            filters='cssmin', output=css_file)
-        config.add_webasset('sa_example_css', css_bundle)
-    else:
-        config.add_webasset('sa_css', 'css/__main.css')
+    css_file = os.path.join(settings["webassets.base_dir"],
+                            'css', '__main.css')
+    debug_css = settings.get('sacrud.debug_css', False)
+    if debug_css == "True":
+        bundle = Bundle('css/*.css',
+                        'css/**/*.css',
+                        filters='cssmin',
+                        output=css_file)
+        env = config.get_webassets_env()
+        bundle._set_env(env)
+        bundle.build()
+    config.add_webasset('sa_example_css', css_file)
 
 
 def includeme(config):
