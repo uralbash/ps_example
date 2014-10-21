@@ -50,6 +50,28 @@
             vertical-align: top;
             text-decoration: none;
         }
+            .main-menu__item-popup
+            {
+                left: 0;
+                top: 100%;
+                display: none;
+                position: absolute;
+                border: solid 1px #000;
+                background: #fff;
+            }
+        .main-menu__item:hover > .main-menu__item-popup
+        {
+            display: block;
+        }
+            
+        div[class='main-menu__item-popup'] > .main-menu__item:hover > .main-menu__item-popup
+        {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 100%;
+        }
+
         .main-menu__item:last-child:after
         {
             display: none;
