@@ -1,4 +1,5 @@
 /sacrud
+/gulp/node_modules/
 build
 dist
 _build

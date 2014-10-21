@@ -1,0 +1,31 @@
+{
+  "name": "gulp_pyramid_sacrud_example",
+  "title": "Pyramid Sacrud Example",
+  "description": "App demostration pyramid CRUD interface powered by sacrud package",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ITCase/pyramid_sacrud_example",
+  "author": {
+    "name": "ITCase",
+    "email": "info@itcase.pro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ITCase/pyramid_sacrud_example.git"
+  },
+  "bugs": "https://github.com/ITCase/pyramid_sacrud_example/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": ""
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-concat": "^2.4.1",
+    "gulp-watch": "^1.1.0"
+  },
+  "keywords": []
+}
