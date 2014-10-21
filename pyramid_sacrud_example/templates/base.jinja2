@@ -25,7 +25,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {% block extra_css %}
-        <link rel="stylesheet" href="{{ request.static_url('pyramid_sacrud_example:static/css/__main.css') }}" />
+        <link rel="stylesheet" href="{{ request.static_url('pyramid_sacrud_example:static/css/__main.css') }}" type="text/css" />
     {% endblock extra_css %}
 
     <noscript>
@@ -63,7 +63,7 @@
                     </a>
                 </div>
                 <div class="header__menu">
-                    {% with menu=page_menu(from_lvl=1, to_lvl=5) %}
+                    {% with menu=page_menu(from_lvl=1, to_lvl=6) %}
                         {% include 'pyramid_sacrud_pages/menu.jinja2' with context %}
                     {% endwith %}
                 </div>

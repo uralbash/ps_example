@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-from pyramid.view import view_config
-from pyramid.security import NO_PERMISSION_REQUIRED
+from pyramid.view import notfound_view_config
 
 
-# @view_config(route_name='home', renderer='/base.jinja2',
-#              permission=NO_PERMISSION_REQUIRED)
-# def index_view(request):
-#     context = {}
-#     return context
+@notfound_view_config(append_slash=True, renderer='404.jinja2')
+def notfound(request):
+    request.response.status = 404
+    return {}

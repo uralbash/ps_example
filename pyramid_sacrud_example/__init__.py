@@ -105,4 +105,5 @@ def main(global_config, **settings):
 
     # Make WSGI application
     config.scan()
+
     return config.make_wsgi_app()
