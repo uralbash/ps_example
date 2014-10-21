@@ -25,9 +25,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {% block extra_css %}
-        {#% assets "sa_example_css" %}
-            <link rel="stylesheet" href="{{ ASSET_URL }}" />
-        {% endassets %#}
+        <script src="{{ request.static_url('pyramid_sacrud_example:static/css/__main.css') }}"></script>
     {% endblock extra_css %}
 
     <noscript>
