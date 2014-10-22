@@ -18,9 +18,11 @@ from jinja2.utils import generate_lorem_ipsum
 from pyramid.paster import get_appsettings, setup_logging
 from sqlalchemy import engine_from_config
 
+from pyramid_sacrud.security import permissions
+
 from ..lib.fixture import add_fixture
 from ..models import Base, DBSession
-from ..models.auth import Company, User
+from ..models.auth import Company, User, UserPermission
 from ..models.catalog import CatalogCategory, CatalogGroup, CatalogProduct
 from ..models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
                                    TestCustomizing, TestFile, TestTEXT,
@@ -296,6 +298,13 @@ def add_user(user):
     transaction.commit()
 
 
+def add_admin_permission():
+    admin_permissions = []
+    for permission in permissions:
+        admin_permissions.append({'user_id': '1', 'perm_name': permission})
+    add_fixture(UserPermission, admin_permissions)
+
+
 def main(argv=sys.argv):
     if len(argv) != 2:
         usage(argv)
@@ -344,3 +353,4 @@ def main(argv=sys.argv):
     add_user({'login': 'admin', 'password': '123',
               'email': 'foo@bar.baz', 'name': 'Foo',
               'surname': 'Bar', 'middlename': 'Baz'})
+    add_admin_permission()
