@@ -92,7 +92,7 @@ def main(global_config, **settings):
     settings['pyramid_sacrud.models'] = get_sacrud_models(dialect)
 
     # pyramid_elfinder
-    config.include('pyramid_elfinder.connector')
+    config.include('pyramid_elfinder')
 
     # sacrud_catalog
     if dialect == 'postgresql':
