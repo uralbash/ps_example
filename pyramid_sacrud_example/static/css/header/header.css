@@ -35,9 +35,9 @@
 
         text-align: center;
     }
-    .header__right
+    .header__user
     {
-        float: right;
-
-        width: 65%;
+        position: absolute;
+        right: 20%;
+        top: 3em;
     }

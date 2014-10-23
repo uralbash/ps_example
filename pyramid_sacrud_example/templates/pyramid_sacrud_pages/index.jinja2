@@ -1,9 +1,8 @@
 {% extends "base.jinja2" %}
 
 {% block content %}
-  <br />
-  {{ page.name }}
-  <br />
-  {{ page.description|safe }}
-  <br />
+	<div class="page">
+		<div class="page-title">{{ page.name }}</div>
+		<div class="page-content">{{ page.description|safe }}</div>
+	</div>
 {% endblock %}

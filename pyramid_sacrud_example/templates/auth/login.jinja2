@@ -1,31 +1,30 @@
 {% extends "/base.jinja2" %}
 
 {% block content %}
-
     <form class="form form_type_auth ng-pristine ng-valid" method="post" action="{{request.route_url('ziggurat.routes.sign_in')}}">
-        <input type="hidden" value="OPTIONAL" name="came_from" id="came_from">
-        <div class="form__title">Log in to SACRUD</div>
+        <input type="hidden" value="OPTIONAL" name="came_from" id="came_from" />
+        <div class="form-title">Log in to SACRUD</div>
         <ul class="form-fields">
-            <li class="form-field__item clear-fix ">
-                <div class="form-field__item-c1">
-                    <div class="form-field__item-name">Username:<span class="form-field__item-required">*</span></div>
+            <li class="form-field-item clear-fix">
+                <div class="form-field-item-c1">
+                    <div class="form-field-item__name">Username:<span class="form-field-item__required">*</span></div>
                 </div>
-                <div class="form-field__item-c2">
-                    <input class="form-input" type="text" name="login">
+                <div class="form-field-item-c2">
+                    <input class="form-input" type="text" name="login" />
                 </div>
             </li>
 
-            <li class="form-field__item clear-fix ">
+            <li class="form-field-item clear-fix">
                 <div class="form-field__item-c1">
-                    <div class="form-field__item-name">Password:<span class="form-field__item-required">*</span></div>
+                    <div class="form-field-item__name">Password:<span class="form-field-item__required">*</span></div>
                 </div>
-                <div class="form-field__item-c2">
-                    <input class="form-input" type="password" name="password">
+                <div class="form-field-item-c2">
+                    <input class="form-input" type="password" name="password" />
                 </div>
             </li>
-            <li class="form-field__item clear-fix">
-                <div class="form-field__item-c1">&nbsp;</div>
-                <div class="form-field__item-c2">
+            <li class="form-field-item clear-fix">
+                <div class="form-field-item-c1">&nbsp;</div>
+                <div class="form-field-item-c2">
                     <button type="submit" value="Sign In" id="submit" name="submit" class="button button_type_flat">
                         <span class="button-inner">Sign In</span>
                     </button>
