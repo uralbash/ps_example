@@ -20,7 +20,8 @@ from sqlalchemy.orm import relationship
 from pyramid_sacrud.common.custom import widget_link
 from pyramid_sacrud_pages.models import BasePages
 from sacrud.common import TableProperty
-from sacrud.exttype import ChoiceType, ElfinderString, FileStore, GUID, SlugType
+from sacrud.exttype import ChoiceType, FileStore, GUID, SlugType
+from pyramid_elfinder.models import ElfinderString
 
 from ..models import Base
 

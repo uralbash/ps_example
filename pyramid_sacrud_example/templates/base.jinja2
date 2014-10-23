@@ -63,7 +63,7 @@
                     </a>
                 </div>
                 <div class="header__menu">
-                    {% with menu=page_menu(from_lvl=1, to_lvl=6) %}
+                    {% with menu=page_menu(from_lvl=1) %}
                         {% include 'pyramid_sacrud_pages/menu.jinja2' with context %}
                     {% endwith %}
                 </div>
