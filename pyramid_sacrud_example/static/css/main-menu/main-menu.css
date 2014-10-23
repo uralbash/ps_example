@@ -1,7 +1,6 @@
 .main-menu
 {
     position: relative;
-
     margin: 10px 0 25px 0;
 }
     .main-menu__wrapper
@@ -56,7 +55,7 @@
                 top: 100%;
                 display: none;
                 position: absolute;
-                border: solid 1px #000;
+                border: solid 1px #fff;
                 background: #fff;
             }
         .main-menu__item:hover > .main-menu__item-popup
