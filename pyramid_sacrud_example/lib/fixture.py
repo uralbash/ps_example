@@ -13,10 +13,9 @@ helper for SQLAlchemy fixtures in Pyramid
 from random import randint
 
 import transaction
+from pyramid_sqlalchemy import Session as DBSession
 
 from sacrud.action import CRUD
-
-from ..models import DBSession
 
 
 def add_fixture(model, fixtures, delete=True):

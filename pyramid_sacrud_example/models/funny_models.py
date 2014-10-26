@@ -12,18 +12,17 @@ Models for example
 import os
 import uuid
 
+from pyramid_sqlalchemy import BaseObject as Base
 from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Float, ForeignKey, Integer, Numeric, String, Text,
                         Unicode, UnicodeText)
 from sqlalchemy.orm import relationship
 
+from pyramid_elfinder.models import ElfinderString
 from pyramid_sacrud.common.custom import widget_link
 from pyramid_sacrud_pages.models import BasePages
 from sacrud.common import TableProperty
 from sacrud.exttype import ChoiceType, FileStore, GUID, SlugType
-from pyramid_elfinder.models import ElfinderString
-
-from ..models import Base
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
                          'static')

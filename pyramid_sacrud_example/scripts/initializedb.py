@@ -16,13 +16,14 @@ from subprocess import PIPE, Popen
 import transaction
 from jinja2.utils import generate_lorem_ipsum
 from pyramid.paster import get_appsettings, setup_logging
+from pyramid_sqlalchemy import BaseObject as Base
+from pyramid_sqlalchemy import Session as DBSession
 from sqlalchemy import engine_from_config
 
 from pyramid_sacrud.security import permissions
 
+from ..includes.auth.models import User, UserPermission
 from ..lib.fixture import add_fixture
-from ..models import Base, DBSession
-from ..models.auth import Company, User, UserPermission
 from ..models.catalog import CatalogCategory, CatalogGroup, CatalogProduct
 from ..models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
                                    TestCustomizing, TestFile, TestTEXT,
@@ -113,16 +114,6 @@ def add_extension(engine, *args):
         conn.execute('CREATE EXTENSION IF NOT EXISTS "%s"' % ext)
     conn.execute('COMMIT')
     conn.close()
-
-
-def add_company():
-    company = (
-        {'name': u'ITCase'},
-        {'name': u'RedHat'},
-        {'name': u'Canonical'},
-        {'name': u'Pylons'},
-    )
-    add_fixture(Company, company)
 
 
 def add_catalog_group():
@@ -349,7 +340,6 @@ def main(argv=sys.argv):
         add_catalog_product()
 
     # Auth
-    add_company()
     add_user({'login': 'admin', 'password': '123',
               'email': 'foo@bar.baz', 'name': 'Foo',
               'surname': 'Bar', 'middlename': 'Baz'})
