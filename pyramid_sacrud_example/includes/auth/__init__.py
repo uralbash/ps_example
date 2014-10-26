@@ -12,7 +12,7 @@ Auth of user
 from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.security import unauthenticated_userid
-from ziggurat_foundations.models import DBSession, groupfinder
+from ziggurat_foundations.models import groupfinder
 
 from .models import User
 
@@ -27,8 +27,7 @@ def get_user(request):
     userid = unauthenticated_userid(request)
     if userid is not None:
         """this should return None if the user doesn't exist in the database"""
-        user = DBSession.query(User).get(userid)
-        return user
+        return request.dbsession.query(User).get(userid)
 
 
 def add_auth(config):
@@ -42,7 +41,6 @@ def add_auth(config):
 
 
 def includeme(config):
-    settings = config.registry.settings
     config.include('ziggurat_foundations.ext.pyramid.sign_in')
     config.include(add_auth)
     config.include('.routes')
