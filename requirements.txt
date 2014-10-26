@@ -8,6 +8,7 @@ pyramid_debugtoolbar
 zope.sqlalchemy
 waitress
 ziggurat_foundations
+pyramid_sqlalchemy
 git+https://github.com/ITCase/sacrud.git@develop
 git+https://github.com/ITCase/pyramid_sacrud.git@develop
 git+https://github.com/ITCase/sacrud_deform.git@develop
