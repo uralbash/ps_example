@@ -13,7 +13,6 @@ from pyramid.config import Configurator
 from pyramid_beaker import session_factory_from_settings
 from pyramid_sqlalchemy import Session as DBSession
 
-from .models.funny_models import MPTTPages
 
 
 def main(global_config, **settings):
@@ -40,8 +39,6 @@ def main(global_config, **settings):
         config.include("pyramid_sacrud_catalog")
 
     # sacrud_pages - put it after all routes
-    config.set_request_property(lambda x: MPTTPages,
-                                'sacrud_pages_model', reify=True)
     config.include("pyramid_sacrud_pages")
 
     # Make WSGI application
