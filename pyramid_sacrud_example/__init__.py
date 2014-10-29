@@ -14,10 +14,10 @@ from pyramid_beaker import session_factory_from_settings
 from pyramid_sqlalchemy import Session as DBSession
 
 
-
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    settings['ini_file'] = global_config['__file__']
     session_factory = session_factory_from_settings(settings)
     config = Configurator(settings=settings,
                           root_factory='.includes.auth.security.RootFactory',
@@ -26,7 +26,6 @@ def main(global_config, **settings):
     config.include('pyramid_sqlalchemy')
     config.include('pyramid_jinja2')
     config.include('.includes')
-    settings['ini_file'] = global_config['__file__']
     config.include('.initialize')
 
     # pyramid_elfinder
