@@ -313,7 +313,7 @@ def main(argv=sys.argv):
     dialect = engine.dialect.name
     if dialect == 'postgresql':
         add_extension(engine,
-                      "plpythonu",
+                      # "plpythonu",
                       "hstore",
                       "uuid-ossp")
         from ..models.postgres import Base as BasePostgres
