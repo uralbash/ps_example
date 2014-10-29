@@ -1,0 +1,21 @@
+.login
+{
+    position: relative;
+}
+
+    .login-inner
+    {
+        position: relative;
+    }
+
+    .login__link
+    {
+        font: .8em Arial, Helvetica, sans-serif;
+        color: #008ace;
+        text-transform: uppercase;
+    }
+
+    .login__link:hover
+    {
+        color: #c00;
+    }

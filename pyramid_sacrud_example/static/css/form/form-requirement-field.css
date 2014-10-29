@@ -1,0 +1,36 @@
+.form-requirement-field
+{
+	padding: 0.5em 1em 0.7em 1em;
+	margin: 0 0 2em 0;
+	line-height: 1.3em;
+	background: #F3EFE9;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+	.form-requirement-field__title
+	{
+		font: bold 0.8em Arial;
+		color: #333;
+		display: inline-block;
+		padding: 0 0.3em 0 0;
+	}
+	.form-requirement-field__link
+	{
+		text-decoration: none;
+		display: inline-block;
+		margin: 0 0.2em 0 0;
+		color: #336699;
+	}
+		.form-requirement-field__link-text
+		{
+			font: 0.8em Arial;
+			color: #336699;
+			border-bottom: dashed 1px #336699;
+			text-transform: lowercase;
+		}
+	.form-requirement-field__link:hover .form-requirement-field__link-text
+	{
+		color: #FF6702;
+		border-bottom: dashed 1px #FF6702;
+	}

@@ -1,0 +1,63 @@
+.form-message
+{
+	font: italic 0.8em Arial;
+	padding: 0.7em 0.5em 0.7em 0.7em;
+	display: inline-block;
+	position: absolute;
+	z-index: 100;
+}
+	.form-message__close
+	{
+		width: 9px;
+		height: 9px;
+		font-size: 0;
+		position: absolute;
+		right: 7px;
+		top: 7px;
+		cursor: pointer;
+		background-repeat: no-repeat;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMTIvMjYvMTOaUZqQAAAAgUlEQVQYlU3PsQ2DQBBE0S3HBThBohVnjtwMvdAEDSACJxaiCTuA52ROumA1u18zd7uFGW8MqK6G8LnSwAdjDGNmeBduASd2vKJn+FBdck/yjO7t5X6HJ44YjszVm+5YYvhGl/BqX2248MMjeoWPhTV7bC0Z3cLXwhRjO78/ZsX0Bw6cHuW7gc1FAAAAAElFTkSuQmCC);
+	}
+	.form-message__close:hover
+	{
+		
+	}
+	.form-message_type_error
+	{
+		color: #fff;
+		background: #EF3E42;
+		right: -210px;
+		top: -3px;
+	}
+		.form-message_type_error:after
+		{
+			right: 100%;
+			top: 10px;
+			border: solid transparent;
+			content: " ";
+			height: 0;
+			width: 0;
+			position: absolute;
+			border-style: inset;
+			border-width: 6px 16px 6px 0;
+			border-color: transparent #EF3E42 transparent transparent;
+			-webkit-transform:rotate(360deg)
+		}
+
+	.form-message_type_complete
+	{
+		width: 15px;
+		height: 10px;
+		position: absolute;
+		right: -1.5em;
+		top: 0.6em;
+		padding: 0;
+		margin: 0;
+		background-repeat: no-repeat;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAKCAYAAABrGwT5AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDkvMTQvMTO5VXyvAAAAxElEQVQokZ3RoU7DMRAH4G//8AZVc7wDEtEFj5pCzcwgSJpMYQgYDJA0QWCZWhC4uSUkfZqpWgwITEcGbAtw9u773aXlH5VKuITeH1EfM0Rc/RqnEoY4xwFKjnXQrSXuggnX2Mc8xzqArsGnVMJ4BxzhFdMc6/Gq1+EGh7hNJVxsgRqcrPd7bWiBPt7wkmOdpBLucNRmHnOs+ftVnw/Wtpwi4B17qHjYBL/gFjDEfbtiibMc6/Mm+AO3gNVfnuRYl9sgfAAQrD5Uba7K2AAAAABJRU5ErkJggg==);
+	}
+	.form-message__text
+	{
+		max-width: 180px;
+		min-width: 180px;
+	}

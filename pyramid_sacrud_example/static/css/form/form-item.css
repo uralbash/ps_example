@@ -1,0 +1,56 @@
+.form-field-item
+{
+	width: 100%;
+	display: table-row;
+	background: #fff;
+}
+	.form-field-item-c1
+	{
+		width: 15%;
+		display: table-cell;
+		vertical-align: top;
+		padding: 0.5em 0;
+	}
+		.form-field-item__name
+		{
+			max-width: 200px;
+			font: 0.85em Arial;
+			color: #444444;
+			display: block;
+			text-align: right;
+			white-space: nowrap;
+			padding: 0.4em 15px 0 20px;
+		}
+			.form-field-item__required
+			{
+				font: 1em Arial;
+				color: red;
+				padding: 0 0 0 0.2em;
+			}
+		.form-field-item__label
+		{
+			width: 100%;
+		}
+			.form-field-item__label-text
+			{
+				font: 0.8em Arial;
+				color: #444444;
+			}
+	.form-field-item-c2
+	{
+		width: 85%;
+		display: table-cell;
+		vertical-align: top;
+		margin: 0 1em 0 0;
+		padding: 0.5em 0;
+	}
+		.form-field-item-c2__inner
+		{
+			position: relative;
+		}
+		.form-field-item__error
+		{
+			font: 0.8em Arial;
+			color: red;
+			padding: 0.3em 0 0 0;
+		}
