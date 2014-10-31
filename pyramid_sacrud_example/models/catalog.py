@@ -9,12 +9,12 @@
 """
 Models for catalog of products
 """
-from pyramid_sacrud_catalog.models import (BaseCategory, BaseGroup, BaseProduct,
-                                           BaseStock, Category2Group,
+from pyramid_sacrud_catalog.models import (BaseCategory, BaseGroup, BaseStock,
+                                           BaseProduct, Category2Group,
                                            Product2Category, Product2Group)
 
 from sacrud.common import TableProperty
-from pyramid_sacrud.common.custom import WidgetM2M
+from pyramid_sacrud.common.custom import WidgetRelationship
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -25,11 +25,15 @@ class CatalogProduct(Base, BaseProduct):
     @TableProperty
     def sacrud_detail_col(cls):
         model = CatalogProduct
-        return [('', [model.name, model.visible,
-                      WidgetM2M(column=model.category),
-                      WidgetM2M(column=model.group),
-                      model.params]),
-                ]
+        category_m2m = WidgetRelationship(relation=model.category, table=model,
+                                          name='categories')
+        groups_m2m = WidgetRelationship(relation=model.group, table=model,
+                                        name='groups')
+        fields_groups_list = [
+            ('Fields group name', [model.name, model.visible, category_m2m,
+                                   groups_m2m, model.params]),
+        ]
+        return fields_groups_list
 
 
 class CatalogCategory(BaseCategory, Base):
@@ -37,10 +41,9 @@ class CatalogCategory(BaseCategory, Base):
     @TableProperty
     def sacrud_detail_col(cls):
         model = CatalogCategory
-        return [('', [model.name, model.visible, model.abstract,
-                      WidgetM2M(column=model.group,
-                                name='group')]),
-                ]
+        groups_m2m = WidgetRelationship(relation=model.group, table=model,
+                                        name='group')
+        return [('', [model.name, model.visible, model.abstract, groups_m2m])]
 
 
 class CatalogGroup(BaseGroup, Base):
@@ -48,9 +51,9 @@ class CatalogGroup(BaseGroup, Base):
     @TableProperty
     def sacrud_detail_col(cls):
         model = CatalogGroup
-        return [('', [model.name, model.visible,
-                      WidgetM2M(column=model.category)]),
-                ]
+        category_m2m = WidgetRelationship(relation=model.category, table=model,
+                                          name='categories')
+        return [('', [model.name, model.visible, category_m2m])]
 
 
 class CatalogStock(BaseStock, Base):
