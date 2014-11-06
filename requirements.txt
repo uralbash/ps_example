@@ -16,3 +16,4 @@ git+https://github.com/ITCase/pyramid_elfinder.git
 git+https://github.com/ITCase/sqlalchemy_mptt.git
 git+https://github.com/ITCase/pyramid_sacrud_pages.git
 git+https://github.com/ITCase/pyramid_sacrud_catalog.git
+git+https://github.com/ITCase/pyramid_sacrud_gallery.git
