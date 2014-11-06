@@ -53,18 +53,18 @@ def get_sacrud_models(dialect='sqlite'):
         },
         'Customizing example': {
             'tables': [TestCustomizing, TestDeform],
-            'position': 3,
+            'position': 4,
         },
 
         'Just for fun': {
             'tables': [TestAllTypes],
-            'position': 4,
+            'position': 5,
         },
         'Auth': {
             'tables': [Group, GroupPermission, UserGroup,
                        GroupResourcePermission, Resource, UserPermission,
                        UserResourcePermission, User, ExternalIdentity],
-            'position': 5,
+            'position': 6,
         },
     }
     if dialect == 'postgresql':
