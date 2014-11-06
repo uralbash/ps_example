@@ -1,0 +1,14 @@
+{% extends "sacrud/redefineme.jinja2" %}
+
+{% block sa_body %}
+
+    <h1>Redefine me in "pyramid_sacrud_gallery/gallery_sacrud_page.jinja2"</h1>
+
+    <h2>Images from gallery "{{ gallery.name }}":</h2>
+    <ul>
+      {% for image in gallery.items %}
+        <li><img src="{{ image.path }}" alt="{{ image.description }}"></li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}
