@@ -1,6 +1,6 @@
 |Stories in Ready| |Build Status|
 
-App demostration pyramid CRUD interface powered by sacrud package. 
+App demostration pyramid CRUD interface powered by sacrud package.
 
 * Documentation http://pyramid-sacrud-example.readthedocs.org/en/latest/
 * `Online Demo <http://runnable.com/VDGfz3HpEe5wCw63/pyramid-crud-admin-interface-for-python-sacrud-sqlalchemy_mptt-and-pyramid_sacrud>`_
