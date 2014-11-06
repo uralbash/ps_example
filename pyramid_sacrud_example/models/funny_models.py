@@ -24,7 +24,6 @@ from pyramid_sacrud_pages.models import BasePages
 from sacrud.common import TableProperty
 from sacrud.exttype import ChoiceType, FileStore, GUID, SlugType
 
-from pyramid_sacrud_gallery.mixins import GalleryMixin, GalleryItemMixin
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
                          'static')
@@ -270,42 +269,3 @@ class MPTTPages(BasePages, Base):
                 ('SEO', [col.seo_title, col.seo_keywords, col.seo_description,
                          col.seo_metatags])
                 ]
-
-
-"""
-    SACRUD Gallery
-"""
-
-
-class TestGallery(GalleryMixin, Base):
-    __tablename__ = 'test_gallery'
-
-    id = Column(Integer, primary_key=True)
-
-    @TableProperty
-    def sacrud_list_col(cls):
-        col = cls.columns
-        return [col.name]
-
-    @TableProperty
-    def sacrud_detail_col(cls):
-        col = cls.columns
-        return [('', [col.name])]
-
-
-class TestGalleryItem(GalleryItemMixin, Base):
-    __tablename__ = 'test_gallery_item'
-
-    pyramid_sacrud_gallery = TestGallery
-
-    id = Column(Integer, primary_key=True)
-
-    @TableProperty
-    def sacrud_list_col(cls):
-        col = cls.columns
-        return [col.path, col.gallery_id]
-
-    @TableProperty
-    def sacrud_detail_col(cls):
-        col = cls.columns
-        return [('', [col.path, col.description, col.gallery_id])]

@@ -7,11 +7,9 @@
 # Distributed under terms of the MIT license.
 
 """
-Applications for project
+Gallery
 """
 
 
 def includeme(config):
-    config.include('.auth')
-    config.include('.admin')
-    config.include('.gallery')
+    config.include('pyramid_sacrud_gallery')

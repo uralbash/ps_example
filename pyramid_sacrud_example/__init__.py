@@ -31,9 +31,6 @@ def main(global_config, **settings):
     # pyramid_elfinder
     config.include('pyramid_elfinder')
 
-    # pyramid_sacrud_gallery
-    config.include('pyramid_sacrud_gallery')
-
     # sacrud_catalog
     conn = DBSession.connection()
     dialect = conn.dialect.name.lower()

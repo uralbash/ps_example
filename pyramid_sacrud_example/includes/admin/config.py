@@ -9,27 +9,21 @@
 """
 List of models for pyramid_sacrud
 """
-from pyramid_sacrud_example.models.catalog import (
-    CatalogCategory, CatalogGroup, CatalogProduct, CatalogStock,
-    Category2Group, Product2Category
-)
-from pyramid_sacrud_example.models.funny_models import (
-    MPTTPages,
-    TestGallery, TestGalleryItem,
-    TestAllTypes,
-    TestBOOL, TestFile, TestTEXT, TestUNION,
-    TestCustomizing, TestDeform,
-)
-from pyramid_sacrud_example.models.postgres import (
-    TestHSTORE, TestPostgresTypes
-)
+from pyramid_sacrud_example.models.catalog import (CatalogCategory,
+                                                   CatalogGroup, CatalogProduct,
+                                                   CatalogStock, Category2Group,
+                                                   Product2Category)
+from pyramid_sacrud_example.models.funny_models import (MPTTPages, TestAllTypes,
+                                                        TestBOOL,
+                                                        TestCustomizing,
+                                                        TestDeform, TestFile,
+                                                        TestTEXT, TestUNION)
+from pyramid_sacrud_example.models.postgres import TestHSTORE, TestPostgresTypes
 
-from ..auth.models import (
-    ExternalIdentity,
-    Group, GroupPermission, GroupResourcePermission,
-    Resource,
-    User, UserGroup, UserPermission, UserResourcePermission
-)
+from ..auth.models import (ExternalIdentity, Group, GroupPermission,
+                           GroupResourcePermission, Resource, User, UserGroup,
+                           UserPermission, UserResourcePermission)
+from ..gallery.models import TestGallery, TestGalleryItem
 
 
 def get_sacrud_models(dialect='sqlite'):
