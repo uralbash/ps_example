@@ -17,7 +17,7 @@ def add_global(event):
     event['page_menu'] = get_menu
 
 
-# @notfound_view_config(append_slash=True, renderer='404.jinja2')
-# def notfound(request):
-    # request.response.status = 404
-    # return {}
+@notfound_view_config(append_slash=True, renderer='404.jinja2')
+def notfound(request):
+    request.response.status = 404
+    return {}
