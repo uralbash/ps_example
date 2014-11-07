@@ -28,7 +28,3 @@ def includeme(config):
     # initializedb
     if settings.get('sacrud.debug_reload_database', False):
         initializedb.main(argv=["init", settings['ini_file']])
-
-    config.add_jinja2_extension('jinja2.ext.with_')
-    config.add_jinja2_search_path("pyramid_sacrud_example:templates")
-    config.add_static_view('static', 'static', cache_max_age=3600)

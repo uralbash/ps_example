@@ -27,5 +27,4 @@ def main(global_config, **settings):
     config.include('pyramid_elfinder')
     config.include('.initialize')
     config.include('.includes')
-    config.scan('.views')
     return config.make_wsgi_app()

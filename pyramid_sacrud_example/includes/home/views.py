@@ -5,7 +5,7 @@ from pyramid_sqlalchemy import Session as DBSession
 
 from pyramid_sacrud_pages.common import get_pages_menu
 
-from ..includes.pages.models import MPTTPages
+from ..pages.models import MPTTPages
 
 
 def get_menu(**kwargs):

@@ -26,11 +26,12 @@ from ..includes.auth.models import User, UserPermission
 from ..includes.catalog.models import (CatalogCategory, CatalogGroup,
                                        CatalogProduct)
 from ..includes.gallery.models import TestGallery, TestGalleryItem
+from ..includes.home.models.funny_models import (TestAllTypes, TestBOOL,
+                                                 TestCustomizing, TestFile,
+                                                 TestTEXT, TestUNION)
+from ..includes.home.models.postgres import TestHSTORE
 from ..includes.pages.models import MPTTPages
 from ..lib.fixture import add_fixture
-from ..models.funny_models import (TestAllTypes, TestBOOL, TestCustomizing,
-                                   TestFile, TestTEXT, TestUNION)
-from ..models.postgres import TestHSTORE
 
 
 def usage(argv):
@@ -336,7 +337,7 @@ def main(argv=sys.argv):
                       # "plpythonu",
                       "hstore",
                       "uuid-ossp")
-        from ..models.postgres import Base as BasePostgres
+        from ..includes.home.models.postgres import Base as BasePostgres
         from ..includes.catalog.models import Base as BaseCatalog
         BasePostgres.metadata.create_all(engine)
         BaseCatalog.metadata.create_all(engine)

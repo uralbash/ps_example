@@ -4,8 +4,8 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     browserSync = require('browser-sync');
 
-var staticPath = '../pyramid_sacrud_example/static/';
-var templatePath = '../pyramid_sacrud_example/templates/';
+var staticPath = '../pyramid_sacrud_example/include/home/static/';
+var templatePath = '../pyramid_sacrud_example/includes/home/templates/';
 var cssFiles = [staticPath + 'css/*.css', staticPath + 'css/**/*.css', '!' + staticPath + 'css/__main.css'];
 var templates = [templatePath + '*.jinja2', templatePath + '**/*.jinja2'];
 var jsFiles = [staticPath + 'js/*.js', staticPath + 'js/**/*.js', '!' + staticPath + 'js/__main.js'];
@@ -13,13 +13,6 @@ var jsFiles = [staticPath + 'js/*.js', staticPath + 'js/**/*.js', '!' + staticPa
 gulp.task('browser-sync', function() {
     browserSync({
         proxy: "localhost:8000",
-        // browser: [
-        //     "iexplore",
-        //     "chrome",
-        //     "firefox",
-        //     "opera",
-        //     "safari"
-        // ]
     });
 });
 
