@@ -57,6 +57,13 @@
     <div class="wrapper">
         <div class="wrapper__inner">
             <div class="header clear-fix">
+                {% if request.user %}
+                    <div class="button">
+                        <div class="button-inner">
+                            <a href="{{ request.route_url('sa_home') }}" class="button-inner__link">Go to sacrud!</a>
+                        </div>
+                    </div>
+                {% endif %}
                 <div class="header__logo">
                     <a href="/" class="header__logo-link">
                         <img src="{{ request.static_url('pyramid_sacrud_example:static/img/logo.png') }}" class="header__logo-link-image" alt="" title="" />
@@ -71,14 +78,6 @@
                     {% endwith %}
                 </div>
             </div>
-
-            {% if request.user %}
-                <div class="button">
-                    <div class="button-inner">
-                        <a href="{{ request.route_url('sa_home') }}" class="button-inner__link">Go to sacrud!</a>
-                    </div>
-                </div>
-            {% endif %}
 
             {% block content %}
             {% endblock content %}
