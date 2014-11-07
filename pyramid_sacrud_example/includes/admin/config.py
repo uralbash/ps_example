@@ -9,10 +9,6 @@
 """
 List of models for pyramid_sacrud
 """
-from pyramid_sacrud_example.models.catalog import (CatalogCategory,
-                                                   CatalogGroup, CatalogProduct,
-                                                   CatalogStock, Category2Group,
-                                                   Product2Category)
 from pyramid_sacrud_example.models.funny_models import (TestAllTypes, TestBOOL,
                                                         TestCustomizing,
                                                         TestDeform, TestFile,
@@ -22,6 +18,8 @@ from pyramid_sacrud_example.models.postgres import TestHSTORE, TestPostgresTypes
 from ..auth.models import (ExternalIdentity, Group, GroupPermission,
                            GroupResourcePermission, Resource, User, UserGroup,
                            UserPermission, UserResourcePermission)
+from ..catalog.models import (CatalogCategory, CatalogGroup, CatalogProduct,
+                              CatalogStock, Category2Group, Product2Category)
 from ..gallery.models import TestGallery, TestGalleryItem
 from ..pages.models import MPTTPages
 
@@ -72,3 +70,4 @@ def get_sacrud_models(dialect='sqlite'):
             'position': 8,
         }
     return widgets
+
