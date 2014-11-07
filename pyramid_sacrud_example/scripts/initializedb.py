@@ -10,6 +10,7 @@
 This module for initialize project.
 """
 import os
+import random
 import sys
 from subprocess import PIPE, Popen
 
@@ -82,20 +83,21 @@ def add_alltypes():
     add_fixture(TestAllTypes, objs)
 
 
+description = '''
+    <!DOCTYPE html>
+    <html>
+    <head>
+    </head>
+    <body>
+    <p><img src="../../../../static/uploaded/foo.png" alt="" width="350" height="221" /></p>
+    <hr />
+    <h1>Use Pyramid with Go and Gevent-socketio!</h1>
+    </body>
+    </html>
+'''
+
+
 def add_customizing():
-    import random
-    description = '''
-        <!DOCTYPE html>
-        <html>
-        <head>
-        </head>
-        <body>
-        <p><img src="../../../../static/uploaded/foo.png" alt="" width="350" height="221" /></p>
-        <hr />
-        <h1>Use Pyramid with Go and Gevent-socketio!</h1>
-        </body>
-        </html>
-    '''
     objs = [{'name': ('%06x' % random.randrange(16 ** 6)).upper(),
              'description': description, 'date': '2024-04-04'}
             for x in range(10)]
@@ -232,7 +234,8 @@ def add_mptt_pages():
         {'in_menu': True, 'slug': '/', 'name': 'About company',
             'visible': True, 'parent_id': None},
         {'in_menu': True, 'slug': 'we-love-gevent',
-            'name': u'We ♥  gevent', 'visible': True, 'parent_id': '1'},
+            'name': u'We ♥  gevent', 'visible': True, 'parent_id': '1',
+         'description': description},
         {'in_menu': True, 'slug': 'and-pyramid',
             'name': 'And Pyramid', 'visible': True, 'parent_id': '2'},
         {'in_menu': True, 'slug': 'our-history', 'name': 'Our history',
