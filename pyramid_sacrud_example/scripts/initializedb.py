@@ -337,7 +337,7 @@ def main(argv=sys.argv):
                       "hstore",
                       "uuid-ossp")
         from ..models.postgres import Base as BasePostgres
-        from ..models.catalog import Base as BaseCatalog
+        from ..includes.catalog.models import Base as BaseCatalog
         BasePostgres.metadata.create_all(engine)
         BaseCatalog.metadata.create_all(engine)
 
