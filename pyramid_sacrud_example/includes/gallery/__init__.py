@@ -7,12 +7,11 @@
 # Distributed under terms of the MIT license.
 
 """
-Applications for project
+Gallery
 """
 
 
 def includeme(config):
-    config.include('.auth')
-    config.include('.admin')
-    config.include('.gallery')
-    config.include('.pages')
+    config.add_jinja2_search_path("templates")
+    config.include('pyramid_sacrud_gallery')
+    config.include('.page_of_sacrud')

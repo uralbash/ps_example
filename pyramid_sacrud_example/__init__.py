@@ -25,14 +25,11 @@ def main(global_config, **settings):
 
     config.include('pyramid_sqlalchemy')
     config.include('pyramid_jinja2')
-    config.include('.includes')
     config.include('.initialize')
+    config.include('.includes')
 
     # pyramid_elfinder
     config.include('pyramid_elfinder')
-
-    # pyramid_sacrud_gallery
-    config.include('pyramid_sacrud_gallery')
 
     # sacrud_catalog
     conn = DBSession.connection()
@@ -40,9 +37,6 @@ def main(global_config, **settings):
     if dialect == 'postgresql':
         config.include("pyramid_sacrud_catalog")
 
-    # sacrud_pages - put it after all routes
-    config.include("pyramid_sacrud_pages")
-
-    # Make WSGI application
     config.scan('.views')
+
     return config.make_wsgi_app()
