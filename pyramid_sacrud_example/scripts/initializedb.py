@@ -24,11 +24,11 @@ from pyramid_sacrud.security import permissions
 
 from ..includes.auth.models import User, UserPermission
 from ..includes.gallery.models import TestGallery, TestGalleryItem
+from ..includes.pages.models import MPTTPages
 from ..lib.fixture import add_fixture
 from ..models.catalog import CatalogCategory, CatalogGroup, CatalogProduct
-from ..models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
-                                   TestCustomizing, TestFile, TestTEXT,
-                                   TestUNION)
+from ..models.funny_models import (TestAllTypes, TestBOOL, TestCustomizing,
+                                   TestFile, TestTEXT, TestUNION)
 from ..models.postgres import TestHSTORE
 
 

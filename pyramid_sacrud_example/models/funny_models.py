@@ -19,9 +19,7 @@ from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
 from sqlalchemy.orm import relationship
 
 from pyramid_elfinder.models import ElfinderString
-# from pyramid_sacrud.common.custom import widget_link
-from pyramid_sacrud_pages.models import BasePages
-from sacrud.common import TableProperty
+
 from sacrud.exttype import ChoiceType, FileStore, GUID, SlugType
 
 
@@ -227,8 +225,7 @@ class TestCustomizing(Base):
     sacrud_css_class = {'tinymce': [description, description2],
                         'content': [description],
                         'name': [name], 'Date': [date]}
-    # sacrud_list_col = [widget_link(column=name, sacrud_name=u'name'),
-    #                    name_ru, name_cze]
+    sacrud_list_col = [name, name_ru, name_cze]
     sacrud_detail_col = [('name space', [name,
                                          ('i18 names', (name_ru, name_bg,
                                                         name_fr, name_cze)
@@ -242,30 +239,3 @@ class TestCustomizing(Base):
                          ]
     # Sacrud search
     sacrud_search_col = [name]
-
-"""
-        PAGES here
-"""
-
-
-class MPTTPages(BasePages, Base):
-    __tablename__ = "mptt_pages"
-
-    id = Column(Integer, primary_key=True)
-
-    @TableProperty
-    def sacrud_list_col(cls):
-        col = cls.columns
-        return [col.name, col.level, col.tree_id,
-                col.parent_id, col.left, col.right]
-
-    @TableProperty
-    def sacrud_detail_col(cls):
-        col = cls.columns
-        return [('', [col.name, col.slug, col.description, col.visible,
-                      col.in_menu, col.parent_id]),
-                ('Redirection', [col.redirect_url, col.redirect_page,
-                                 col.redirect_type]),
-                ('SEO', [col.seo_title, col.seo_keywords, col.seo_description,
-                         col.seo_metatags])
-                ]
