@@ -19,7 +19,6 @@ from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
 from sqlalchemy.orm import relationship
 
 from pyramid_elfinder.models import ElfinderString
-# from pyramid_sacrud.common.custom import widget_link
 from pyramid_sacrud_pages.models import BasePages
 from sacrud.common import TableProperty
 from sacrud.exttype import ChoiceType, FileStore, GUID, SlugType
@@ -228,8 +227,7 @@ class TestCustomizing(Base):
     sacrud_css_class = {'tinymce': [description, description2],
                         'content': [description],
                         'name': [name], 'Date': [date]}
-    # sacrud_list_col = [widget_link(column=name, sacrud_name=u'name'),
-    #                    name_ru, name_cze]
+    sacrud_list_col = [name, name_ru, name_cze]
     sacrud_detail_col = [('name space', [name,
                                          ('i18 names', (name_ru, name_bg,
                                                         name_fr, name_cze)
