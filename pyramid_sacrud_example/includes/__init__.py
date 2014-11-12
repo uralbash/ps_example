@@ -12,5 +12,9 @@ Applications for project
 
 
 def includeme(config):
+    config.include('.home')
     config.include('.auth')
     config.include('.admin')
+    config.include('.gallery')
+    config.include('.catalog')
+    config.include('.pages')

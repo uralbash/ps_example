@@ -17,6 +17,6 @@ _themes
 .ropeproject
 nohup.out
 development_local.ini
-pyramid_sacrud_example/static/uploaded/*
-!pyramid_sacrud_example/static/uploaded/anekdot.gif
-!pyramid_sacrud_example/static/uploaded/foo.png
+pyramid_sacrud_example/includes/home/static/uploaded/*
+!pyramid_sacrud_example/includes/home/static/uploaded/anekdot.gif
+!pyramid_sacrud_example/includes/home/static/uploaded/foo.png

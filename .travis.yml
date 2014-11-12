@@ -10,6 +10,11 @@ language: python
 
 notifications:
   email: "sacrud@uralbash.ru"
+  irc:
+    channels:
+      - "chat.freenode.net#sacrud"
+    on_success: change
+    on_failure: always
 
 addons:
   postgresql: 9.3

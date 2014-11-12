@@ -10,6 +10,7 @@
 This module for initialize project.
 """
 import os
+import random
 import sys
 from subprocess import PIPE, Popen
 
@@ -23,12 +24,15 @@ from sqlalchemy import engine_from_config
 from pyramid_sacrud.security import permissions
 
 from ..includes.auth.models import User, UserPermission
+from ..includes.catalog.models import (CatalogCategory, CatalogGroup,
+                                       CatalogProduct)
+from ..includes.gallery.models import TestGallery, TestGalleryItem
+from ..includes.home.models.funny_models import (TestAllTypes, TestBOOL,
+                                                 TestCustomizing, TestFile,
+                                                 TestTEXT, TestUNION)
+from ..includes.home.models.postgres import TestHSTORE
+from ..includes.pages.models import MPTTPages
 from ..lib.fixture import add_fixture
-from ..models.catalog import CatalogCategory, CatalogGroup, CatalogProduct
-from ..models.funny_models import (MPTTPages, TestAllTypes, TestBOOL,
-                                   TestCustomizing, TestFile, TestTEXT,
-                                   TestUNION)
-from ..models.postgres import TestHSTORE
 
 
 def usage(argv):
@@ -65,12 +69,12 @@ def add_text(settings):
 
 
 def add_union():
-    uni = ({'name': 'foo',  'foo': True,  'cash': 100, 'double_cash': 100.13},
+    uni = ({'name': 'foo', 'foo': True, 'cash': 100, 'double_cash': 100.13},
            {'name': 'foo1', 'foo': False, 'cash': 200, 'double_cash': 100.500},
-           {'name': 'foo2', 'foo': True,  'cash': 1024, 'double_cash': 100.13},
+           {'name': 'foo2', 'foo': True, 'cash': 1024, 'double_cash': 100.13},
            {'name': 'foo3', 'foo': False, 'cash': 100500, 'double_cash': 1.13},
            {'name': 'foo4', 'foo': False, 'cash': 19, 'double_cash': 6660.10},
-           {'name': 'foo5', 'foo': True,  'cash': -123, 'double_cash': 130.03})
+           {'name': 'foo5', 'foo': True, 'cash': -123, 'double_cash': 130.03})
     add_fixture(TestUNION, uni)
 
 
@@ -79,20 +83,21 @@ def add_alltypes():
     add_fixture(TestAllTypes, objs)
 
 
+description = '''
+    <!DOCTYPE html>
+    <html>
+    <head>
+    </head>
+    <body>
+    <p><img src="../../../../static/uploaded/foo.png" alt="" width="350" height="221" /></p>
+    <hr />
+    <h1>Use Pyramid with Go and Gevent-socketio!</h1>
+    </body>
+    </html>
+'''
+
+
 def add_customizing():
-    import random
-    description = '''
-        <!DOCTYPE html>
-        <html>
-        <head>
-        </head>
-        <body>
-        <p><img src="../../../../static/uploaded/foo.png" alt="" width="350" height="221" /></p>
-        <hr />
-        <h1>Use Pyramid with Go and Gevent-socketio!</h1>
-        </body>
-        </html>
-    '''
     objs = [{'name': ('%06x' % random.randrange(16 ** 6)).upper(),
              'description': description, 'date': '2024-04-04'}
             for x in range(10)]
@@ -141,20 +146,20 @@ def add_catalog_category():
 
 def add_catalog_product():
     shoes = (
-        {'name': u'Valenki',    'category[]': ['2']},
-        {'name': u'Kamik',      'category[]': ['2']},
-        {'name': u'Lapti',      'category[]': ['2']},
-        {'name': u'Galoshes',   'category[]': ['2']},
-        {'name': u'Sandals',    'category[]': ['2']},
+        {'name': u'Valenki', 'category[]': ['2']},
+        {'name': u'Kamik', 'category[]': ['2']},
+        {'name': u'Lapti', 'category[]': ['2']},
+        {'name': u'Galoshes', 'category[]': ['2']},
+        {'name': u'Sandals', 'category[]': ['2']},
     )
     music_instruments = (
-        {'name': u'Balalaika',      'category[]': ['4']},
-        {'name': u'Garmon',         'category[]': ['4']},
-        {'name': u'Bayan',          'category[]': ['4']},
-        {'name': u'Gypsy guitar',   'category[]': ['4']},
-        {'name': u'Spoons',         'category[]': ['4']},
-        {'name': u'Treshchotka',    'category[]': ['4']},
-        {'name': u'Tambourine',     'category[]': ['4']},
+        {'name': u'Balalaika', 'category[]': ['4']},
+        {'name': u'Garmon', 'category[]': ['4']},
+        {'name': u'Bayan', 'category[]': ['4']},
+        {'name': u'Gypsy guitar', 'category[]': ['4']},
+        {'name': u'Spoons', 'category[]': ['4']},
+        {'name': u'Treshchotka', 'category[]': ['4']},
+        {'name': u'Tambourine', 'category[]': ['4']},
     )
     weapon = (
         {'name': u'Shashka', 'category[]': ['6']},
@@ -167,40 +172,40 @@ def add_catalog_product():
     toys = (
         {'name': u'Cheburashka', 'category[]': ['5']},
         {'name': u'Matryoshka', 'category[]': ['5']},
-        {'name': u'Petrushka',  'category[]': ['5']},
+        {'name': u'Petrushka', 'category[]': ['5']},
     )
     eat = (
-        {'name': 'subway sub',  'category[]': ['7']},
-        {'name': 'Borscht',     'category[]': ['7']},
-        {'name': 'Solyanka',    'category[]': ['7']},
-        {'name': u'Knedlík',    'category[]': ['7']},
-        {'name': 'Manti',       'category[]': ['7']},
-        {'name': 'Pelmeni',     'category[]': ['7']},
-        {'name': 'Bliny',       'category[]': ['7']},
-        {'name': 'Okroshka',    'category[]': ['7']},
-        {'name': 'Shashlik',    'category[]': ['7']},
-        {'name': 'Shchi',       'category[]': ['7']},
-        {'name': 'Ukha',        'category[]': ['7']},
-        {'name': 'Sausage',     'category[]': ['7']},
-        {'name': u'Ciorbă',     'category[]': ['7']},
+        {'name': 'subway sub', 'category[]': ['7']},
+        {'name': 'Borscht', 'category[]': ['7']},
+        {'name': 'Solyanka', 'category[]': ['7']},
+        {'name': u'Knedlík', 'category[]': ['7']},
+        {'name': 'Manti', 'category[]': ['7']},
+        {'name': 'Pelmeni', 'category[]': ['7']},
+        {'name': 'Bliny', 'category[]': ['7']},
+        {'name': 'Okroshka', 'category[]': ['7']},
+        {'name': 'Shashlik', 'category[]': ['7']},
+        {'name': 'Shchi', 'category[]': ['7']},
+        {'name': 'Ukha', 'category[]': ['7']},
+        {'name': 'Sausage', 'category[]': ['7']},
+        {'name': u'Ciorbă', 'category[]': ['7']},
         {'name': u'Königsberger Klopse', 'category[]': ['7']},
     )
     drinks = (
-        {'name': u'Kissel',     'category[]': ['7'], 'group[]': '2'},
-        {'name': 'Coca-Cola',   'category[]': ['7'], 'group[]': ['2']},
-        {'name': 'Kvass',       'category[]': ['7'], 'group[]': ['2']},
-        {'name': 'Lemonade',    'category[]': ['7'], 'group[]': ['2']},
-        {'name': 'Tea',         'category[]': ['7'], 'group[]': ['2']},
-        {'name': 'Coffe',       'category[]': ['7'], 'group[]': ['2']},
-        {'name': 'Medovukha',   'category[]': ['7'], 'group[]': ['2']},
+        {'name': u'Kissel', 'category[]': ['7'], 'group[]': '2'},
+        {'name': 'Coca-Cola', 'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Kvass', 'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Lemonade', 'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Tea', 'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Coffe', 'category[]': ['7'], 'group[]': ['2']},
+        {'name': 'Medovukha', 'category[]': ['7'], 'group[]': ['2']},
     )
     add_fixture(CatalogProduct, shoes)
-    add_fixture(CatalogProduct, music_instruments,  delete=False)
-    add_fixture(CatalogProduct, weapon,             delete=False)
-    add_fixture(CatalogProduct, tableware,          delete=False)
-    add_fixture(CatalogProduct, toys,               delete=False)
-    add_fixture(CatalogProduct, eat,                delete=False)
-    add_fixture(CatalogProduct, drinks,             delete=False)
+    add_fixture(CatalogProduct, music_instruments, delete=False)
+    add_fixture(CatalogProduct, weapon, delete=False)
+    add_fixture(CatalogProduct, tableware, delete=False)
+    add_fixture(CatalogProduct, toys, delete=False)
+    add_fixture(CatalogProduct, eat, delete=False)
+    add_fixture(CatalogProduct, drinks, delete=False)
 
 
 def add_mptt_pages():
@@ -226,53 +231,72 @@ def add_mptt_pages():
 
     """
     pages = (
-        {'in_menu': True,  'slug': '/',   'name': 'About company',
+        {'in_menu': True, 'slug': '/', 'name': 'About company',
             'visible': True, 'parent_id': None},
-        {'in_menu': True,  'slug': 'we-love-gevent',
-            'name': u'We ♥  gevent',    'visible': True, 'parent_id': '1'},
-        {'in_menu': True,  'slug': 'and-pyramid',
-            'name': 'And Pyramid',      'visible': True, 'parent_id': '2'},
-        {'in_menu': True,  'slug': 'our-history',     'name': 'Our history',
+        {'in_menu': True, 'slug': 'we-love-gevent',
+            'name': u'We ♥  gevent', 'visible': True, 'parent_id': '1',
+         'description': description},
+        {'in_menu': True, 'slug': 'and-pyramid',
+            'name': 'And Pyramid', 'visible': True, 'parent_id': '2'},
+        {'in_menu': True, 'slug': 'our-history', 'name': 'Our history',
             'visible': False, 'parent_id': '1'},
-        {'in_menu': True,  'slug': 'foo',             'name': 'foo',
+        {'in_menu': True, 'slug': 'foo', 'name': 'foo',
             'visible': True, 'parent_id': '4'},
-        {'in_menu': True,  'slug': 'kompania-itcase',
+        {'in_menu': True, 'slug': 'kompania-itcase',
             'name': u'компания ITCase', 'visible': False, 'parent_id': '4'},
         {'in_menu': False, 'slug': 'our-strategy',
-            'name': 'Our strategy',     'visible': True, 'parent_id': '1'},
-        {'in_menu': False, 'slug': 'wordwide',        'name': 'Wordwide',
+            'name': 'Our strategy', 'visible': True, 'parent_id': '1'},
+        {'in_menu': False, 'slug': 'wordwide', 'name': 'Wordwide',
             'visible': True, 'parent_id': '7'},
-        {'in_menu': True,  'slug': 'technology',      'name': 'Technology',
+        {'in_menu': True, 'slug': 'technology', 'name': 'Technology',
             'visible': False, 'parent_id': '8'},
-        {'in_menu': False, 'slug': 'what-we-do',      'name': 'What we do',
-            'visible': True,  'parent_id': '7'},
-        {'in_menu': True,  'slug': 'at-a-glance',     'name': 'at a glance',
-            'visible': True,  'parent_id': '10'},
+        {'in_menu': False, 'slug': 'what-we-do', 'name': 'What we do',
+            'visible': True, 'parent_id': '7'},
+        {'in_menu': True, 'slug': 'at-a-glance', 'name': 'at a glance',
+            'visible': True, 'parent_id': '10'},
 
-        {'in_menu': True,  'slug': 'foo12', 'name': 'foo12',
+        {'in_menu': True, 'slug': 'foo12', 'name': 'foo12',
             'visible': True, 'parent_id': None, 'tree_id': '12'},
         {'in_menu': False, 'slug': 'foo13', 'name': 'foo13',
             'visible': False, 'parent_id': '12', 'tree_id': '12'},
         {'in_menu': False, 'slug': 'foo14', 'name': 'foo14',
             'visible': False, 'parent_id': '13', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo15', 'name': 'foo15',
+        {'in_menu': True, 'slug': 'foo15', 'name': 'foo15',
             'visible': True, 'parent_id': '12', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo16', 'name': 'foo16', 'redirect_type': '200',
-            'redirect_page': '2', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
-        {'in_menu': False, 'slug': 'foo17', 'name': 'foo17', 'redirect_type': '301',
-            'redirect_page': '3', 'visible': True, 'parent_id': '15', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'yandex', 'name': 'yandex', 'redirect_type': '302',
-            'redirect_url': 'http://ya.ru', 'visible': True, 'parent_id': '12', 'tree_id': '12'},
+        {'in_menu': True, 'slug': 'foo16', 'name': 'foo16', 'visible': True,
+            'redirect_type': '200', 'redirect_page': '2',
+            'parent_id': '15', 'tree_id': '12'},
+        {'in_menu': False, 'slug': 'foo17', 'name': 'foo17', 'visible': True,
+            'redirect_type': '301', 'redirect_page': '3',
+            'parent_id': '15', 'tree_id': '12'},
+        {'in_menu': True, 'slug': 'yandex', 'name': 'yandex', 'visible': True,
+            'redirect_type': '302', 'redirect_url': 'http://ya.ru',
+            'parent_id': '12', 'tree_id': '12'},
         {'in_menu': False, 'slug': 'foo19', 'name': 'foo19',
             'visible': True, 'parent_id': '18', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo20', 'name': 'foo20',
+        {'in_menu': True, 'slug': 'foo20', 'name': 'foo20',
             'visible': True, 'parent_id': '19', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo21', 'name': 'foo21',
+        {'in_menu': True, 'slug': 'foo21', 'name': 'foo21',
             'visible': True, 'parent_id': '18', 'tree_id': '12'},
-        {'in_menu': True,  'slug': 'foo22', 'name': 'foo22',
+        {'in_menu': True, 'slug': 'foo22', 'name': 'foo22',
             'visible': True, 'parent_id': '21', 'tree_id': '12'},
     )
     add_fixture(MPTTPages, pages)
+
+
+def add_galleries():
+    galleries = [
+        {'id': 1, 'name': 'Best gallery'}
+    ]
+    items = []
+    for x in xrange(1, 10):
+        items.append({
+            'id': x,
+            'path': 'image/%s.jpg' % x,
+            'description': 'This is image with name "%s"' % x,
+            'gallery_id': 1})
+    add_fixture(TestGallery, galleries)
+    add_fixture(TestGalleryItem, items)
 
 
 def add_user(user):
@@ -316,8 +340,8 @@ def main(argv=sys.argv):
                       # "plpythonu",
                       "hstore",
                       "uuid-ossp")
-        from ..models.postgres import Base as BasePostgres
-        from ..models.catalog import Base as BaseCatalog
+        from ..includes.home.models.postgres import Base as BasePostgres
+        from ..includes.catalog.models import Base as BaseCatalog
         BasePostgres.metadata.create_all(engine)
         BaseCatalog.metadata.create_all(engine)
 
@@ -332,6 +356,7 @@ def main(argv=sys.argv):
     add_customizing()
     add_file()
     add_mptt_pages()
+    add_galleries()
 
     # Catalog
     if dialect == 'postgres':

@@ -11,7 +11,6 @@ Main for example
 """
 from pyramid.config import Configurator
 from pyramid_beaker import session_factory_from_settings
-from pyramid_sqlalchemy import Session as DBSession
 
 
 def main(global_config, **settings):
@@ -25,21 +24,7 @@ def main(global_config, **settings):
 
     config.include('pyramid_sqlalchemy')
     config.include('pyramid_jinja2')
-    config.include('.includes')
-    config.include('.initialize')
-
-    # pyramid_elfinder
     config.include('pyramid_elfinder')
-
-    # sacrud_catalog
-    conn = DBSession.connection()
-    dialect = conn.dialect.name.lower()
-    if dialect == 'postgresql':
-        config.include("pyramid_sacrud_catalog")
-
-    # sacrud_pages - put it after all routes
-    config.include("pyramid_sacrud_pages")
-
-    # Make WSGI application
-    config.scan('.views')
+    config.include('.initialize')
+    config.include('.includes')
     return config.make_wsgi_app()

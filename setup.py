@@ -10,7 +10,7 @@ def read(name):
         return f.read()
 
 setup(name='pyramid_sacrud_example',
-      version='0.0.1',
+      version='0.0.3',
       description='Pyramid sacrud example',
       long_description=read('README.rst') + '\n\n' + read('CHANGES.txt'),
       classifiers=[

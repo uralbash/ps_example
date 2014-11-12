@@ -14,9 +14,11 @@
 
     {% block meta %}
         {% if page %}
+            <!--
             {{ page.seo_keywords }}
             {{ page.seo_description }}
             {{ page.seo_metatags|safe }}
+            -->
         {% endif %}
     {% endblock meta %}
 
@@ -25,11 +27,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {% block extra_css %}
-        <link rel="stylesheet" href="{{ request.static_url('pyramid_sacrud_example:static/css/__main.css') }}" type="text/css" />
+        <link rel="stylesheet" href="{{ request.static_url('pyramid_sacrud_example.includes.home:static/css/__main.css') }}" type="text/css" />
     {% endblock extra_css %}
 
     <noscript>
-      <link href="{{ request.static_url('pyramid_sacrud_example:static/css/no-js.css') }}" rel="stylesheet" type="text/css" />
+      <link href="{{ request.static_url('pyramid_sacrud_example.includes.home:static/css/no-js.css') }}" rel="stylesheet" type="text/css" />
     </noscript>
 
     {% block extrahead %}
@@ -57,9 +59,16 @@
     <div class="wrapper">
         <div class="wrapper__inner">
             <div class="header clear-fix">
+                {% if request.user %}
+                    <div class="button">
+                        <div class="button-inner">
+                            <a href="{{ request.route_url('sa_home') }}" class="button-inner__link">Go to sacrud!</a>
+                        </div>
+                    </div>
+                {% endif %}
                 <div class="header__logo">
                     <a href="/" class="header__logo-link">
-                        <img src="{{ request.static_url('pyramid_sacrud_example:static/img/logo.png') }}" class="header__logo-link-image" alt="" title="" />
+                        <img src="{{ request.static_url('pyramid_sacrud_example.includes.home:static/img/logo.png') }}" class="header__logo-link-image" alt="" title="" />
                     </a>
                 </div>
                 <div class="header__user">
@@ -71,14 +80,6 @@
                     {% endwith %}
                 </div>
             </div>
-
-            {% if request.user %}
-                <div class="button">
-                    <div class="button-inner">
-                        <a href="{{ request.route_url('sa_home') }}" class="button-inner__link">Go to sacrud!</a>
-                    </div>
-                </div>
-            {% endif %}
 
             {% block content %}
             {% endblock content %}
