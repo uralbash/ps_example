@@ -13,7 +13,7 @@ from pyramid_sacrud_gallery.views import gallery_view
 
 
 def includeme(config):
-    config.add_route('pyramid_sacrud_page_of_gallery', '/admin/gallery/{id}')
+    config.add_route('pyramid_sacrud_page_of_gallery', '/admin/gallery/{pk}')
     config.add_view(gallery_view,
                     route_name='pyramid_sacrud_page_of_gallery',
                     renderer='pyramid_sacrud_gallery/gallery_sacrud_page.jinja2')
