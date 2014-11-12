@@ -4,8 +4,8 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     browserSync = require('browser-sync');
 
-var staticPath = '../pyramid_sacrud_example/include/home/static/';
-var templatePath = '../pyramid_sacrud_example/includes/home/templates/';
+var staticPath = '../pyramid_sacrud_example/includes/home/static/';
+var templatePath = '../pyramid_sacrud_example/includes/';
 var cssFiles = [staticPath + 'css/*.css', staticPath + 'css/**/*.css', '!' + staticPath + 'css/__main.css'];
 var templates = [templatePath + '*.jinja2', templatePath + '**/*.jinja2'];
 var jsFiles = [staticPath + 'js/*.js', staticPath + 'js/**/*.js', '!' + staticPath + 'js/__main.js'];

@@ -12,18 +12,15 @@
         {% endif %}
     </title>
 
-    {% block meta %}
-        {% if page %}
-            <!--
-            {{ page.seo_keywords }}
-            {{ page.seo_description }}
-            {{ page.seo_metatags|safe }}
-            -->
-        {% endif %}
-    {% endblock meta %}
-
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
+    {% block meta %}
+        {% if page %}
+            <meta name="keywords" content="{{ page.seo_keywords }}" />
+            <meta name="description" content="{{ page.seo_description }}" />
+            {{ page.seo_metatags|safe }}
+        {% endif %}
+    {% endblock meta %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {% block extra_css %}
@@ -59,13 +56,15 @@
     <div class="wrapper">
         <div class="wrapper__inner">
             <div class="header clear-fix">
-                {% if request.user %}
-                    <div class="button">
-                        <div class="button-inner">
-                            <a href="{{ request.route_url('sa_home') }}" class="button-inner__link">Go to sacrud!</a>
+                <div class="header__button">
+                    {% if request.user %}
+                        <div class="button">
+                            <div class="button-inner">
+                                <a href="{{ request.route_url('sa_home') }}" class="button-inner__link">Go to sacrud!</a>
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
                 <div class="header__logo">
                     <a href="/" class="header__logo-link">
                         <img src="{{ request.static_url('pyramid_sacrud_example.includes.home:static/img/logo.png') }}" class="header__logo-link-image" alt="" title="" />
@@ -97,7 +96,6 @@
             </div>
         </div>
     </div>
-
 
     {% block extra_js %}
     {% endblock extra_js %}
