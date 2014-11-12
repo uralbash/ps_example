@@ -4,6 +4,7 @@ build
 dist
 _build
 _themes
+.tmb
 *.egg-info
 *.swp
 *.pyc
