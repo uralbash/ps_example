@@ -24,7 +24,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {% block extra_css %}
-        <link rel="stylesheet" href="{{ request.static_url('pyramid_sacrud_example.includes.home:static/css/__main.css') }}" type="text/css" />
+        <link href="{{ request.static_url('pyramid_sacrud_example.includes.home:static/css/__main.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ request.static_url('pyramid_sacrud_gallery:static/css/__gallery.css') }}" rel="stylesheet" type="text/css" />
     {% endblock extra_css %}
 
     <noscript>
