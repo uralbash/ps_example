@@ -9,15 +9,23 @@
 """
 Models for gallery
 """
-from pyramid_sqlalchemy import BaseObject as Base
 from sqlalchemy import Column, Integer
 
-from pyramid_sacrud_gallery.mixins import GalleryItemMixin, GalleryMixin
+from pyramid_sqlalchemy import BaseObject as Base
+
 from sacrud.common import TableProperty
+from pyramid_sacrud.common.custom import WidgetRelationship
+
+from pyramid_sacrud_gallery.mixins import (
+    GalleryMixin, GalleryItemMixin, GalleryItemM2MMixin,
+)
 
 
 class TestGallery(GalleryMixin, Base):
     __tablename__ = 'test_gallery'
+
+    pyramid_sacrud_ref_name = 'TestGalleryItem'
+    pyramid_sacrud_m2m_table = 'test_gallery_item_m2m'
 
     id = Column(Integer, primary_key=True)
 
@@ -29,22 +37,40 @@ class TestGallery(GalleryMixin, Base):
     @TableProperty
     def sacrud_detail_col(cls):
         col = cls.columns
-        return [('', [col.name])]
+        return [('', [col.name,
+                      WidgetRelationship(TestGallery.items,
+                                         table=TestGalleryItem,
+                                         name='Items')])]
 
 
 class TestGalleryItem(GalleryItemMixin, Base):
     __tablename__ = 'test_gallery_item'
 
-    pyramid_sacrud_gallery = TestGallery
+    pyramid_sacrud_ref_name = 'TestGallery'
+    pyramid_sacrud_m2m_table = 'test_gallery_item_m2m'
 
     id = Column(Integer, primary_key=True)
 
     @TableProperty
     def sacrud_list_col(cls):
         col = cls.columns
-        return [col.path, col.gallery_id]
+        return [col.path, ]
 
     @TableProperty
     def sacrud_detail_col(cls):
         col = cls.columns
-        return [('', [col.path, col.description, col.gallery_id])]
+        return [
+            ('', [col.image, col.description,
+                  WidgetRelationship(TestGalleryItem.galleries,
+                                     table=TestGallery,
+                                     name='Galleries')]
+             )]
+
+
+class TestGalleryItemM2M(GalleryItemM2MMixin, Base):
+    __tablename__ = 'test_gallery_item_m2m'
+
+    id = Column(Integer, primary_key=True)
+
+    pyramid_sacrud_gallery = TestGallery
+    pyramid_sacrud_gallery_item = TestGalleryItem
