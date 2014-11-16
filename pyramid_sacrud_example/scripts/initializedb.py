@@ -27,9 +27,8 @@ from pyramid_sacrud.security import permissions
 from ..includes.auth.models import User, UserPermission
 from ..includes.catalog.models import (CatalogCategory, CatalogGroup,
                                        CatalogProduct)
-from ..includes.gallery.models import (
-    TestGallery, TestGalleryItem, TestGalleryItemM2M
-)
+# from ..includes.gallery.models import (TestGallery, TestGalleryItem,
+                                       # TestGalleryItemM2M)
 from ..includes.home.models.funny_models import (TestAllTypes, TestBOOL,
                                                  TestCustomizing, TestFile,
                                                  TestTEXT, TestUNION)
@@ -372,7 +371,7 @@ def main(argv=sys.argv):
     add_customizing()
     add_file()
     add_mptt_pages()
-    add_galleries()
+    # add_galleries()
 
     # Catalog
     if dialect == 'postgres':
