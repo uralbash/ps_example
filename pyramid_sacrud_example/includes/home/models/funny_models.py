@@ -65,8 +65,12 @@ class TestFile(Base):
     image = Column(FileStore(path="/static/uploaded/",
                              abspath=os.path.join(file_path, 'uploaded')))
 
-    def __init__(self, image):
+    def __init__(self, image, id=None):
+        self.id = id
         self.image = image
+
+    def __repr__(self):
+        return self.image
 
 
 class TestTEXT(Base):
