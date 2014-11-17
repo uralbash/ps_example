@@ -9,6 +9,9 @@
 """
 Models for gallery
 """
+
+import os
+
 from sqlalchemy import Column, Integer
 
 from pyramid_sqlalchemy import BaseObject as Base
@@ -19,6 +22,10 @@ from pyramid_sacrud.common.custom import WidgetRelationship
 from pyramid_sacrud_gallery.mixins import (
     GalleryMixin, GalleryItemMixin, GalleryItemM2MMixin,
 )
+
+
+upload_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                           'static', 'upload')
 
 
 class TestGallery(GalleryMixin, Base):
@@ -48,6 +55,7 @@ class TestGalleryItem(GalleryItemMixin, Base):
 
     pyramid_sacrud_ref_name = 'TestGallery'
     pyramid_sacrud_m2m_table = 'test_gallery_item_m2m'
+    pyramid_sacrud_upload_path = upload_path
 
     id = Column(Integer, primary_key=True)
 

@@ -298,13 +298,14 @@ def add_galleries():
     gallery_items_m2m = []
     for gallery in galleries:
         for x in xrange(1, 10):
-            image = 'images/{name}{salt}.jpg'.format(name=x,
-                                                     salt=gallery['id'])
-            image_hash = hashlib.md5(image).hexdigest()
+            image = '{name}{salt}.jpg'.format(name=x, salt=gallery['id'])
+            image_abspath = TestGalleryItem.get_upload_path()
+            image_hash_base = os.path.join(image_abspath, image)
+            image_hash = hashlib.md5(image_hash_base).hexdigest()
             items.append({
                 'image': image,
                 'image_hash': image_hash,
-                'description': 'This is image with name "%s"' % x
+                'description': 'This is image with hash "%s"' % image_hash
             })
             gallery_items_m2m.append({
                 'gallery_id': gallery['id'],
