@@ -166,11 +166,11 @@
 {
     padding: 0 .5em 0 0;
 
-    content: '\2014\a0';
+    /*content: '\2014\a0';*/
 }
 .content ul li::before
 {
-    content: '\2014\a0'
+    /*content: '\2014\a0'*/
     padding: 0 .5em 0 0;
 }
 

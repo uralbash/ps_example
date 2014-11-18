@@ -22,13 +22,11 @@ input::-webkit-inner-spin-button
 {
     display: block;
     clear: both;
-
     content: '';
 }
 .cut-button
 {
     position: relative;
     z-index: 9999;
-
     border: solid 1px red;
 }
