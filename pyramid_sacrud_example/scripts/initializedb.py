@@ -9,6 +9,7 @@
 """
 This module for initialize project.
 """
+import hashlib
 import os
 import random
 import sys
@@ -26,7 +27,8 @@ from pyramid_sacrud.security import permissions
 from ..includes.auth.models import User, UserPermission
 from ..includes.catalog.models import (CatalogCategory, CatalogGroup,
                                        CatalogProduct)
-from ..includes.gallery.models import TestGallery, TestGalleryItem
+from ..includes.gallery.models import (TestGallery, TestGalleryItem,
+                                       TestGalleryItemM2M)
 from ..includes.home.models.funny_models import (TestAllTypes, TestBOOL,
                                                  TestCustomizing, TestFile,
                                                  TestTEXT, TestUNION)
@@ -286,17 +288,31 @@ def add_mptt_pages():
 
 def add_galleries():
     galleries = [
-        {'id': 1, 'name': 'Best gallery'}
+        {'id': 1, 'name': 'Best gallery',
+         'description': 'Full description of gallery'},
+        {'id': 2, 'name': 'Another best gallery',
+         'description': 'Another full description of gallery'},
     ]
-    items = []
-    for x in xrange(1, 10):
-        items.append({
-            'id': x,
-            'path': 'image/%s.jpg' % x,
-            'description': 'This is image with name "%s"' % x,
-            'gallery_id': 1})
     add_fixture(TestGallery, galleries)
+    items = []
+    gallery_items_m2m = []
+    for gallery in galleries:
+        for x in xrange(1, 10):
+            image = '{name}{salt}.jpg'.format(name=x, salt=gallery['id'])
+            image_abspath = TestGalleryItem.get_upload_path()
+            image_hash_base = os.path.join(image_abspath, image)
+            image_hash = hashlib.md5(image_hash_base).hexdigest()
+            items.append({
+                'image': image,
+                'image_hash': image_hash,
+                'description': 'This is image with hash "%s"' % image_hash
+            })
+            gallery_items_m2m.append({
+                'gallery_id': gallery['id'],
+                'item_id': image_hash,
+            })
     add_fixture(TestGalleryItem, items)
+    add_fixture(TestGalleryItemM2M, gallery_items_m2m)
 
 
 def add_user(user):

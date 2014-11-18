@@ -19,6 +19,7 @@ _themes
 nohup.out
 development_local.ini
 npm-debug.log
+pyramid_sacrud_example/includes/gallery/static/upload/*
 pyramid_sacrud_example/includes/home/static/uploaded/*
 !pyramid_sacrud_example/includes/home/static/uploaded/anekdot.gif
 !pyramid_sacrud_example/includes/home/static/uploaded/foo.png

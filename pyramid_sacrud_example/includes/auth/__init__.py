@@ -13,6 +13,7 @@ from pyramid.authentication import AuthTktAuthenticationPolicy
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.security import unauthenticated_userid
 from ziggurat_foundations.models import groupfinder
+from pyramid_sqlalchemy import Session
 
 from .models import User
 
@@ -27,7 +28,7 @@ def get_user(request):
     userid = unauthenticated_userid(request)
     if userid is not None:
         """this should return None if the user doesn't exist in the database"""
-        return request.dbsession.query(User).get(userid)
+        return Session.query(User).get(userid)
 
 
 def add_auth(config):
