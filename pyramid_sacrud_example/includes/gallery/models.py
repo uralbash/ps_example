@@ -78,7 +78,5 @@ class TestGalleryItem(GalleryItemMixin, Base):
 class TestGalleryItemM2M(GalleryItemM2MMixin, Base):
     __tablename__ = 'test_gallery_item_m2m'
 
-    id = Column(Integer, primary_key=True)
-
     pyramid_sacrud_gallery = TestGallery
     pyramid_sacrud_gallery_item = TestGalleryItem

@@ -294,25 +294,25 @@ def add_galleries():
          'description': 'Another full description of gallery'},
     ]
     add_fixture(TestGallery, galleries)
-    items = []
-    gallery_items_m2m = []
-    for gallery in galleries:
-        for x in xrange(1, 10):
-            image = '{name}{salt}.jpg'.format(name=x, salt=gallery['id'])
-            image_abspath = TestGalleryItem.get_upload_path()
-            image_hash_base = os.path.join(image_abspath, image)
-            image_hash = hashlib.md5(image_hash_base).hexdigest()
-            items.append({
-                'image': image,
-                'image_hash': image_hash,
-                'description': 'This is image with hash "%s"' % image_hash
-            })
-            gallery_items_m2m.append({
-                'gallery_id': gallery['id'],
-                'item_id': image_hash,
-            })
-    add_fixture(TestGalleryItem, items)
-    add_fixture(TestGalleryItemM2M, gallery_items_m2m)
+    # items = []
+    # gallery_items_m2m = []
+    # for gallery in galleries:
+    #     for x in xrange(1, 10):
+    #         image = '{name}{salt}.jpg'.format(name=x, salt=gallery['id'])
+    #         image_abspath = TestGalleryItem.get_upload_path()
+    #         image_hash_base = os.path.join(image_abspath, image)
+    #         image_hash = hashlib.md5(image_hash_base).hexdigest()
+    #         items.append({
+    #             'image': image,
+    #             'image_hash': image_hash,
+    #             'description': 'This is image with hash "%s"' % image_hash
+    #         })
+    #         gallery_items_m2m.append({
+    #             'gallery_id': gallery['id'],
+    #             'item_id': image_hash,
+    #         })
+    # add_fixture(TestGalleryItem, items)
+    # add_fixture(TestGalleryItemM2M, gallery_items_m2m)
 
 
 def add_user(user):
