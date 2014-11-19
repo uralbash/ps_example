@@ -35,7 +35,7 @@ gulp.task('css', function() {
     includes.forEach(function(folder){
 
         var includeName = folder.match(/.+\/(.+)\/$/)[1],
-            includeFiles = getFiles('./pyramid_sacrud_example/includes/' + includeName + '/static/'),
+            includeFiles = getFiles('./pyramid_sacrud_example/includes/' + includeName + '/static/css/'),
             appFiles = [],
             appsNames = _.filter(glob.sync('../*/'), function(folder){
                 var appFolder = folder.match(/.+\/(.+)\/$/)[1];
