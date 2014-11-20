@@ -1,10 +1,10 @@
 <div class="login">
-	{% if request.user %}
-		<div class="login-inner">
-			<a href="#" class="login__link">{{ request.user }}</a>
-			<a href="{{ request.route_url('ziggurat.routes.sign_out') }}" class="login__link">Logout</a>
-		</div>
-	{% else %}
-		<a href="{{ request.route_url('login') }}" class="login__link">Login</a>
-	{% endif %}
+    {% if request.user %}
+        <div class="login-inner">
+            <a href="#" class="login__link">{{ request.user }}</a>
+            <a href="{{ request.route_url('ziggurat.routes.sign_out') }}" class="login__link" name="logoutLink">Logout</a>
+        </div>
+    {% else %}
+        <a href="{{ request.route_url('login') }}" class="login__link">Login</a>
+    {% endif %}
 </div>
