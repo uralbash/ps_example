@@ -1,14 +1,27 @@
 {% extends "sacrud/redefineme.jinja2" %}
 
 {% block sa_body %}
-
     <h1>Redefine me in "pyramid_sacrud_gallery/gallery_sacrud_page.jinja2"</h1>
-
-    <h2>Images from gallery "{{ gallery.name }}":</h2>
-    <ul>
-      {% for image in gallery.items %}
-        <li><img src="{{ image.path }}" alt="{{ image.description }}"></li>
-      {% endfor %}
-    </ul>
-
+    <div class="gallery">
+        <div class="gallery-nav">
+            <div class="gallery-nav__item">
+                <a href="{{ request.route_url('sacrud_gallery_list') }}"  class="gallery-nav__item-link">List of galleries</a>
+            </div>
+            <div class="gallery-nav__separator">>></div>
+            <div class="gallery-nav__item">{{ gallery.name }}</div>
+        </div>
+        <div class="gallery-title">Redefine me in "pyramid_sacrud_gallery/gallery.jinja2"</div>
+        <div class="gallery-detail">
+            <div class="gallery-detail-title">Images from gallery "{{ gallery.name }}":</div>
+            <div class="gallery-detail-list">
+                {% for item in gallery.items %}
+                    <div class="gallery-detail-list__item">
+                        <a href="{{ request.route_url('sacrud_gallery_item_view', pk=gallery.get_val_pk(), image=item.get_val_pk()) }}" class="gallery-detail-list__item-link">
+                            <img src="{{ item.image }}" alt="{{ item.description }}" class="gallery-detail-list__item-image">
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
