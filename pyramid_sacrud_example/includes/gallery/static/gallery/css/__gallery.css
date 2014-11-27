@@ -7,3 +7,4 @@
 .gallery{width:100%}
 .gallery_list_type_inline{position:relative;display:table}.gallery_list_type_inline .gallery-list__item{width:auto;display:inline-block;margin:0;padding:0}.gallery_list_type_inline .gallery-list__item-link{margin:0;padding:0;border:1px solid #fff}.gallery_list_type_inline .gallery-list__item-link:hover{border:1px solid #ffd65e}.gallery_list_type_inline .gallery-list__item-link-image{vertical-align:bottom}
 .gallery_type_main-page{width:auto;border:1px solid #D6D8D9;padding:.8em 1.2em 1em;background:#F8F8FA;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;position:relative}.gallery_type_main-page:before{content:"";position:absolute;z-index:-2;top:65%;bottom:0;left:10px;right:10px;-webkit-box-shadow:0 0 20px #A0A7A9;-moz-box-shadow:0 0 20px #A0A7A9;box-shadow:0 0 20px #A0A7A9;-moz-border-radius:100px/10px;-webkit-border-radius:100px/10px;border-radius:100px/10px}
+.test{width:100%}
