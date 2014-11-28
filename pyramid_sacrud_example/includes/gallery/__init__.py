@@ -15,3 +15,4 @@ def includeme(config):
     config.add_jinja2_search_path("templates")
     config.include('pyramid_sacrud_gallery')
     config.include('.page_of_sacrud')
+    config.add_static_view('static_sacrud_gallery', 'static', cache_max_age=3600)
