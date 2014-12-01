@@ -20,12 +20,16 @@
       <link href="{{ request.static_url('pyramid_sacrud_example.includes.home:static/css/no-js.css') }}" rel="stylesheet" type="text/css" />
     </noscript>
 
+    {% block head_js %}
+        <script src="/static/js/lib/jquery.min.js"></script>
+        <script src="/static/js/app/popup.js"></script>
+    {% endblock head_js %}
+
     {% block extrahead %}
     {% endblock extrahead %}
 </head>
 
 <body>
-
     {% block popup %}
         <div class="popup">
             <div class="popup-background">&nbsp;</div>
@@ -36,6 +40,8 @@
                             <span class="popup-inner__content-link-text">close</span>
                         </a>
                         <div class="popup-inner__content-content">&nbsp;</div>
+                        {% block popup_content %}
+                        {% endblock popup_content %}
                     </div>
                 </div>
             </div>
