@@ -173,7 +173,7 @@ gulp.task('css', function() {
         appName = folder.match(/.+\/(.+)\/$/)[1];
         gulp.src(getConcatFiles(appName, type))
             .pipe(filter('*.css'))
-            //.pipe(newer(getExistingFiles(appName, type) + '__' + appName + '.css'))
+            .pipe(newer(getExistingFiles(appName, type) + '__' + appName + '.css'))
             .pipe(autoprefixer({
                 browsers: ['Firefox >= 3', 'Explorer >= 6', 'Opera >= 9', 'Chrome >= 15', 'Safari >= 4', '> 1%'],
                 cascade: false
@@ -187,7 +187,7 @@ gulp.task('css', function() {
             }))
             .on('error', gutil.log)
             .pipe(minifyCSS())
-            .pipe(map(function(code, filename) { gutil.log('Use ' + gutil.colors.yellow(filename)); }))
+            //.pipe(map(function(code, filename) { gutil.log('Use ' + gutil.colors.yellow(filename)); }))
             .pipe(concat('__' + appName + '.css'))
             .pipe(gulp.dest(getExistingFiles(appName, type)))
             .pipe(map(function(code, filename) { gutil.log('Created ' + gutil.colors.green(filename)); }))
@@ -208,7 +208,7 @@ gulp.task('img', function () {
             sprite = gulp.src(appImages)
                 .pipe(filter(['*.png', '*.jpg', '*.gif', '!*-sprite.png']))
                 .pipe(newer(getExistingFiles(appName, type) + appName + '-sprite.png'))
-                .pipe(map(function(code, filename) { gutil.log('Use ' + gutil.colors.yellow(filename)); }))
+                //.pipe(map(function(code, filename) { gutil.log('Use ' + gutil.colors.yellow(filename)); }))
                 .pipe(spritesmith({
                     imgName: appName + '-sprite.png',
                     imgPath: '../img/' + appName + '-sprite.png',
@@ -252,30 +252,30 @@ gulp.task('templates', function() {
     });
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function (done) {
 
     // Check isseu at https://github.com/floatdrop/gulp-watch/issues/110
-    var types = ['templates', 'css'],
-        watchFiles = [];
+    var types = ['templates', 'css'];
 
     types.forEach(function(type) {
-        var appList = glob.sync(PROJECT_APPS_PATH + '*/');
+        var appList = glob.sync(PROJECT_APPS_PATH + '*/'),
+            watchFiles = [];
 
         if (fs.existsSync(PROJECT_STATIC_PATH)) appList.push(PROJECT_STATIC_PATH);
 
         appList.forEach(function(folder) {
             appName = folder.match(/.+\/(.+)\/$/)[1];
             watchFiles = watchFiles.concat(getConcatFiles(appName, type));
-            watchFiles.push(addWatchFolders(appName, type));
+            //watchFiles.push(addWatchFolders(appName, type));
         });
 
         watchFiles = _.sortBy(watchFiles, function(item){ if (item.indexOf('!') !== 0) return item; });
 
-        watch(watchFiles, { name: type })
-            //.pipe(map(function(code, filename) { gutil.log(gutil.colors.green(filename)); }))
-            .on('data', function () { gulp.start(type); })
-            .on('ready', function() {
-                gutil.log(gutil.colors.cyan(type), 'is watching ' + ' files...');
+        watch(watchFiles, { name: type }, function() {
+            gulp.start(type);
+        })
+        .on('ready', function() {
+            gutil.log(gutil.colors.cyan(type), 'is watching ' + ' files...');
         });
     });
 });
