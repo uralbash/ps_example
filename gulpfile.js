@@ -21,6 +21,11 @@ var _ = require("underscore"),
 PROJECT_APPS_PATH = './pyramid_sacrud_example/includes/';
 PROJECT_MODULES_PATH = '../*/';
 PROJECT_STATIC_PATH = '';
+redefine_apps_names = {
+    'pages': 'pyramid_sacrud_pages',
+    'gallery': 'pyramid_sacrud_gallery',
+    'catalog': 'pyramid_sacrud_catalog',
+};
 
 function addWatchFolders(appName, type) {
     if(!type) gutil.log(gutil.colors.red('Failed addWatchFolders "type" undefined'));
@@ -94,9 +99,13 @@ function getConcatFiles(appName, type) {
     /* Find Redifine Modules */
     var redefineModuleFiles = [],
         redefineModules = _.filter(glob.sync(PROJECT_MODULES_PATH), function(folder){
-        redefineModuleName = folder.match(/.+\/(.+)\/$/)[1];
-        return redefineModuleName.indexOf(appName) > -1;
-    });
+            redefineModuleName = folder.match(/.+\/(.+)\/$/)[1];
+            if (redefine_apps_names[appName] === undefined) {
+                return redefineModuleName.indexOf(appName) > -1;
+            } else {
+                return redefine_apps_names[appName] == redefineModuleName;
+            }
+        });
 
     redefineModulePath = _.first(redefineModules);
 
