@@ -51,7 +51,8 @@ def password_send(request):
              permission=NO_PERMISSION_REQUIRED)
 def forbidden_view(request):
     if authenticated_userid(request) is None:
-        location = request.route_url('login', _query={'came_from': request.path})
+        location = request.route_url('login',
+                                     _query={'came_from': request.path})
         return HTTPSeeOther(location)
 
     request.response.status = 403
