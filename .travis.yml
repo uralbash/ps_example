@@ -26,6 +26,9 @@ before_install:
   - sudo apt-get update -q
 
 install:
+  - python setup.py develop
+  - pip install -r requirements.txt
+
   - sudo apt-get install -q fortune fortunes fortunes-ru
   - sudo apt-get install -q postgresql-contrib
   - sudo apt-get install -q postgresql-common
@@ -39,12 +42,10 @@ install:
 
   - pip install git+http://github.com/ITCase/sqlalchemy_mptt.git
   - pip install git+http://github.com/ITCase/pyramid_sacrud_pages.git
-  - pip install -r requirements.txt
 
 before_script:
   - psql -c 'create database sacrud;' -U postgres
   - psql -c "ALTER USER postgres with password 'secure-password';" -U postgres
-  - python setup.py develop
   - initialize_example_db development_pg.ini
   - initialize_example_db development.ini
 
