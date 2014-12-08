@@ -1,10 +1,6 @@
 {% extends "base.jinja2" %}
 
 {% block extrahead %}
-    <link href="{{ request.static_url('pyramid_sacrud_gallery:static/fotorama/fotorama.css') }}" rel="stylesheet">
-    <script src="{{ request.static_url('pyramid_sacrud_gallery:static/fotorama/fotorama.js') }}"></script>
+    <link href="{{ request.static_url('pyramid_sacrud_gallery:static/css/__gallery.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ request.static_url('pyramid_sacrud_gallery:static/js/__gallery.js') }}"></script>
 {% endblock extrahead %}
-
-{% block extra_js %}
-    <script src="{{ request.static_url('pyramid_sacrud_gallery:static/fotorama/fotorama_popup.js') }}"></script>
-{% endblock extra_js %}
