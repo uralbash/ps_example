@@ -60,4 +60,5 @@ before_script:
 script:
   # - ./node_modules/mocha/bin/mocha $VIRTUAL_ENV/lib/python2.7/site-packages/pyramid_sacrud/pyramid_sacrud/static/js/test/
   - echo $VIRTUAL_ENV
+  - ls -la $VIRTUAL_ENV/site-packages/
   - "nosetests --cover-package=sacrud --cover-erase --with-coverage --with-doctest"
