@@ -46,6 +46,8 @@ install:
   - pip install git+http://github.com/ITCase/pyramid_sacrud.git@develop
   - pip install git+http://github.com/ITCase/sqlalchemy_mptt.git
   - pip install git+http://github.com/ITCase/pyramid_sacrud_pages.git
+  - pip install --upgrade --force-reinstall  git+git://github.com/ITCase/sacrud_deform.git@develop
+  - pip install --upgrade --force-reinstall  git+git://github.com/ITCase/sacrud.git@develop
 
   - npm install mocha -g
   - npm install chai -g
