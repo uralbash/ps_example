@@ -59,6 +59,7 @@ before_script:
   - initialize_example_db development_pg.ini
   - initialize_example_db development.ini
   - nohup pserve development_pg.ini http_port=8000&
+  - sleep 3
 
 script:
   - mocha $VIRTUAL_ENV/lib/python2.7/site-packages/pyramid_sacrud/static/js/test/ --bail --timeout 99999
