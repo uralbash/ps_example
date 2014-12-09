@@ -56,10 +56,11 @@ before_script:
   - psql -c "ALTER USER postgres with password 'postgres';" -U postgres
   - initialize_example_db development_pg.ini
   - initialize_example_db development.ini
-  - nohup pserve development_pg.ini http_port=8000&
+  - pserve development_pg.ini http_port=8000
 
 script:
   # - ./node_modules/mocha/bin/mocha $VIRTUAL_ENV/lib/python2.7/site-packages/pyramid_sacrud/pyramid_sacrud/static/js/test/
+  - ls -la
   - cat nohup.out
   - mocha $VIRTUAL_ENV/lib/python2.7/site-packages/pyramid_sacrud/static/js/test/ --bail --timeout 99999
   - "nosetests --cover-package=sacrud --cover-erase --with-coverage --with-doctest"
