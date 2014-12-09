@@ -47,9 +47,9 @@ install:
   - pip install git+http://github.com/ITCase/sqlalchemy_mptt.git
   - pip install git+http://github.com/ITCase/pyramid_sacrud_pages.git
 
-  - npm install mocha
-  - npm install chai
-  - npm install selenium-webdriver
+  - npm install mocha -g
+  - npm install chai -g
+  - npm install selenium-webdriver -g
 
 before_script:
   - psql -c 'create database sacrud;' -U postgres
@@ -62,5 +62,5 @@ script:
   # - ./node_modules/mocha/bin/mocha $VIRTUAL_ENV/lib/python2.7/site-packages/pyramid_sacrud/pyramid_sacrud/static/js/test/
   - echo $VIRTUAL_ENV
   - ls -la $VIRTUAL_ENV/lib/python2.7/site-packages/pyramid_sacrud/
-  - ./node_modules/mocha/bin/mocha $VIRTUAL_ENV/lib/python2.7/site-packages/pyramid_sacrud/static/js/test/
+  - mocha $VIRTUAL_ENV/lib/python2.7/site-packages/pyramid_sacrud/static/js/test/
   - "nosetests --cover-package=sacrud --cover-erase --with-coverage --with-doctest"
