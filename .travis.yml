@@ -14,6 +14,7 @@ cache:
 
 notifications:
   email: "sacrud@uralbash.ru"
+  email: "ggift@mail.ru"
   irc:
     channels:
       - "chat.freenode.net#sacrud"
