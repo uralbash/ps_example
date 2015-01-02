@@ -17,7 +17,7 @@ notifications:
     on_failure: always
 
 addons:
-  postgresql: 9.3
+  postgresql: 9.4
 
 python:
   - "2.7"
@@ -27,9 +27,10 @@ before_install:
 
 install:
   - sudo apt-get install -q fortune fortunes fortunes-ru
+  - sudo apt-get install -q postgresql-9.4
   - sudo apt-get install -q postgresql-contrib
-  - sudo apt-get install -q postgresql-common
-  - sudo apt-get install -q postgresql-plpython-9.3
+  # - sudo apt-get install -q postgresql-common
+  - sudo apt-get install -q postgresql-plpython-9.4
   - pip install nose coverage
   - pip install sqlalchemy pyramid
   - pip install psycopg2
