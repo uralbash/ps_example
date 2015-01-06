@@ -9,7 +9,7 @@ zope.sqlalchemy
 waitress
 ziggurat_foundations
 pyramid_sqlalchemy
-sacrud==0.1.9
+sacrud>=0.1.9
 pyramid_sacrud==0.0.2
 pyramid_sacrud_pages==0.0.1
 sacrud_deform==0.0.3
