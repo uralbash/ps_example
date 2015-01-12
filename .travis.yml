@@ -36,7 +36,6 @@ install:
 
   - sudo apt-get install -q fortune fortunes fortunes-ru
   - sudo apt-get install -q postgresql-contrib-9.3
-  # - sudo apt-get install -q postgresql-common
   - sudo apt-get install -q postgresql-plpython-9.3
 
   - pip install nose coverage
@@ -56,6 +55,7 @@ install:
   - npm install selenium-webdriver -g
 
 before_script:
+  - sudo service postgresql start
   - psql -c 'create database sacrud;' -U postgres
   - psql -c "ALTER USER postgres with password 'postgres';" -U postgres
   - initialize_example_db development_pg.ini
