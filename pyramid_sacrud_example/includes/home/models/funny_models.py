@@ -12,6 +12,7 @@ Models for example
 import os
 import uuid
 
+import deform
 from pyramid_sqlalchemy import BaseObject as Base
 from sqlalchemy import (BigInteger, Boolean, Column, Date, DateTime, Enum,
                         Float, ForeignKey, Integer, Numeric, String, Text,
@@ -20,7 +21,6 @@ from sqlalchemy.orm import relationship
 
 from pyramid_elfinder.models import ElfinderString
 from sacrud.exttype import ChoiceType, FileStore, GUID, SlugType
-
 
 file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..',
                          'static')
@@ -38,9 +38,9 @@ class TestDeform(Base):
                                   abspath=os.path.join(file_path, 'uploaded')))
 
     TEST_CHOICES = (
-        ('OK (200)', '200'),
-        ('Moved Permanently (301)', '301'),
-        ('Moved Temporarily (302)', '302'),
+        ('200', 'OK (200)'),
+        ('301', 'Moved Permanently (301)'),
+        ('302', 'Moved Temporarily (302)'),
     )
 
     choice = Column(ChoiceType(choices=TEST_CHOICES))
@@ -179,7 +179,7 @@ class TestAllTypes(Base):
     col_date = Column(DateTime)
     col_date2 = Column(DateTime)
     col_enum = Column(Enum(u'IPv6', u'IPv4', name=u"ip_type"))
-    col_choice = Column(ChoiceType(choices=TEST_CHOICES),
+    col_choice = Column(ChoiceType(choices=TEST_CHOICES.items()),
                         info={"verbose_name": u'Проверка select', })
     col_float = Column(Float)
 
@@ -209,14 +209,26 @@ class TestCustomizing(Base):
     __tablename__ = "test_customizing"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String, info={"description": "put there name"})
-    date = Column(Date, info={"verbose_name": 'date JQuery-ui'})
-    name_ru = Column(String, info={"verbose_name": u'Название', })
-    name_fr = Column(String, info={"verbose_name": u'nom', })
-    name_bg = Column(String, info={"verbose_name": u'Име', })
-    name_cze = Column(String, info={"verbose_name": u'název', })
-    description = Column(Text)
-    description2 = Column(Text)
+    name = Column(String,
+                  info={"description": "put there name"})
+    date = Column(Date,
+                  info={"colanderalchemy": {'title': 'date JQuery-ui'}})
+    name_ru = Column(String,
+                     info={"colanderalchemy": {'title': u'Название'}})
+    name_fr = Column(String,
+                     info={"colanderalchemy": {'title': u'nom'}})
+    name_bg = Column(String,
+                     info={"colanderalchemy": {'title': u'Име'}})
+    name_cze = Column(String,
+                      info={"colanderalchemy": {'title': u'název'}})
+    description = Column(
+        Text,
+        info={"colanderalchemy": {
+            'widget': deform.widget.TextAreaWidget(css_class='tinymce content')}})
+    description2 = Column(
+        Text,
+        info={"colanderalchemy": {
+            'widget': deform.widget.TextAreaWidget(css_class='tinymce')}})
 
     visible = Column(Boolean)
     in_menu = Column(Boolean, info={"verbose_name": u'menu?',
@@ -225,20 +237,11 @@ class TestCustomizing(Base):
 
     # SACRUD
     verbose_name = u'Customizing table'
-    sacrud_css_class = {'tinymce': [description, description2],
-                        'content': [description],
-                        'name': [name], 'Date': [date]}
     sacrud_list_col = [name, name_ru, name_cze]
-    sacrud_detail_col = [('name space', [name,
-                                         ('i18 names', (name_ru, name_bg,
-                                                        name_fr, name_cze)
-                                          )]
+    sacrud_detail_col = [('name space', [name, name_ru, name_bg,
+                                         name_fr, name_cze]
                           ),
                          ('description', [description, date,
-                                          (u"Расположение",
-                                           (in_menu, visible, in_banner)
-                                           ),
+                                          in_menu, visible, in_banner,
                                           description2])
                          ]
-    # Sacrud search
-    sacrud_search_col = [name]

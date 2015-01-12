@@ -9,6 +9,7 @@
 """
 Models for postgresql example
 """
+import colander
 from sqlalchemy import Column, Integer
 from sqlalchemy.dialects.postgresql import ARRAY, BYTEA, HSTORE, JSON
 from sqlalchemy.ext.declarative import declarative_base
@@ -38,6 +39,7 @@ class TestHSTORE(Base):
 
     id = Column(Integer, primary_key=True)
     foo = Column(MutableDict.as_mutable(HSTORE),
+                 info={'colanderalchemy': {'typ': colander.String()}},
                  nullable=False, unique=True)
 
     def __init__(self, foo):
@@ -52,10 +54,18 @@ class TestPostgresTypes(Base):
     __tablename__ = 'test_postgres_types'
 
     col_pk = Column(Integer, primary_key=True)
-    col_array = Column(ARRAY(Integer, as_tuple=True))
-    col_json = Column(JSON)  # for postgresql 9.3 version
-    sak = Column(BYTEA, default="FF")
-    col_hstore = Column(MutableDict.as_mutable(HSTORE))
+    col_array = Column(ARRAY(Integer, as_tuple=True),
+                       info={'colanderalchemy': {'typ': colander.String()}},
+                       )
+    col_json = Column(JSON,
+                      info={'colanderalchemy': {'typ': colander.String()}},
+                      )  # for postgresql 9.3 version
+    sak = Column(BYTEA,
+                 info={'colanderalchemy': {'typ': colander.String()}},
+                 default="FF")
+    col_hstore = Column(MutableDict.as_mutable(HSTORE),
+                        info={'colanderalchemy': {'typ': colander.String()}},
+                        )
 
     def __repr__(self):
         return self.col_pk
