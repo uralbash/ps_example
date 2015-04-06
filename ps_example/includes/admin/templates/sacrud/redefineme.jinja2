@@ -1,0 +1,40 @@
+{% extends "sacrud/base.jinja2" %}
+
+{% block userspace %}
+  {{ super() }}
+  <link rel="stylesheet" type="text/css" href="{{ request.static_url('ps_example.includes.home:static/css/jquery-ui.css') }}" />
+  <style>
+    .content {
+      height: 550px;
+    }
+    .name {
+      width: 400px;
+    }
+  </style>
+
+  <script src="{{ request.static_url('ps_example.includes.home:static/js/lib/tinymce.min.js') }}"></script>
+  {% include 'elfinder/tinymce.jinja2' %}
+  <script>
+    tinymce.init({
+      selector:'textarea.tinymce',
+      browser_spellcheck : true,
+      plugins: "image link code contextmenu fullpage fullscreen "+
+              "hr insertdatetime lists media paste preview "+
+              "print table textcolor "+
+              "visualchars wordcount",
+      toolbar1: "fullpage preview print forecolor backcolor inserttable",
+      toolbar2: "styleselect formatselect fontselect fontsizeselect cut copy paste  removeformat subscript superscript",
+      toolbar3: "undo redo | bold italic underline strikethrough | bullist numlist outdent indent blockquote | alignleft aligncenter alignright alignjustify |",
+      file_browser_callback: elFinderBrowser,
+    });
+  </script>
+{% endblock %}
+
+
+{% block sa_auth %}
+    {% include "/auth/user_in_head.jinja2" %}
+{% endblock sa_auth %}
+
+{% block sa_body %}
+    {{ super() }}
+{% endblock %}

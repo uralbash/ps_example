@@ -18,13 +18,11 @@ var _ = require("underscore"),
     minimatch = require("minimatch"),
     pngquant = require('imagemin-pngquant');
 
-PROJECT_APPS_PATH = './pyramid_sacrud_example/includes/';
+PROJECT_APPS_PATH = './ps_example/includes/';
 PROJECT_MODULES_PATH = '../*/';
 PROJECT_STATIC_PATH = '';
 redefine_apps_names = {
     'pages': 'pyramid_sacrud_pages',
-    'gallery': 'pyramid_sacrud_gallery',
-    'catalog': 'pyramid_sacrud_catalog',
 };
 
 function addWatchFolders(appName, type) {

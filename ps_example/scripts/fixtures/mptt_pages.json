@@ -1,0 +1,174 @@
+[
+    {
+        "in_menu": "true",
+        "name": "About company",
+        "parent_id": "",
+        "slug": "/",
+        "visible": "true"
+    },
+    {
+      "description": "<!DOCTYPE html>\n<html>\n<head>\n</head>\n<body>\n<p><img src=\"../../../../static/uploaded/foo.png\" alt=\"\" width=\"350\" height=\"221\" /></p>\n<hr />\n<h1>Use Pyramid with Go and Gevent-socketio!</h1>\n</body>\n</html>",
+      "in_menu": "true",
+      "name": "We \u2665  gevent",
+      "parent_id": "1",
+      "slug": "we-love-gevent",
+      "visible": "true"
+    },
+    {
+      "in_menu": "true",
+      "name": "And Pyramid",
+      "parent_id": "2",
+      "slug": "and-pyramid",
+      "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "Our history",
+        "parent_id": "1",
+        "slug": "our-history",
+        "visible": "false"
+    },
+    {
+        "in_menu": "true",
+        "name": "foo",
+        "parent_id": "4",
+        "slug": "foo",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "\u043a\u043e\u043c\u043f\u0430\u043d\u0438\u044f ITCase",
+        "parent_id": "4",
+        "slug": "kompania-itcase",
+        "visible": "false"
+    },
+    {
+        "in_menu": "false",
+        "name": "Our strategy",
+        "parent_id": "1",
+        "slug": "our-strategy",
+        "visible": "true"
+    },
+    {
+        "in_menu": "false",
+        "name": "Wordwide",
+        "parent_id": "7",
+        "slug": "wordwide",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "Technology",
+        "parent_id": "8",
+        "slug": "technology",
+        "visible": "false"
+    },
+    {
+        "in_menu": "false",
+        "name": "What we do",
+        "parent_id": "7",
+        "slug": "what-we-do",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "at a glance",
+        "parent_id": "10",
+        "slug": "at-a-glance",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "foo12",
+        "parent_id": "",
+        "slug": "foo12",
+        "tree_id": "12",
+        "visible": "true"
+    },
+    {
+        "in_menu": "false",
+        "name": "foo13",
+        "parent_id": "12",
+        "slug": "foo13",
+        "tree_id": "12",
+        "visible": "false"
+    },
+    {
+        "in_menu": "false",
+        "name": "foo14",
+        "parent_id": "13",
+        "slug": "foo14",
+        "tree_id": "12",
+        "visible": "false"
+    },
+    {
+        "in_menu": "true",
+        "name": "foo15",
+        "parent_id": "12",
+        "slug": "foo15",
+        "tree_id": "12",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "foo16",
+        "parent_id": "15",
+        "redirect_page": "2",
+        "redirect_type": "200",
+        "slug": "foo16",
+        "tree_id": "12",
+        "visible": "true"
+    },
+    {
+        "in_menu": "false",
+        "name": "foo17",
+        "parent_id": "15",
+        "redirect_page": "3",
+        "redirect_type": "301",
+        "slug": "foo17",
+        "tree_id": "12",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "yandex",
+        "parent_id": "12",
+        "redirect_type": "302",
+        "redirect_url": "http://ya.ru",
+        "slug": "yandex",
+        "tree_id": "12",
+        "visible": "true"
+    },
+    {
+        "in_menu": "false",
+        "name": "foo19",
+        "parent_id": "18",
+        "slug": "foo19",
+        "tree_id": "12",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "foo20",
+        "parent_id": "19",
+        "slug": "foo20",
+        "tree_id": "12",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "foo21",
+        "parent_id": "18",
+        "slug": "foo21",
+        "tree_id": "12",
+        "visible": "true"
+    },
+    {
+        "in_menu": "true",
+        "name": "foo22",
+        "parent_id": "21",
+        "slug": "foo22",
+        "tree_id": "12",
+        "visible": "true"
+    }
+]

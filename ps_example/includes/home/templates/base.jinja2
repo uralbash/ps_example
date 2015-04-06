@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="myApp">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+        {% include 'ps_pages/title.jinja2' %}
+    </title>
+
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    {% include 'ps_pages/meta.jinja2' %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {% block extra_css %}
+        <link href="{{ request.static_url('ps_example.includes.home:static/css/__home.css') }}" rel="stylesheet" type="text/css" />
+    {% endblock extra_css %}
+
+    <noscript>
+      <link href="{{ request.static_url('ps_example.includes.home:static/css/no-js.css') }}" rel="stylesheet" type="text/css" />
+    </noscript>
+
+    {# {% block head_js %}
+        <script src="/static/js/lib/jquery.min.js"></script>
+        <script src="/static/js/app/popup.js"></script>
+    {% endblock head_js %} #}
+
+    {% block extrahead %}
+    {% endblock extrahead %}
+</head>
+
+<body>
+    {% block popup %}
+        <div class="popup">
+            <div class="popup-background">&nbsp;</div>
+            <div class="popup-inner">
+                <div class="popup-inner__ie">
+                    <div class="popup-inner__content">
+                        <a href="#" class="popup-inner__content-link">
+                            <span class="popup-inner__content-link-text">close</span>
+                        </a>
+                        <div class="popup-inner__content-content">&nbsp;</div>
+                        {% block popup_content %}
+                        {% endblock popup_content %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock popup %}
+
+    <div class="wrapper">
+        <div class="wrapper__inner">
+            <div class="header clear-fix">
+                <div class="header__button">
+                    {% if request.user %}
+                        <div class="button">
+                            <div class="button-inner">
+                                <a href="{{ request.route_url('sa_home') }}" class="button-inner__link" name="goToSACRUD">Go to sacrud!</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="header__logo">
+                    <a href="/" class="header__logo-link">
+                        <img src="{{ request.static_url('ps_example.includes.home:static/img/logo.png') }}" class="header__logo-link-image" alt="" title="" />
+                    </a>
+                </div>
+                <div class="header__user">
+                    {% include 'auth/user_in_head.jinja2' %}
+                </div>
+                <div class="header__menu">
+                    {% with menu=page_menu(from_lvl=1) %}
+                        {% include 'ps_pages/menu.jinja2' with context %}
+                    {% endwith %}
+                </div>
+            </div>
+
+            {% block content %}
+            {% endblock content %}
+
+            <div class="footer clear-fix">
+                <div class="footer__c1">
+                    <div class="footer__text">
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="footer__text">
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="footer__copyright">&copy; ITCase 2013-<script>document.write(new Date().getFullYear())</script></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block extra_js %}
+    {% endblock extra_js %}
+</body>
+</html>
