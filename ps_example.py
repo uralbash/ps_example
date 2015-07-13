@@ -9,25 +9,38 @@
 """
 Main for example
 """
-import json
 import os
+import json
 
-import transaction
-from pyramid.config import Configurator
-from pyramid.events import BeforeRender
-from pyramid.location import lineage
-from pyramid.session import SignedCookieSessionFactory
-from sqlalchemy import (Column, Date, ForeignKey, Integer, String, Text,
-                        engine_from_config)
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, scoped_session, sessionmaker
-from sqlalchemy.sql import func
 from zope.sqlalchemy import ZopeTransactionExtension
 
-from pyramid_pages.common import Menu
-from pyramid_pages.models import FlatPageMixin, MpttPageMixin, RedirectMixin
-from pyramid_pages.routes import PageResource
+import deform
+import transaction
+from sqlalchemy import (
+    Date,
+    Column,
+    String,
+    Integer,
+    ForeignKey,
+    UnicodeText,
+    engine_from_config
+)
+from pyramid.config import Configurator
+from pyramid.events import BeforeRender
+from sqlalchemy.orm import relationship, sessionmaker, scoped_session
+from sqlalchemy.sql import func
+from pyramid.session import SignedCookieSessionFactory
 from sqlalchemy_mptt import mptt_sessionmaker
+from pyramid.location import lineage
+from pyramid_pages.common import Menu
+from pyramid_pages.models import (
+    FlatPageMixin,
+    MpttPageMixin,
+    RedirectMixin,
+    SacrudOptions
+)
+from pyramid_pages.routes import PageResource
+from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 DBSession = scoped_session(
@@ -42,10 +55,20 @@ CONFIG_PYRAMID_PAGES_DBSESSION = 'pyramid_pages.dbsession'
 CONFIG_PYRAMID_SACRUD_MODELS = 'pyramid_sacrud.models'
 
 
-class BasePage(Base, RedirectMixin):
+class BasePage(Base, RedirectMixin, SacrudOptions):
     __tablename__ = 'base_pages'
     id = Column(Integer, primary_key=True)
     page_type = Column(String(50))
+    description = Column(
+        UnicodeText,
+        info={
+            'colanderalchemy': {
+                'widget': deform.widget.TextAreaWidget(
+                    css_class='tinymce'
+                )
+            }
+        }
+    )
 
     __mapper_args__ = {
         'polymorphic_identity': 'base_page',
@@ -64,6 +87,8 @@ class BasePage(Base, RedirectMixin):
 class WebPage(BasePage, MpttPageMixin):
     __tablename__ = 'mptt_pages'
 
+    verbose_name = "Pages"
+
     id = Column(Integer, ForeignKey('base_pages.id'), primary_key=True)
 
     __mapper_args__ = {
@@ -73,6 +98,8 @@ class WebPage(BasePage, MpttPageMixin):
 
 class NewsPage(BasePage, FlatPageMixin):
     __tablename__ = 'flat_news'
+
+    verbose_name = "News"
 
     id = Column(Integer, ForeignKey('base_pages.id'), primary_key=True)
     date = Column(Date, default=func.now())
@@ -85,6 +112,8 @@ class NewsPage(BasePage, FlatPageMixin):
 class Gallery(BasePage, MpttPageMixin):
     __tablename__ = 'mptt_gallery'
 
+    verbose_name = "Gallery"
+
     id = Column(Integer, ForeignKey('base_pages.id'), primary_key=True)
 
     __mapper_args__ = {
@@ -96,7 +125,7 @@ class Photo(Base):
     __tablename__ = 'photos'
 
     id = Column('id', Integer, primary_key=True)
-    path = Column('path', Text)
+    path = Column('path', UnicodeText)
     gallery_id = Column(Integer, ForeignKey('mptt_gallery.id'))
     gallery = relationship('Gallery', backref='photos')
 
