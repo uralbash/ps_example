@@ -18,22 +18,24 @@
                     <div class="main-menu-title">
                         <a href="/" class="main-menu-title__link">Big example</a>
                     </div>
-                    <div class="main-menu-list__item">
-                      <a href="{{ request.route_url('pyramid_sacrud_home') }}" class="main-menu-title__link">
-                        {{ _('Admin') }}
-                      </a>
-                    </div>
                     {% with menu=page_menu(from_lvl=1, to_lvl=6, trees=(1, 2, 3)) %}
                         {% include menu.template with context %}
                     {% endwith %}
+                    <div class="main-menu-list">
+                        <div class="main-menu-list__item main-menu-list__item_type_login">
+                            <a href="{{ request.route_url('pyramid_sacrud_home') }}" class="main-menu-list__item-link">
+                                {{ _('Admin') }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="page-inner">
                     <div class="page__left">
                         <div class="main-menu main-menu_type_vertical clearfix">
                             <div class="main-menu-title">News</div>
-                                {% with menu=news_menu() %}
-                                    {% include menu.template with context %}
-                                {% endwith %}
+                            {% with menu=news_menu() %}
+                                {% include menu.template with context %}
+                            {% endwith %}
                         </div>
                     </div>
                     <div class="page__middle clearfix">
