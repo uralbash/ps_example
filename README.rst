@@ -1,3 +1,7 @@
+Deprecated
+==========
+
+
 |Stories in Ready| |Build Status|
 
 App demostration pyramid CRUD interface powered by sacrud package. 
